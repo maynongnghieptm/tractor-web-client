@@ -1,0 +1,20 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks'
+import AppHeader from './AppHeader.js'
+
+<Meta title="General/Components/AppHeader" component={AppHeader} />
+
+# App Header
+
+Application header component.
+
+<Preview>
+  <Story name="default header">
+    <AppHeader
+      onToggleClick={() => alert('Clicked toggle button!')} />
+  </Story>
+</Preview>
+
+## Props
+
+<Props of={AppHeader} />
+
