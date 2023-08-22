@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"
+    integrity="sha384-/KNQL8Nu5gCHLqwqfQjA689Hhoqgi2S84SNUxC3roTe4EhJ9AfLkp8QiQcU8AMzI"
+    crossorigin="anonymous"></script>
+</head>
+<body>
+    <script>
+        const socket = io('http://tractorserver.myddns.me:8000',  {
+      extraHeaders: {
+        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGRhZmRkMDAxM2U4OWU1YmYzNjk1OWIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2OTI2ODI4MzEsImV4cCI6MTY5Mjg1NTYzMX0.13XYh-LHp3PtSBF0Mx_cNobRlMveUSxiMBlIn5FVP9k"
+      }
+    });
+    
+    
+    
+        socket.on('clientLogs', (data) => {
+           var x = JSON.parse(data)
+    
+            console.log(x.llh[1])
+        
+         //SET_NEW_POSITION(data);
+          //console.log(data)
+        })
+    
+        
+      </script>
+</body>
+</html>

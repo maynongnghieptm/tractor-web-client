@@ -7,6 +7,7 @@ import DashboardLayout from '_layouts/DashboardLayout'
 import { Auth } from './Auth'
 import { Administration } from './Administration'
 import { Dashboard } from './Dashboard'
+import {Grid} from './Account/Organization/Grid'
 
 // Use different router type depending on configuration
 const AppRouterComponent: React.FC = ({ children }) => {
@@ -36,6 +37,11 @@ const AppRouter: React.FC = () => {
         <RouteWithLayout
           path={`/account/profile`}
           component={Profile}
+          layout={DashboardLayout}
+        />
+        <RouteWithLayout
+          path={`/account/organization`}
+          component={Grid}
           layout={DashboardLayout}
         />
         <RouteWithLayout
