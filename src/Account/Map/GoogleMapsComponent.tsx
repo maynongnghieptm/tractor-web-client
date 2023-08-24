@@ -2,17 +2,25 @@ import React from 'react'
 import usePositionData from 'Dashboard/fakedata'
 import io from 'socket.io-client'
 import {useEffect, useState} from 'react'
-import { GoogleMap, LoadScript, Marker, Polyline } from '@react-google-maps/api'
+import { GoogleMap, LoadScript, Marker, Polyline, Polygon } from '@react-google-maps/api'
 import { CallMissedOutgoingRounded } from '@material-ui/icons'
+import { connectSocket, disconnectSocket } from '../socket'
 const containerStyle = {
   width: '100%',
-  height: '400px',
+  height: '100%',
 }
 //const markerIconUrl = 'D:\\5\\39566.jpg'
 const center = {
   lat: 20.9527494633333,
   lng: 105.847014555,
 }
+interface LatLngLiteral {
+  lat: number;
+  lng: number;
+}
+let newPolygon2 : any
+let newPolygon3 :any
+
 const GoogleMapsComponent: React.FC=() => {
   const positions = usePositionData();
   const [socket, setSocket] = useState<any>(null);
@@ -20,29 +28,31 @@ const GoogleMapsComponent: React.FC=() => {
   const [plansArray, setplansArray] = useState<any[]>([]);
   const [mapCenter, setMapCenter] = useState(center);
   const [showMarker, setShowMarker] = useState(false);
+  const [roll, setRoll] = useState(0);
+  const [polygonLine, setPolygonLine] = useState<LatLngLiteral[]>([])
   
+  const [polygonElements, setPolygonElements] = useState<JSX.Element[]>([]);
   useEffect(() => {
-    const newSocket = io('http://tractorserver.myddns.me:8000', {
-      extraHeaders: {
-        token: localStorage.getItem('accessToken') || '',
-      },
-    });
-
-    newSocket.on('clientLogs', (data: any) => {
-
-     // console.log(data);
-     
-      const  x = JSON.parse(data)
-   //   console.log(x.plans)
+   
+    const token = localStorage.getItem('accessToken') || '';
+    const newSocket = connectSocket(token, (data:any) => {
+      // Process the received data
+      // Update the state based on the received data
+     // console.log(data)
+      const  x = data
+     // console.log(x.ypr[0])
+    const newRoll = x.ypr[0]
+      setRoll(newRoll)
       if (x.llh) {
         const newPosition = {
           lat: x.llh[0],
           lng: x.llh[1],
         };
-       
+        
         setPositionArray(prevArray => [...prevArray, newPosition]);
        // console.log(positionArray)
       }
+
       const plans = [];
       for (let i = 0; i < x.plans.length; i += 2) {
         plans.push({
@@ -51,24 +61,88 @@ const GoogleMapsComponent: React.FC=() => {
         });
       }
       setplansArray(plans)
-    
-  
     });
 
     setSocket(newSocket);
-
+ 
     return () => {
-      newSocket.disconnect();
+      disconnectSocket(newSocket);
     };
+   
   }, []);
-  
-  // Khởi tạo mảng để lưu trữ dữ liệu vị trí
+
+ 
+
+
+
+
+
+
+
+
+
+
+
   const latestPosition = positionArray[positionArray.length - 1];
+  
+
   useEffect(() => {
     if (showMarker) {
       setMapCenter(latestPosition);
     }
   }, [showMarker, latestPosition]);
+  
+  
+  useEffect(()=>{ 
+    if (positionArray.length > 0) {
+    var polygon_line = [];
+    
+    for (let i = 0; i < positionArray.length; i++) {
+      const ax = positionArray[i].lng; // Replace with your old longitude value
+      const ay = positionArray[i].lat; // Replace with your old latitude value
+      const head = roll;
+     // console.log(roll)
+      const W = 0.000007;
+
+      const newLat = ay + W * Math.sin(head + Math.PI / 2);
+      const newLng = ax + W * Math.cos(head + Math.PI / 2);
+      const newLat1 = ay + W * Math.sin(head - Math.PI / 2);
+      const newLng1 = ax + W * Math.cos(head - Math.PI / 2);
+      const newPolygon1: LatLngLiteral = {
+        lat: newLat,
+        lng: newLng,
+      };
+      const newPolygon4: LatLngLiteral = {
+        lat: newLat1,
+        lng: newLng1,
+      };
+      polygon_line=[]
+      if (newPolygon2 != null) {
+        polygon_line.push(newPolygon2, newPolygon1, newPolygon4, newPolygon3);
+      }
+      newPolygon2 = newPolygon1;
+      newPolygon3 = newPolygon4;
+      
+    }
+
+  
+    setPolygonLine(polygon_line);
+    const newPolygonElement = (
+      <Polygon
+       // key={polygonElements.length} // Give each polygon element a unique key
+        paths={polygon_line}
+        options={{
+          fillColor: 'green',
+          strokeColor: 'transparent',
+          strokeOpacity: 0.2,
+        }}
+      />
+    );
+
+    //setPolygonElements([newPolygonElement]);
+
+    setPolygonElements(prevPolygonElements => [...prevPolygonElements, newPolygonElement]);
+  }},[positionArray, roll])
   //console.log(mapCenter)
   //console.log(positionArray)
   return (
@@ -79,7 +153,7 @@ const GoogleMapsComponent: React.FC=() => {
           options={{
             strokeColor: '#FF0000',
             strokeOpacity: 1,
-            strokeWeight: 2,
+            strokeWeight: 1,
           }}
         />
         <Polyline
@@ -87,9 +161,15 @@ const GoogleMapsComponent: React.FC=() => {
           options={{
             strokeColor: 'blue',
             strokeOpacity: 1,
-            strokeWeight: 2,
+            strokeWeight: 1,
           }}
         />
+       
+       
+        
+   
+
+    {polygonElements}
         <Marker position={latestPosition}  
             />
           <div
