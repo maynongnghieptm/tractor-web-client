@@ -1,14 +1,41 @@
-import React, { Component } from 'react';
-import { PieChart, Pie, ResponsiveContainer, Cell } from 'recharts';
+import React from "react";
+import ReactApexChart from 'react-apexcharts';
 import { connect } from 'react-redux';
 
-class DonutChart extends Component {
+class ApexChart3 extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       data: [],
-      COLORS : ['#0088FE', '#00C49F', '#FFBB28'],
-    }}
+      options: {
+        chart: {
+        
+          type: 'donut',
+        },
+        labels: ['Quãng đường đã đi', 'Quãng đường còn lại'],
+        dataLabels: {
+          enabled: false
+        },
+        responsive: [{
+         
+          options: {
+            chart: {
+         
+            },
+            legend: {
+              show: false
+            }
+          }
+        }],
+        legend: {
+          position: 'bottom',
+          offsetY: 0,
+          fontSize: "9px"
+        }
+      },
+    };
+  }
   componentDidMount() {
     // Thực hiện các tác vụ cần thiết sau khi component đã render
     // Không cần kết nối socket ở đây nữa
@@ -32,8 +59,8 @@ class DonutChart extends Component {
 
     if (socketData && socketData.sum && socketData.sum[0]) {
       this.setState({
-        data: [ { name: "Group A", value: socketData.sum[5] },
-        { name: "Group B", value: socketData.sum[4]},]
+        data: [ socketData.sum[1] ,
+       socketData.sum[0]]
        
         
       });
@@ -42,35 +69,23 @@ class DonutChart extends Component {
   };
 
   render() {
-   // console.log(this.state.data)
+    
     return (
-      <div style={{ width: '100%', height: '100%' }}>
-        <ResponsiveContainer>
-          <PieChart>
-            <Pie
-              data={this.state.data}
-              dataKey="value"
-              nameKey="name"
-              cx="50%"
-              cy="50%"
-              innerRadius="60%"
-              outerRadius="80%"
-              startAngle={90}
-              endAngle={-270}
-              fill="#8884d8"
-              label
-            >
-              
-            </Pie>
-          </PieChart>
-        </ResponsiveContainer>
-      </div>
+     
+      
+          <div id="chart">
+            <ReactApexChart options={this.state.options} series={this.state.data} type="donut" width="100%" height="100%" />
+          </div>
+      
+      
+  
     );
   }
 }
-
 const mapStateToProps = (state) => ({
   socketData: state.socketData,
 });
 
-export default connect(mapStateToProps)(DonutChart);
+export default connect(mapStateToProps)(ApexChart3);
+
+

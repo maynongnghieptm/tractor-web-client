@@ -1,29 +1,35 @@
 import React from 'react'
 import { ThemeProvider } from '@material-ui/styles'
 import { IntlProvider } from 'react-intl'
-import store from '../src/Account/store';
+
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { Provider } from 'react-redux'
+
 import theme from './_theme'
 import AppRouter from './AppRouter'
-import DataReceiverComponent from '../src/Account/data'
+import { Provider } from 'react-redux';
+import store from './store'; // Import Redux store
+import SocketComponent from './SocketComponent'
 const App: React.FC = () => {
   return (
-
+    <Provider store={store}>
+      
+      <SocketComponent />
     <div className="App">
       <CssBaseline />
+      
       <AppRouter />
     </div>
-   
+    </Provider>
+
   )
 }
 export default () => (
-  <Provider store={store}> {/* Bọc bởi Provider */}
+  
     <IntlProvider locale={navigator.language}>
       <ThemeProvider theme={theme}>
-        <DataReceiverComponent/>
+       
         <App />
       </ThemeProvider>
     </IntlProvider>
-  </Provider>
+
 )

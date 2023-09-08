@@ -31,7 +31,7 @@ const UserEditor: React.FC = () => {
        
         const userData: User = response.data.data;
         setUser(userData);
-        console.log(userData.fullname)
+        //console.log(userData.fullname)
         //console.log(user.fullName)
       })
       .catch(error => {

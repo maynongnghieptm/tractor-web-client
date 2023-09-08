@@ -1,0 +1,196 @@
+html, body {
+  width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+.grid-item {
+    
+  
+  text-align: center;
+  height: 100%;
+  
+  box-sizing: border-box;
+  }
+  .parent {
+    width: 100%;
+    max-height: 100vh; /* Set a maximum height to contain the content */
+  
+    /* Apply scrolling for screens with a maximum width of 768px (adjust as needed) */
+    @media (max-width: 768px) {
+      overflow-y: auto; /* Enable vertical scrolling */
+    }
+  }
+  
+.item{
+  border: 1px solid #ccc;
+}
+.item1{
+  display: grid;
+  height: 50vh;
+  gap: 5px;
+ /* Hai hàng có chiều cao tự động */
+  
+ 
+  border-radius: 5px;
+  
+}
+.item2{
+  display: grid;
+  height: 50vh;
+   /* Hai hàng có chiều cao tự động */
+   gap: 5px;
+  border-radius: 5px;
+}
+.a2-item1{
+  display: grid;
+  gap: 2px;
+
+}
+.gauge{
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.a4{
+  display: grid;
+  
+}
+.a2{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap:2px
+}
+.a3-item1 {
+
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.a2-item2{
+  display: grid;
+  gap:2px
+}
+.a{
+  display: grid;
+ 
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.a3{
+  display: grid;
+ gap:2px
+}
+.donut{
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+@media (min-width: 768px) {
+  .item1 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .item2 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .a2-item1{
+    grid-template-columns: 1fr 1fr;
+}
+.a{
+ 
+  grid-template-rows: 1fr 1fr;
+ 
+}
+.a3{
+  grid-template-rows: 1fr 1fr;
+
+}
+.a1{
+  width: auto;
+}
+
+.a3-item1{
+  width:auto ;
+  height: auto;
+}
+.a3-item2{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap:1px
+}
+.a3-item2-chart{
+  width: auto;
+  height: auto;
+}
+.a5{
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.a2{
+  display: grid;
+  
+ ;
+}
+.a2-item2{
+ 
+  grid-template-columns: 1fr 1fr 1fr;
+}
+}
+
+/* Khi màn hình nhỏ hơn 768px, sử dụng một cột */
+@media (max-width: 767px) {
+  .item1 {
+    grid-template-rows: 1fr 1fr;
+    height: 100vh;
+  }
+  .item2 {
+    grid-template-rows: 1fr 1fr;
+    height: auto;
+  }
+  .a{
+    grid-template-rows: 1fr 1fr;
+    height: auto;
+  }
+  .a3{
+    grid-template-rows: 1fr 2fr;
+    height: auto;
+  }
+  .a1{
+    width: auto;
+  }
+  .a3-item1{
+    width: auto;
+  
+  }
+  .a3-item2{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:1px
+  }
+  .a5{
+    width: auto;
+  }
+  .a2-item1{
+    grid-template-columns: 1fr;
+}
+  .a2{
+    grid-template-rows: 1fr
+  }
+  .a2-item2{
+    
+    grid-template-columns: 1fr;
+  }
+}
+
+.item3{
+  border: 1px solid #ccc;
+}
+.item4{
+  border: 1px solid #ccc;
+}
+.a{
+  border: 1px solid #ccc;
+  
+  height: 100%;
+}
+
+
+

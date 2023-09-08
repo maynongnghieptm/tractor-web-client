@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Table, TableHead, TableRow, TableCell, TableBody, IconButton,Checkbox,Button, TextField } from '@material-ui/core';
+import { Table, TableHead,TableContainer, TableRow, TableCell, TableBody, IconButton,Checkbox,Button, TextField } from '@material-ui/core';
 import { Add as AddIcon, Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
 import axios from '../../_config/AxiosConfig';
 import './tractor.css'
-
+import { useHistory } from 'react-router-dom';
 ;
 const Tractor = () => {
     const [newTractorname, setNewTractorname] = useState('')
@@ -11,17 +11,20 @@ const Tractor = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [selectedTractors, setSelectedTractors] = useState({});
     const [selectAll, setSelectAll] = useState(false);
+    const [editingTractorId, setEditingTractorId] = useState(null)
+    const [command, setNewCommand] = useState('')
+    const history = useHistory();
     useEffect(() => {
         axios.get('/tractors')
           .then(response => {
-            console.log(response.data); 
+           // console.log(response.data); 
             setTractors(response.data.data)
           })
           .catch(error => {
             console.log(error); 
           });
       }, []); 
-      console.log(tractors)
+      //console.log(tractors)
      const handleFileChange = (e) => {
   const file = e.target.files[0];
   setSelectedFile(file);
@@ -38,7 +41,7 @@ const Tractor = () => {
           ...prevSelectedTractors,
           [tractorId]: !prevSelectedTractors[tractorId],
         }))
-        console.log(selectedTractors);
+       // console.log(selectedTractors);
       };
       const handleUpload = () => {
         const formData = new FormData()
@@ -81,8 +84,9 @@ const Tractor = () => {
           });
       };
       const handleEdit = (tractorId) => {
-        // Implement your edit logic here based on the tractorId
-        console.log(`Edit tractor with ID: ${tractorId}`);
+        // Set the ID of the tractor to be edited when the edit button is clicked
+        history.push(`/administration/tractoredit/${tractorId}`);
+        setEditingTractorId(tractorId);
       };
     
       const handleDelete = (tractorId) => {
@@ -107,7 +111,36 @@ const Tractor = () => {
         setSelectedTractors(newSelectedTractors);
         setSelectAll(!selectAll);
       };
-      
+      //console.log(selectedTractors)
+     const  handleCommandTractor=()=>{
+        const selectedTractorIds = Object.keys(selectedTractors).filter(id => selectedTractors[id]);
+
+    // Check if at least one tractor is selected
+    if (selectedTractorIds.length > 0) {
+      const datacommand = {
+        command:{
+          tractorId: selectedTractorIds,
+          command: command
+        }
+      }
+      // Perform your command logic here using the selectedTractorIds
+      console.log('Selected Tractor IDs:', selectedTractorIds);
+      axios.post('/commands',datacommand)
+      .then(response => {
+        console.log('Tractor created successfully:', response.data);
+        //setNewTractorname= ''
+       
+      })
+      .catch(error => {
+        console.error('Error creating tractor:', error);
+      });
+
+      // You can call an API or perform any other action with the selectedTractorIds
+    } else {
+      // No tractors are selected, show a message or perform any desired action
+      console.log('No tractors selected.');
+    }
+      }
   return (
     
     <div className="tractors-list-container">
@@ -123,9 +156,23 @@ const Tractor = () => {
         <Button variant="contained" color="primary" onClick={handleCreateTractor}>
           Create Tractor
         </Button>
+        <div className="create-tractor-input">
+        <TextField
+          label="Command to tractor"
+          //value={newTractorname}
+          onChange={(e)=>setNewCommand(e.target.value)}
+          
+        />
+        </div>
+        <Button variant="contained" color="primary" onClick={handleCommandTractor}>
+          Send Command
+        </Button>
+        
       </div>
     
   <div className="tractors-table-container">
+    
+  <TableContainer>
     <Table className="tractors-table">
       <TableHead>
         <TableRow>
@@ -160,17 +207,21 @@ const Tractor = () => {
             </TableCell>
           
             <TableCell>
-                  <IconButton  onClick={() => handleEdit(tractor._id)}>
+                  <IconButton   onClick={() => handleEdit(tractor._id)}>
                     <EditIcon />
                   </IconButton>
+                  
                   <IconButton  onClick={() => handleDelete(tractor._id)}>
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
+                
           </TableRow>
         ))}
       </TableBody>
     </Table>
+    </TableContainer>
+
   </div>
 
   {/* Nút thêm file */}

@@ -1,6 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Table, TableHead, TableRow, TableCell, TableBody, IconButton, Button } from '@material-ui/core';
-import { Edit as EditIcon, Delete as DeleteIcon, CheckCircle as CheckCircleIcon, Cancel as CancelIcon } from '@material-ui/icons';
+import Tooltip from '@material-ui/core/Tooltip';
+import {
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  IconButton,
+  Button,
+  Modal,
+  Backdrop,
+  Fade,
+  TextField,
+} from '@material-ui/core';
+import { Edit as EditIcon, Add as AddIcon, Delete as DeleteIcon, CheckCircle as CheckCircleIcon, Cancel as CancelIcon, Visibility as VisibilityIcon } from '@material-ui/icons';
 import axios from '../../../_config/AxiosConfig';
 import { User } from '_api/_types/User';
 import './UserListPage.css';
@@ -8,43 +21,66 @@ import { useHistory } from 'react-router-dom';
 
 const UserListPage: React.FC = () => {
   const history = useHistory();
-  
+
   const [users, setUsers] = useState<User[]>([]);
   const [activeStatus, setActiveStatus] = useState<{ [key: string]: boolean }>({});
   const [editingUserId, setEditingUserId] = useState<string | null>(null);
   const [filterOption, setFilterOption] = useState('all'); // Default value for filtering
-  
+  const [showAddUserTooltip, setShowAddUserTooltip] = useState(false); // State to control tooltip visibility
+  const [userTooltips, setUserTooltips] = useState<{ [key: string]: boolean }>({});
+
+  const [tractorData, setTractorData] = useState<{ id: string; tractorid: string }[]>([]);
+  const [selectedTractors, setSelectedTractors] = useState<string[]>([]);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  useEffect(() => {
+    // Fetch the tractor data here and update the state
+    axios.get('/tractors')
+      .then((response) => {
+        const tractorList = response.data.data.map((item: any) => ({
+          id: item._id,
+          tractorid: item.tractorId,
+        }));
+        setTractorData(tractorList);
+      })
+      .catch((error) => {
+        console.error('Error fetching tractor data:', error);
+      });
+  }, []);
   useEffect(() => {
     fetchUsers(filterOption); // Fetch users based on the selected filter
   }, [filterOption]);
-  
+
   const fetchUsers = (filter: string) => {
     const url = filter === 'all' ? '/users' : `/users/${filter}`;
-    
+
     axios.get(url, {
       headers: { 'Content-Type': 'application/json' }
     })
-    .then(response => {
-      const userList: User[] = response.data.data.map((item: any) => ({
-        id: item._id,
-        fullname: item.fullname,
-        username: item.username,
-        email: item.email,
-        address: item.address,
-        active: item.isConfirmed
-      }));
-      setUsers(userList);
-      const initialActiveStatus: { [key: string]: boolean } = {};
-      userList.forEach(user => {
-        initialActiveStatus[user.id] = user.active;
+      .then(response => {
+        const userList: User[] = response.data.data.map((item: any) => ({
+          id: item._id,
+          fullname: item.fullname,
+          username: item.username,
+          email: item.email,
+          address: item.address,
+          active: item.isConfirmed
+        }));
+        setUsers(userList);
+        const initialActiveStatus: { [key: string]: boolean } = {};
+        userList.forEach(user => {
+          initialActiveStatus[user.id] = user.active;
+        });
+        setActiveStatus(initialActiveStatus);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
       });
-      setActiveStatus(initialActiveStatus);
-    })
-    .catch(error => {
-      console.error('Error fetching data:', error);
-    });
   };
-  
+  const toggleAddUserForm = () => {
+    setShowAddUserTooltip(!showAddUserTooltip); // Hide the tooltip when the form is shown
+    // ... Rest of your code
+  };
+
   const handleDeleteUser = (userId: string) => {
     axios.delete(`/users/${userId}`)
       .then(response => {
@@ -55,12 +91,12 @@ const UserListPage: React.FC = () => {
         console.error('Error deleting user:', error);
       });
   };
-  
+  console.log(selectedTractors)
   const handleToggleActive = (userId: string) => {
     const updatedActiveStatus = { ...activeStatus };
     updatedActiveStatus[userId] = !updatedActiveStatus[userId];
     setActiveStatus(updatedActiveStatus);
-    
+
     const newStatus = updatedActiveStatus[userId] ? 'confirm' : 'unconfirm';
     axios.patch(`/users/${newStatus}/${userId}`)
       .then(response => {
@@ -71,15 +107,45 @@ const UserListPage: React.FC = () => {
         setActiveStatus({ ...activeStatus });
       });
   };
-  
+
   const handleEditUser = (userId: string) => {
-    history.push(`/administration/edit/${userId}`);
+    history.push(`/administration/useredit/${userId}`);
   };
-  
+
   const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFilterOption(event.target.value);
   };
+  const handleCheckboxChange = (tractorid: string) => {
+    setSelectedTractors((prevSelectedTractors) => {
+      if (prevSelectedTractors.includes(tractorid)) {
+        // If the tractor ID is already in the list, remove it
+        return prevSelectedTractors.filter((id) => id !== tractorid);
+      } else {
+        // If the tractor ID is not in the list, add it
+        return [...prevSelectedTractors, tractorid];
+      }
+    });
+  };
 
+  const handleSubmitAssign = (userid: string) => {
+    if (selectedTractors) {
+      const userDataToSend = {
+        userId: userid,
+        tractorList: selectedTractors
+
+      };
+
+      axios.patch('/users/assign-tractors-to-user', userDataToSend)
+        .then(response => {
+          console.log('User data saved successfully:', response.data);
+          // Do something after successful save
+        })
+        .catch(error => {
+          console.error('Error saving user data:', error);
+          // Handle error
+        });
+    }
+  }
   return (
     <div className="user-list-container">
       <div className="filter-dropdown">
@@ -88,12 +154,20 @@ const UserListPage: React.FC = () => {
           <option value="active">Đã active</option>
           <option value="inactive">Chưa active</option>
         </select>
+        <IconButton onClick={() => { history.push(`/administration/create`) }} >
+          <AddIcon />
+        </IconButton>
       </div>
+
+
+      {/* Conditional rendering of the "Add User" form */}
+
+
       <div className="user-table-container">
         <Table className="user-table">
           <TableHead>
             <TableRow>
-            <TableCell>ID</TableCell>
+              <TableCell>ID</TableCell>
               <TableCell>Full Name</TableCell>
               <TableCell>User Name</TableCell>
               <TableCell>Email</TableCell>
@@ -123,17 +197,74 @@ const UserListPage: React.FC = () => {
                     )}
                   </TableCell>
                   <TableCell>
+                    <Tooltip disableTouchListener={false}
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent the click from propagating to the IconButton
+                      }}
+                      arrow
+                      style={{ backgroundColor: 'white' }}
+                      title={
+                        <div className='tittle'>
+                          <div>
+                            <table>
+                              <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Tractor ID</th>
+                                  <th>Select</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {tractorData.map((tractor) => (
+                                  <tr key={tractor.id}>
+                                    <td>{tractor.id}</td>
+                                    <td>{tractor.tractorid}</td>
+                                    <td>
+                                      <input
+                                        type="checkbox"
+                                        checked={selectedTractors.includes(tractor.id)}
+                                        onChange={() => handleCheckboxChange(tractor.id)}
+                                      />
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                          <div className='btn-asign'>
+                            <button  onClick={() => handleSubmitAssign(user.id)}>Assign</button>
+                          </div>
+                        </div>}
+                      open={userTooltips[user.id] || false}
+
+                      classes={{
+                        tooltip: 'custom-tooltip', // Add this class to the tooltip content
+                      }}
+                    >
+                      <IconButton
+                        onClick={() =>
+                          setUserTooltips((prevState) => ({
+                            ...prevState,
+                            [user.id]: !prevState[user.id], // Toggle the tooltip visibility for this user
+                          }))
+                        }
+                      >
+                        <AddIcon />
+                      </IconButton>
+                    </Tooltip>
                     <IconButton onClick={() => handleEditUser(user.id)}>
                       <EditIcon />
                     </IconButton>
                     <IconButton onClick={() => handleDeleteUser(user.id)}>
                       <DeleteIcon />
                     </IconButton>
+
                   </TableCell>
                 </TableRow>
               )
             ))}
           </TableBody>
+
         </Table>
       </div>
     </div>

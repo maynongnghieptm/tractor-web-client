@@ -3,7 +3,8 @@ import { Route, match as Match } from 'react-router-dom'
 import UsersList from './Users/UsersList'
 import UserEditor from './Users/UsersEditor/UsersEditor'
 import Tractor from './Tractor/Tractor'
-
+import TractorEditor from './Tractor/TractorEditor'
+import CreateUser from './Users/UsersEditor/createUser'
 export type AdministrationRouteParams = {
   userId: string
 }
@@ -17,7 +18,10 @@ const Administration: React.FC<AdministrationProps> = ({ match }) => {
     <>
       <Route exact path={`${match.path}/users`} component={UsersList} />
       <Route exact path={`${match.path}/tractors`} component={Tractor} />
-      <Route exact path={`${match.path}/edit/:userId`} component={UserEditor} />
+      <Route exact path={`${match.path}/useredit/:userId`} component={UserEditor} />
+      <Route exact path={`${match.path}/tractoredit/:tractorId`} component={TractorEditor} />
+      <Route exact path={`${match.path}/create`} component={CreateUser} />
+
     </>
   )
 }

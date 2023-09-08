@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Grid from '@material-ui/core/Grid'
-import DisplayComponent from '../Account/Organization/display'
+import GoogleMapsComponent from 'Account/Map/GoogleMapsComponent'
 import BasePageContainer from '../_common/BasePageContainer'
 import BasePageToolbar from '../_common/BasePageToolbar'
 
@@ -19,7 +19,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
     <BasePageContainer>
     
       <BasePageToolbar title={'Dashboard'} ActionsComponent={DashboardActions} />
-    <DisplayComponent/>
+    
       <Grid container spacing={3}>
      
         <KeyMetrics />

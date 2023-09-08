@@ -1,0 +1,141 @@
+.grid-container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px
+  }
+  
+  .grid-container-column1 {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 2px;
+    height: 100%;
+  }
+  
+  .grid-container-column2 {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    gap:2px;
+    height: 100%;
+  }
+
+  .grid-item {
+   
+  }
+  
+  .grid-item-2 {
+   
+    
+  }
+  .grid2-item{
+    border-radius:5px ;
+    height: 100%;
+    display: flex;
+    
+    grid-template-columns: 1fr 1fr;
+    gap:2px;
+  }
+  .grid-donut{
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+    gap:2px;
+  }
+  .line-chart {
+    border: 1px solid #ccc;
+    border-radius: 5px;;
+  }
+  .donut-chart {
+   
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 2px;
+  }
+  .donut-chart-1{
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .donut-chart-2{
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    
+    
+  }
+  .dounut{
+    border: 1px solid #ccc;
+    border-radius: 5px;;
+  }
+  .ggmap{
+    border: 1px solid #ccc;
+    border-radius: 5px;;
+  }
+.grid-chart{
+  display: grid;
+  grid-template-rows: 1fr 1fr; /* Hai hàng có chiều cao tự động */
+  grid-gap: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.grid-item-child {
+  
+ 
+}
+.grid2-item1{
+  display: grid;
+  grid-template-rows: 1fr 1fr; /* Hai hàng có chiều cao tự động */
+  gap: 2px;
+ 
+}
+.square2{
+ 
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap:1px
+}
+.square{
+ position: relative;
+
+  text-align: center;
+  border : 1px solid #ccc;
+  
+  border-radius: 5px;
+  
+}
+.icon{
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+.temperature-value{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+
+}
+
+
+.square1{
+ 
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap:1px
+}
+
+
+.bar{
+  margin-left: 100px;
+}
+.gauge-chart{
+ 
+  border: 1px solid #ccc;
+ 
+  border-radius: 5px;
+}
+
+

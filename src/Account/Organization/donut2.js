@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { PieChart, Pie, ResponsiveContainer, Cell } from 'recharts';
 import { connect } from 'react-redux';
 
-class DonutChart extends Component {
+class DonutChart2 extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,8 +32,8 @@ class DonutChart extends Component {
 
     if (socketData && socketData.sum && socketData.sum[0]) {
       this.setState({
-        data: [ { name: "Group A", value: socketData.sum[5] },
-        { name: "Group B", value: socketData.sum[4]},]
+        data: [ { name: "Group A", value: socketData.sum[3] },
+        { name: "Group B", value: socketData.sum[2]},]
        
         
       });
@@ -60,7 +60,9 @@ class DonutChart extends Component {
               fill="#8884d8"
               label
             >
-              
+              {this.state.data.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={this.state.COLORS[index % this.state.COLORS.length]} />
+              ))}
             </Pie>
           </PieChart>
         </ResponsiveContainer>
@@ -73,4 +75,4 @@ const mapStateToProps = (state) => ({
   socketData: state.socketData,
 });
 
-export default connect(mapStateToProps)(DonutChart);
+export default connect(mapStateToProps)(DonutChart2);

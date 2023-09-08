@@ -9,6 +9,7 @@
   .user-table-container {
     width: 100%; /* Đặt chiều rộng cho container */
     padding: 20px;
+    z-index: 1;
   }
   
   .user-table {
@@ -80,4 +81,26 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .custom-tooltip {
+    z-index: 9999;
+    font-size: 16px; /* Increase the font size */
+    padding: 10px; /* Increase padding for more space */
+    pointer-events: auto; 
+    background-color:#f4f4f4 ;
+  }
+  .tooltip{
+    cursor: pointer;
+  }
+  .tittle{
+    z-index: 9999;
+    pointer-events: auto; 
+    display: flex;
+    flex-direction: column; /* Hiển thị dọc */
+    align-items: center; 
+    
+  }
+  .btn-asign{
+    align-items: center;
   }
