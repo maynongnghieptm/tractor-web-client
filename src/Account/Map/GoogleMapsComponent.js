@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { GoogleMap, LoadScript, Marker, Polyline, Polygon } from '@react-google-maps/api';
-import { disconnectSocket } from '../socket'; // Thay thế bằng import thích hợp
 import { getDataFromRedux } from '../../action';
 
 const containerStyle = {

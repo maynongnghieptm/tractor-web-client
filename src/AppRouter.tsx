@@ -7,8 +7,9 @@ import DashboardLayout from '_layouts/DashboardLayout'
 import { Auth } from './Auth'
 import { Administration } from './Administration'
 import { Dashboard } from './Dashboard'
-import Layoutgrid from './Account/Organization/Layout'
-import DonutRoad from '../src/Account/Organization/Donut'
+import Layoutgrid from './Account/LiveData/Layout'
+import Login from './Auth/Login'
+import DonutRoad from './Account/LiveData/Donut'
 // Use different router type depending on configuration
 const AppRouterComponent: React.FC = ({ children }) => {
   return config.navigationType === 'history' ? (
@@ -40,7 +41,7 @@ const AppRouter: React.FC = () => {
           layout={DashboardLayout}
         />
         <RouteWithLayout
-          path={`/account/organization`}
+          path={`/account/Livedata`}
           component={Layoutgrid}
           layout={DashboardLayout}
         />

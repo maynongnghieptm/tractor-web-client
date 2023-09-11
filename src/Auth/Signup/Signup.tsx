@@ -30,11 +30,7 @@ const Signup: React.FC = () => {
  const [confirmPassword, setConfirmPassword]= useState("")
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (password !== confirmPassword) {
-      console.error('Passwords do not match');
-      alert('Mật khẩu vừa nhập không giống nhau')
-      return;
-    }
+   
     try {
       // Gọi hàm signUp từ authService
       const response = await authSignup.signUp({ fullname,username,email,address, password})

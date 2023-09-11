@@ -3,7 +3,6 @@ import Grid from '@mui/material/Grid';
 import './layout.css'
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css"
 import './Grid.css'
@@ -11,21 +10,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTemperatureThreeQuarters, faBatteryThreeQuarters, faGasPump, faGauge, faWind, faGear } from '@fortawesome/free-solid-svg-icons';
 import GoogleMapsComponent from "Account/Map/GoogleMapsComponent";
 import GoogleMapsComponent1 from "../Map/test"
-import SensorChart from './line';
-import DonutChart from './Donut_time'
-import { LineChart } from 'recharts';
-import SensorChart1 from './Area';
-import ComparisonBars from './Barchart'
+import SensorChart from './Linechart3';
+import SensorChart1 from './Linechart1';
 import Speedometer from './Gaue'
-import DualYAxisChart from './dualchart'
-import ApexChart from './test1'
-import ApexChart1 from './test2';
-import RealtimeLineChart from './Apexline'
-import DonutChart1 from './donut1';
-import DonutChart2 from './donut2'
+import DualYAxisChart from './Linechart2'
+import ApexChart1 from './Dounut1';
 import Speedometer1 from './Gaue2'
-import ApexChart2 from './test3'
-import ApexChart3 from './test4'
+import ApexChart3 from './Donut3'
+import ApexChart2 from './Donut2'
 import BasePageContainer from '_common/BasePageContainer/BasePageContainer';
 import BasePageToolbar from '_common/BasePageToolbar/BasePageToolbar';
 

@@ -8,21 +8,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTemperatureThreeQuarters, faBatteryThreeQuarters, faGasPump, faGauge, faWind, faGear } from '@fortawesome/free-solid-svg-icons';
 import GoogleMapsComponent from "Account/Map/GoogleMapsComponent";
 import GoogleMapsComponent1 from "../Map/test"
-import SensorChart from './line';
+import SensorChart from './Linechart3';
 import DonutChart from './Donut_time'
 import { LineChart } from 'recharts';
-import SensorChart1 from './Area';
-import ComparisonBars from './Barchart'
+import SensorChart1 from './Linechart1';
 import Speedometer from './Gaue'
-import DualYAxisChart from './dualchart'
-import ApexChart from './test1'
-import ApexChart1 from './test2';
-import RealtimeLineChart from './Apexline'
-import DonutChart1 from './donut1';
-import DonutChart2 from './donut2'
+import DualYAxisChart from './Linechart2'
+import ApexChart1 from './Dounut1';
 import Speedometer1 from './Gaue2'
-import ApexChart2 from './test3'
-import ApexChart3 from './test4'
+import ApexChart2 from './Donut2'
+import ApexChart3 from './Donut3'
 const DonutRoad = React.memo(({ socketData }) => {
   //console.log(socketData)
 

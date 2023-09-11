@@ -13,9 +13,7 @@ import Reset from './Reset'
 const AuthFooter = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      <Link color="inherit" component={RouterLink} to="/">
-        Go back to dashboard
-      </Link>
+    
     </Typography>
   )
 }

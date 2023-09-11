@@ -69,7 +69,7 @@ const SidebarNav: React.FC<ISidebarNavProps> = (props) => {
         },
         {
           name: 'Live Data',
-          link: '/account/organization',
+          link: '/account/Livedata',
         },
       ],
     },
