@@ -94,7 +94,7 @@ const AppHeaderProfile: React.FC = () => {
           <ListItemText primary="Settings" />
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose} component={Link} to="/auth/logout">
+        <MenuItem onClick={handleClose} component={Link} to="/auth/login">
           <ListItemIcon className={classes.profileMenuItemIcon}>
             <IconLogout />
           </ListItemIcon>

@@ -147,7 +147,7 @@ const UserListPage: React.FC = () => {
     }
   }
   return (
-    <div className="user-list-container">
+    <div className="user-list-container" style={{ overflowX: 'auto' }} >
       <div className="filter-dropdown">
         <select value={filterOption} onChange={handleFilterChange}>
           <option value="all">Tất cả</option>

@@ -4,12 +4,14 @@ import { HashRouter, BrowserRouter, Route, Switch, RouteProps } from 'react-rout
 import config from './_config'
 import Profile from 'Account/Profile/Profile'
 import DashboardLayout from '_layouts/DashboardLayout'
+import Layout from '_layouts/DashboardLayout/Home_layout'
 import { Auth } from './Auth'
 import { Administration } from './Administration'
 import { Dashboard } from './Dashboard'
 import Layoutgrid from './Account/LiveData/Layout'
 import Login from './Auth/Login'
 import DonutRoad from './Account/LiveData/Donut'
+import Homepage from './Dashboard/Homepage'
 // Use different router type depending on configuration
 const AppRouterComponent: React.FC = ({ children }) => {
   return config.navigationType === 'history' ? (
@@ -26,7 +28,13 @@ const AppRouter: React.FC = () => {
         <Route path="/auth" component={Auth} />
         <RouteWithLayout
           exact
-          path={`/`}
+          path={'/'}
+          component={Homepage}
+          layout={Layout}
+        />
+         <RouteWithLayout
+          exact
+          path={`/homepage`}
           component={Dashboard}
           layout={DashboardLayout}
         />

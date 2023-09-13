@@ -21,7 +21,7 @@ class GoogleMapsComponent extends Component {
     this.state = {
       positionArray: [],
       plansArray: [],
-     
+
       mapCenter: center,
       showMarker: false,
       shouldUpdateMapCenter: false
@@ -57,10 +57,7 @@ class GoogleMapsComponent extends Component {
           lat: socketData.llh[0],
           lng: socketData.llh[1],
         };
-        this.setState((prevState) => ({
-          positionArray: [...prevState.positionArray, newPosition],
-          latestPosition: newPosition
-        }));
+       
         const plans = [];
       for (let i = 0; i < socketData.plans.length; i += 2) {
         plans.push({
@@ -68,7 +65,11 @@ class GoogleMapsComponent extends Component {
           lng: socketData.plans[i + 1],
         });
       }
-      this.setState({ plansArray: plans}); 
+      this.setState((prevState) => ({
+        positionArray: [...prevState.positionArray, newPosition],
+        latestPosition: newPosition,
+        plansArray: plans
+      }));
       }
     
     }

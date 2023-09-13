@@ -8,6 +8,7 @@ import {
   Checkbox,
   Link,
   Grid,
+  Typography
 } from '@material-ui/core'
 import { Link as RouterLink } from 'react-router-dom'
 
@@ -28,11 +29,14 @@ const Login: React.FC = () => {
       setIsLoggedIn(true)
       authService.logIn({ username, password, role: 'ADMIN'})
         .then(result => {
-          console.log(result)
-          if(result.data.code === 200){history.push('/')
+          //console.log(result)
+          if(result.data.code === 200){
+            localStorage.setItem('accessToken', result.data.data.accessToken)
+            localStorage.setItem('userId', result.data.data._id )
+            history.push('/homepage')
+            
           setIsLoggedIn(true)
-          localStorage.setItem('accessToken', result.data.data.accessToken)
-          localStorage.setItem('userId', result.data.data._id )
+        
         }else if(result.data.code === 500){
           alert('Sai thong tin')
         }else{
@@ -106,6 +110,12 @@ const Login: React.FC = () => {
             </Link>
           </Grid>
         </Grid>
+        <Typography variant="body2" color="textSecondary" align="center">
+      <Link  component={RouterLink} to="/" variant="body2">
+        Quay lại trang chủ
+      </Link>
+    </Typography>
+
       </form>
     </AuthContent>
   )

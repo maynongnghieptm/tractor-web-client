@@ -22,6 +22,8 @@ import BasePageContainer from '_common/BasePageContainer/BasePageContainer';
 import BasePageToolbar from '_common/BasePageToolbar/BasePageToolbar';
 
 const Layoutgrid  = React.memo(({ socketData }) => {
+ //console.log(typeof(socketData))
+
   const [sensor, setSensor] = useState([])
   useEffect(() => {
     if (socketData && socketData.sum && socketData.sum[0] && socketData.sen && socketData.sen[0] && socketData.ctr_fed && socketData.ctr_fed[0]) {

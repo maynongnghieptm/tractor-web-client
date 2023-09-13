@@ -31,6 +31,17 @@ const Dashboard: React.FC<DashboardProps> = () => {
         <SubscriptionsRecent />
         <SubscriptionsBreakdown />
       </Grid>
+       <Grid container spacing={3}>
+     
+        <KeyMetrics />
+       
+        <Grid item xs={12}>
+          <SubscriptionsHistory />
+        </Grid>
+        
+        <SubscriptionsRecent />
+        <SubscriptionsBreakdown />
+      </Grid>
     </BasePageContainer>
   )
 }

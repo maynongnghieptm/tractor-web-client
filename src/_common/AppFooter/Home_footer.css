@@ -1,0 +1,78 @@
+.footer-container {
+    display: flex;
+    justify-content: space-between; /* Để căn giữa theo chiều ngang */
+     /* Để canh lề giữa các văn bản bên trong item */
+
+    width: 80%;
+    height: 100%;
+    margin: auto;
+    /* Để căn giữa theo chiều dọc */
+     /* Để đảm bảo footer có chiều cao 100% của parent */
+     padding-bottom: 60px;
+  }
+  
+  .footer-item {
+    margin: 0 20px; /* Để tạo khoảng cách giữa các item */
+  }
+  /* CSS để căn các thẻ <ul> và <li> thẳng hàng */
+.footer-item ul {
+    padding: 0;
+    list-style: none; /* Loại bỏ dấu chấm trước mỗi mục trong danh sách */
+  }
+  
+  .footer-item ul li {
+    margin: 5px 0; /* Tạo khoảng cách giữa các mục */
+  }
+  
+ul{
+ 
+    list-style: none;
+}
+li{
+    cursor: pointer;
+    color:darkgray;
+}
+li:hover{
+    color: red;
+}
+.signature{
+  width: 80%;
+  margin: auto;
+  padding-top: 15px;
+  border-top: 1px solid darkgray;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fix,
+.maintance{
+  cursor: pointer;
+}
+ .fix:hover,
+ .maintance:hover {
+  color: red;
+}
+li button[type="button"] {
+  padding: 10px;
+  background: #666666;
+  border: none;
+  border-radius: 2px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: opacity 0.3s; /* Thêm transition cho opacity */
+}
+
+li button[type="button"]:hover {
+  opacity: 0.7; /* Đổi opacity khi hover */
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  padding: 20px; /* Có thể điều chỉnh khoảng cách dưới cùng của footer */
+}

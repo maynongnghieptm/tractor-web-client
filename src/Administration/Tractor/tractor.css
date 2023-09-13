@@ -91,9 +91,27 @@
 
 /* Add some margin between the Create Tractor input and button */
 .create-tractor-button {
-  display: flex;
-  align-items: center;
+  display:flex;
   margin-bottom: 10px;
+}
+
+@media (min-width: 768px) {
+  .create-tractor-button {
+    
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center;
+   
+  }
+}
+@media (max-width: 768px) {
+  .create-tractor-button {
+    
+    flex-direction:column;
+    justify-content: space-between;
+    align-items: center;
+   
+  }
 }
 .create-tractor-input {
   margin-right: 10px;
@@ -106,4 +124,8 @@
   justify-content: center;
 }
 
-  
+@media (max-width: 767px) {
+  .tractors-table {
+    font-size: 9px; /* Điều chỉnh kích thước chữ */
+  }
+}

@@ -1,0 +1,20 @@
+.app-bar-item{
+    cursor: pointer;
+}
+.app-bar-item:hover{
+    color: red;
+}
+.appbar-customer{
+    
+
+}
+.drawer{
+    overflow: hidden;
+}
+.MuiDrawer-paperAnchorLeft {
+    width: 80vw;
+    
+}
+
+  
+  
