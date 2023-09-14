@@ -1,5 +1,5 @@
 import React from 'react'
-import authSignup from '_services/authSignup'
+import authService from '_services/authService';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import {
   makeStyles,
@@ -33,7 +33,7 @@ const Signup: React.FC = () => {
    
     try {
       // Gọi hàm signUp từ authService
-      const response = await authSignup.signUp({ fullname,username,email,address, password})
+      const response = await authService.signUp({ fullname,username,email,address, password})
      // 
       console.log('Signup response:', response.data);     
     } catch (error) {

@@ -23,8 +23,26 @@ const authService = {
     };
     const response = await axios.post('/auth/login', data, configs);
     return response;
-}
+},
+
+async signUp({ fullname, username, email, password, address }) {
+    const data = {
+      fullname,
+      username,
+      email,
+      password,
+      address
+    };
+    const configs = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const response = await axios.post('/users', data, configs);
+    return response;
+  }
 
 }
+
 
 export default authService

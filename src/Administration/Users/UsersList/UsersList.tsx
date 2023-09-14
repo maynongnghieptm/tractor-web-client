@@ -57,6 +57,7 @@ const UserListPage: React.FC = () => {
       headers: { 'Content-Type': 'application/json' }
     })
       .then(response => {
+        console.log(response.data)
         const userList: User[] = response.data.data.map((item: any) => ({
           id: item._id,
           fullname: item.fullname,
@@ -232,7 +233,7 @@ const UserListPage: React.FC = () => {
                             </table>
                           </div>
                           <div className='btn-asign'>
-                            <button  onClick={() => handleSubmitAssign(user.id)}>Assign</button>
+                            <button onClick={() => handleSubmitAssign(user.id)}>Assign</button>
                           </div>
                         </div>}
                       open={userTooltips[user.id] || false}

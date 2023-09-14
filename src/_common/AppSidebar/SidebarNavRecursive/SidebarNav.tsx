@@ -34,45 +34,11 @@ const SidebarNav: React.FC<ISidebarNavProps> = (props) => {
   const itemsCore = [
     {
       name: 'Dashboard',
-      link: '/',
+      link: '/dashboard',
       Icon: IconDashboard,
     },
-    {
-      name: 'Auth',
-      Icon: IconPreson,
-      items: [
-        {
-          name: 'Login',
-          link: '/auth/login',
-        },
-        {
-          name: 'Signup',
-          link: '/auth/signup',
-        },
-        {
-          name: 'Recover',
-          link: '/auth/recover',
-        },
-        {
-          name: 'Reset',
-          link: '/auth/reset',
-        },
-      ],
-    },
-    {
-      name: 'Account',
-      Icon: IconProfile,
-      items: [
-        {
-          name: 'Profile',
-          link: '/account/profile',
-        },
-        {
-          name: 'Live Data',
-          link: '/account/Livedata',
-        },
-      ],
-    },
+  
+    
     {
       name: 'Administration',
       Icon: IconAdmin,
@@ -121,16 +87,9 @@ const SidebarNav: React.FC<ISidebarNavProps> = (props) => {
     <div>
       <List className={classes.navList} disablePadding>
         <ListSubheader disableSticky={true} className={classes.navListHeader}>
-          Core Modules
+         Logo
         </ListSubheader>
         <NavList isCollapsed={isCollapsed} items={itemsCore} />
-      </List>
-
-      <List className={classes.navList} disablePadding>
-        <ListSubheader disableSticky={true} className={classes.navListHeader}>
-          Misc
-        </ListSubheader>
-        <NavList isCollapsed={isCollapsed} items={itemsTheme} />
       </List>
     </div>
   )

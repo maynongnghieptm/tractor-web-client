@@ -5,7 +5,7 @@ import BasePageContainer from "_common/BasePageContainer";
 import Dashboard from "../../Dashboard/Dashboard" 
 function Background_vid() {
   return (
-<div style={{ width: '100vw', height: '100vh' }}>
+<div style={{ width: '100vw', height: '80vh' }}>
   <div className="bg">
     <VideoPlayer
       className="video"

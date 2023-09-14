@@ -9,7 +9,7 @@ import Login from './Login'
 import Signup from './Signup'
 import Recover from './Recover'
 import Reset from './Reset'
-
+import LogIn from './Login/Login'
 const AuthFooter = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">

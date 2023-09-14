@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
   makeStyles,
@@ -11,38 +11,31 @@ import {
   Typography
 } from '@material-ui/core'
 import { Link as RouterLink } from 'react-router-dom'
-import axios from '../../_config/AxiosConfig'
+
 import AuthHeader from '../_common/AuthHeader'
 import AuthContent from '../_common/AuthContent'
 import authService from '_services/authService'
+import AuthService from '_services/newAuthservice'
 
-
-const Login: React.FC = () => {
+const LogIn = () => {
   const classes = useStyles()
   const history = useHistory();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   
-  const handleLoginSubmit = (e: any) => {
+  const handleLoginSubmit = (e) => {
     try{
       e.preventDefault();
       setIsLoggedIn(true)
-      authService.logIn({ username, password, role: 'ADMIN'})
-        .then(result => {
+      AuthService.login({ username, password, role: 'ADMIN'})
+       .then(result => {
           console.log(result)
           if(result.data.code === 200){
-              axios.get(`/users/${result.data.data._id}`)
-                .then(response => {
-                  console.log(response)
-               
-                })
-                .catch(error => {
-                  console.error('Error fetching user data:', error);
-                });
             localStorage.setItem('accessToken', result.data.data.accessToken)
             localStorage.setItem('userId', result.data.data._id )
             history.push('/dashboard')
+            
           setIsLoggedIn(true)
         
         }else if(result.data.code === 500){
@@ -52,6 +45,7 @@ const Login: React.FC = () => {
         }
           
         })
+        
         .catch(err => {
           console.log(err);
         })
@@ -102,6 +96,7 @@ const Login: React.FC = () => {
           color="primary"
           className={classes.submit}
           onClick={handleLoginSubmit}
+        
         >
           Sign In
         </Button>
@@ -138,4 +133,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default Login
+export default LogIn

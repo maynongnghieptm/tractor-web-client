@@ -28,7 +28,7 @@ const UserEditor: React.FC = () => {
   useEffect(() => {
     axios.get(`/users/${userId}`)
       .then(response => {
-       
+       console.log(response)
         const userData: User = response.data.data;
         setUser(userData);
         //console.log(userData.fullname)

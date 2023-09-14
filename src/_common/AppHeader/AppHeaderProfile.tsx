@@ -21,13 +21,7 @@ import IconLogout from '@material-ui/icons/ExitToApp'
 const AppHeaderProfile: React.FC = () => {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement>()
-  const user = {
-    firstName: 'Gevorg',
-  }
-
-  if (!user) {
-    return <div className={clsx('headerProfile', classes.headerProfile)} />
-  }
+  
 
   function handleClick(event: MouseEvent<HTMLButtonElement>) {
     setAnchorEl(event.currentTarget)
@@ -51,12 +45,8 @@ const AppHeaderProfile: React.FC = () => {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        <Avatar
-          className={classes.profileAvatar}
-          alt={user.firstName}
-          src="https://avatars3.githubusercontent.com/u/3959008?v=3&s=40"
-        />
-        <span className={classes.profileName}>{user.firstName}</span>
+      
+       
         <IconArrowDropDown />
       </IconButton>
       <Menu
