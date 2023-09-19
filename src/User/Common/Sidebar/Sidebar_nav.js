@@ -113,10 +113,10 @@ const SidebarNav = () => {
       </ListItem>
       <Collapse in={isAccountExpanded} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItem className={classes.nested} onClick={() => handleDashboardClick('/account/profile')}>
+          <ListItem className={classes.nested} onClick={() => handleDashboardClick('/user/account/profile')}>
             <ListItemText primary="User Information" />
           </ListItem>
-          <ListItem className={classes.nested} onClick={() => handleDashboardClick('/account/Livedata')}>
+          <ListItem className={classes.nested} onClick={() => handleDashboardClick('/user/account/Livedata')}>
             <ListItemText primary="Real-time Data" />
           </ListItem>
         </List>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import { GoogleMap, LoadScript, Marker, Polyline, Polygon } from '@react-google-maps/api';
 import { connect } from 'react-redux';
-import { getDataFromRedux } from '../../action'
+import { getDataFromRedux } from '../../store/actions/Socketaction'
 const containerStyle = {
   width: '100%',
   height: '100%',

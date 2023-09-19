@@ -83,6 +83,18 @@ html, body {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+.square{
+  position: relative;
+  overflow: hidden;
+
+}
+.barchar{
+  position: absolute; /* Đặt vị trí của .barchar là absolute để nó không ảnh hưởng đến layout của .square */
+  bottom: 0; /* Đặt .barchar ở dưới */
+  left: 0; /* Đặt .barchar ở bên trái (có thể điều chỉnh theo ý muốn) */
+  width: 100%; /* Đặt chiều rộng của .barchar là 100% để nó chiếm toàn bộ chiều rộng của .square */
+  height: calc(45%); 
+}
 @media (min-width: 768px) {
   .item1 {
     grid-template-columns: 1fr 1fr;
@@ -191,6 +203,57 @@ html, body {
   
   height: 100%;
 }
+
+
+
+.progress-bar-container {
+  margin: 0;
+  height: 10px;
+  width: 80%;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  transition: width 1s ease-in-out;
+
+  background-color: green; /* Đặt màu nền cho progress-bar */
+}
+.engine1{
+  background-color: green;
+}
+.engine2{
+  background-color: red;
+}
+button {
+  margin: 10px;
+}
+.progress-bar-container.gearbar > div {
+  /* Thêm kiểu dáng cho các ô con tại đây */
+  border-right: 1px solid#ccc; /* Ví dụ: đường viền đen cho các ô */
+ /* Ví dụ: khoảng cách bên trong các ô */
+}
+.square-div {
+  position: relative;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.icon1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+#onpower1{
+  background-color: #f54242;
+}
+
 
 
 

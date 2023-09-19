@@ -8,12 +8,19 @@ const client = axios.create({
       },
 }   
 );
-client.interceptors.request.use(config => {
-    const token = localStorage.getItem('accessToken');
-    if (token) {
+client.interceptors.request.use(async (config) => {
+  const token = localStorage.getItem('accessToken');
+  if (token) {
       config.headers['authorization'] = `Bearer ${token}`;
-    }
-    return config;
-  });
+  }
+
+  // Lấy giá trị từ localStorage và gán cho x-user-id
+  const userId = localStorage.getItem('userId');
+  if (userId) {
+      config.headers['x-user-id'] = userId;
+  }
+
+  return config;
+});
 export default client;
 

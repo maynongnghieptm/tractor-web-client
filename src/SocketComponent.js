@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { updateSocketData } from './action'; // Định nghĩa action
+import { updateSocketData } from './store/actions/Socketaction'; // Định nghĩa action
 import io from 'socket.io-client';
 const SocketComponent = ({ socketData, updateSocketData }) => {
   useEffect(() => {
@@ -8,14 +8,15 @@ const SocketComponent = ({ socketData, updateSocketData }) => {
   const socket = io('http://tractorserver.myddns.me:8000', {
         extraHeaders: {
           //tractorid: '64d9cdfac48bca2dd296ad1d',
-          token: localStorage.getItem('accessToken'),
+          token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGRhZmRkMDAxM2U4OWU1YmYzNjk1OWIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2OTUwMTg5OTAsImV4cCI6MTY5NTE5MTc5MH0.2amZ1ZdoSXz7ZhkFaiqC8yGhh5KeFxbLFJimsT7Xcrc"
         },
       });
     socket.on('clientLogs', (data) => {
       // Cập nhật dữ liệu từ socket vào Redux 
-    //  console.log(typeof(data))
-      const parsedData = JSON.parse(data);
-     const payload = JSON.parse(parsedData.logs)
+    
+      const payload = JSON.parse(data.logs);
+     // console.log(parsedData)
+    
      
       updateSocketData(payload);
     });

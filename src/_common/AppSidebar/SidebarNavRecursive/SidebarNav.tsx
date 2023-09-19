@@ -34,7 +34,7 @@ const SidebarNav: React.FC<ISidebarNavProps> = (props) => {
   const itemsCore = [
     {
       name: 'Dashboard',
-      link: '/dashboard',
+      link: '/administration/dashboard',
       Icon: IconDashboard,
     },
   
@@ -55,11 +55,7 @@ const SidebarNav: React.FC<ISidebarNavProps> = (props) => {
         }
       ],
     },
-    {
-      name: 'Settings',
-      link: '/settings',
-      Icon: IconSettings,
-    },
+   
   ]
 
   const itemsTheme = [

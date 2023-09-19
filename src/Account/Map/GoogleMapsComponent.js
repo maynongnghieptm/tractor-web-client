@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { GoogleMap, LoadScript, Marker, Polyline, Polygon } from '@react-google-maps/api';
-import { getDataFromRedux } from '../../action';
+import { getDataFromRedux } from '../../store/actions/Socketaction';
 
 const containerStyle = {
   width: '100%',

@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter, BrowserRouter, Route, Switch, RouteProps } from 'react-router-dom' //
+import { HashRouter, BrowserRouter, Route, Switch, RouteProps, Redirect } from 'react-router-dom' //
 import { useHistory } from 'react-router-dom';
 import config from './_config'
 import Profile from 'Account/Profile/Profile'
@@ -13,6 +13,8 @@ import Login from './Auth/Login'
 import DonutRoad from './Account/LiveData/Donut'
 import DashboardLayout1 from './_layouts/DashboardLayout/User_layout'
 import Homepage from './Dashboard/Homepage'
+import { useSelector } from 'react-redux'
+import ErrPage from '_common/ErrPage/Unthori';
 // Use different router type depending on configuration
 const AppRouterComponent: React.FC = ({ children }) => {
   return config.navigationType === 'history' ? (
@@ -23,6 +25,8 @@ const AppRouterComponent: React.FC = ({ children }) => {
 }
 
 const AppRouter: React.FC = () => {
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
+  console.log(isAdmin)
   return (
     <AppRouterComponent>
       <Switch>
@@ -35,30 +39,45 @@ const AppRouter: React.FC = () => {
         />
          <RouteWithLayout
           exact
-          path={`/dashboard`}
+          path={`/user/dashboard`}
           component={Layoutgrid}
           layout={DashboardLayout1}
         />
+        {/* */}
+       <Route
+  path="/administration"
+  render={() =>
+    isAdmin ? (
+      <RouteWithLayout
+        path="/administration"
+        component={Administration}
+        layout={DashboardLayout}
+      />
+    ) : (
+      <Route
+        path="/administration"
+        component={ErrPage} // Component lỗi (thay thế ErrorComponent bằng tên thực tế của component bạn muốn hiển thị)
+
+      />
+    )
+  }
+/>
         <RouteWithLayout
-          path={`/administration`}
-          component={Administration}
-          layout={DashboardLayout}
-        />
-        <RouteWithLayout
-          path={`/account/profile`}
+          path={`/user/account/profile`}
           component={Profile}
           layout={DashboardLayout1}
         />
         <RouteWithLayout
-          path={`/account/Livedata`}
+          path={`/user/account/Livedata`}
           component={Layoutgrid}
           layout={DashboardLayout1}
         />
         <RouteWithLayout
-          path={`/settings`}
+          path={`/user/settings`}
           component={() => null}
           layout={DashboardLayout1}
         />
+ 
       </Switch>
     </AppRouterComponent>
   )

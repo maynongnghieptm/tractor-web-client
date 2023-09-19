@@ -1,19 +1,20 @@
 // redux/reducer.js
 
 const initialState = {
-    chartDataFuel: [], // Example initial data
+    socketData: [],
+     // Example initial data
   };
   
-  const reducer = (state = initialState, action) => {
+  const Socketreducer = (state = initialState, action) => {
     switch (action.type) {
       case 'GET_DATA_FROM_REDUX':
         return {
           ...state,
-          chartDataFuel: action.payload,
+          socketData: action.payload,
         };
       default:
         return state;
     }
   };
   
-  export default reducer;
+  export default Socketreducer;

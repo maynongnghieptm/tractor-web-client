@@ -11,7 +11,6 @@ import MenuItem from '@material-ui/core/MenuItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import Divider from '@material-ui/core/Divider'
-
 import IconArrowDropDown from '@material-ui/icons/ArrowDropDown'
 import IconProfile from '@material-ui/icons/AccountBox'
 import IconAccount from '@material-ui/icons/AccountBalance'
@@ -70,18 +69,6 @@ const AppHeaderProfile: React.FC = () => {
             <IconProfile />
           </ListItemIcon>
           <ListItemText primary="My Profile" />
-        </MenuItem>
-        <MenuItem onClick={handleClose} component={Link} to="/account">
-          <ListItemIcon className={classes.profileMenuItemIcon}>
-            <IconAccount />
-          </ListItemIcon>
-          <ListItemText primary="My Accounts" />
-        </MenuItem>
-        <MenuItem onClick={handleClose} component={Link} to="/settings">
-          <ListItemIcon className={classes.profileMenuItemIcon}>
-            <IconSettings />
-          </ListItemIcon>
-          <ListItemText primary="Settings" />
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose} component={Link} to="/auth/login">

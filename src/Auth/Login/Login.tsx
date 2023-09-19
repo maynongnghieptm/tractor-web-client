@@ -15,34 +15,44 @@ import axios from '../../_config/AxiosConfig'
 import AuthHeader from '../_common/AuthHeader'
 import AuthContent from '../_common/AuthContent'
 import authService from '_services/authService'
-
-
+import { useDispatch } from 'react-redux';
+import { setIsAdmin } from '../../store/actions/authActions'
 const Login: React.FC = () => {
   const classes = useStyles()
   const history = useHistory();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  
+  const dispatch = useDispatch();
   const handleLoginSubmit = (e: any) => {
     try{
       e.preventDefault();
       setIsLoggedIn(true)
-      authService.logIn({ username, password, role: 'ADMIN'})
+      authService.logIn({ username, password})
         .then(result => {
-          console.log(result)
+         // console.log(result)
           if(result.data.code === 200){
+            localStorage.setItem('accessToken', result.data.data.accessToken)
+            localStorage.setItem('userId', result.data.data._id )
               axios.get(`/users/${result.data.data._id}`)
                 .then(response => {
-                  console.log(response)
-               
+                 // console.log(response.data.data.role)
+                  if(response.data.data.role=='USER'){
+                    dispatch(setIsAdmin(false))
+                   history.push('/user/dashboard')
+                  } else if(response.data.data.role=='ADMIN')
+                  {dispatch(setIsAdmin(true))
+                    history.push('/administration')}
+                  else{
+                    console.log('Co loi xay ra')
+                  }
+                  
                 })
                 .catch(error => {
                   console.error('Error fetching user data:', error);
                 });
-            localStorage.setItem('accessToken', result.data.data.accessToken)
-            localStorage.setItem('userId', result.data.data._id )
-            history.push('/dashboard')
+
+            //history.push('/dashboard')
           setIsLoggedIn(true)
         
         }else if(result.data.code === 500){

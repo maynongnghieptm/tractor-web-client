@@ -30,14 +30,15 @@ function Header() {
   };
   const menuItemStyle = {
     position: 'sticky',
+
     top: '20px',
-    zIndex: '100',
+    zIndex: '2000',
     width: '80%',
     margin: '30px auto 0',
     borderRadius: '10px',
     background: 'white',
     color: 'black',
-    transform: isHeaderHidden ? 'translateY(-200%)' : 'translateY(0)', // Ẩn hoặc hiển thị AppBar
+    transform: isHeaderHidden ? 'translateY(-120%)' : 'translateY(0)', // Ẩn hoặc hiển thị AppBar
     transition: 'transform 0.5s ease', // Thêm hiệu ứng mượt mà
     // Đổi con trỏ chuột thành bàn tay khi di chuột qua
   };
@@ -45,12 +46,13 @@ function Header() {
     const handleWheel = (event) => {
       if (event.deltaY > 0) {
         // Cuộn chuột xuống
+        console.log(event.deltaY )
         setIsmousedown(true)
 
       } else if (event.deltaY < 0) {
         // Cuộn chuột lên
         //setIsHeaderHidden(false)
-
+        console.log(event.deltaY )
         setIsmousedown(false)
 
       }

@@ -7,7 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from './_theme'
 import AppRouter from './AppRouter'
 import { Provider } from 'react-redux';
-import store from './store'; // Import Redux store
+import store from './store/store'; // Import Redux store
 import SocketComponent from './SocketComponent'
 const App: React.FC = () => {
   return (

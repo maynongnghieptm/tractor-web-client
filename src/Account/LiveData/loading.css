@@ -1,0 +1,51 @@
+.wrapper {
+    margin: 0;
+    height: 10px;
+    width: 80%;
+    border: 1px solid #ccc;
+    background: green;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .blind {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    background-color: #fafafa;
+    min-width: 50%;
+
+    overflow: hidden;
+  }
+  
+  .blind.right {
+    left: 50%;
+    border-left: 1px solid white;
+    transform-origin: left top;  
+    overflow: hidden;
+  }
+  
+  .blind.left {
+    border-right: 1px solid white;
+    transform-origin: left top;
+    overflow: hidden;
+  }
+  
+
+  .progress-1{
+    background-color: red;
+
+  }
+  .blind.progress-1 {
+    background-color: #fafafa;
+    border-bottom: 0,5px solid #ccc;
+  }
+  .progress-2{
+  
+    
+  }
+  .blind.progress-2 {
+    background-color: #fafafa;
+    border-top: 0,5px solid #ccc;
+  }
