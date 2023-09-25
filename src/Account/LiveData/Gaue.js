@@ -54,7 +54,7 @@ class Speedometer extends Component {
      // console.log(socketData)
       if (socketData && socketData.ctr_fed && socketData.ctr_fed[0]) {
         this.setState({
-          data: { name: "Egine Speed", value: socketData.ctr_fed[3] }
+          data: { name: "Egine Speed", value: socketData.ctr_fed[2] }
          
           
         });

@@ -54,7 +54,7 @@ class Speedometer1 extends Component {
   
       if (socketData && socketData.ctr_fed && socketData.ctr_fed[0]) {
         this.setState({
-          data: { name: "GPS Speed", value: socketData.ctr_fed[15] }
+          data: { name: "GPS Speed", value: socketData.ctr_fed[3] }
          
           
         });

@@ -67,7 +67,7 @@ const ProgressBar = (props) => {
         {
           fill: "forwards",
           duration: duration,
-          iterations: Math.abs(easeReversal(firstTravel)), // Use Math.abs to ensure non-negative value
+          iterations: Math.max(0, Math.abs(easeReversal(firstTravel))), // Use Math.abs to ensure non-negative value
         }
       );
 

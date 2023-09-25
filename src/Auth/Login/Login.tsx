@@ -17,6 +17,7 @@ import AuthContent from '../_common/AuthContent'
 import authService from '_services/authService'
 import { useDispatch } from 'react-redux';
 import { setIsAdmin } from '../../store/actions/authActions'
+
 const Login: React.FC = () => {
   const classes = useStyles()
   const history = useHistory();

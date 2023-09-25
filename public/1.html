@@ -13,14 +13,14 @@
         const socket = io('http://tractorserver.myddns.me:8000',  {
       extraHeaders: {
        // tractorid: '64e2241bf3ea921e3f7855bb',
-        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGRhZmRkMDAxM2U4OWU1YmYzNjk1OWIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2OTUwMTEwOTYsImV4cCI6MTY5NTE4Mzg5Nn0.DHrZn2lZ5pP3Wrw3M2KQDe68plH342CDbqHWJLzUITU"}});
+        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGRhZmRkMDAxM2U4OWU1YmYzNjk1OWIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2OTUyNjU1MDYsImV4cCI6MTY5NTQzODMwNn0.AefqCqBClBY2nrEFeLV8qvRWTgyy8xl0sz9Y7yU0RTM"}});
     console.log(111111)
     
     
         socket.on('clientLogs', (data) => {
-           var x = JSON.parse(data)
+           
     
-         console.log(111111)
+         console.log(data)
         
          //SET_NEW_POSITION(data);
           console.log(data)
