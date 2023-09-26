@@ -114,6 +114,7 @@ class SensorChart1 extends Component {
                 stroke="blue"
                 activeDot={{ r: 24 }}
                 strokeWidth="2"
+                
               />
               <Line
                 type="monotone"
