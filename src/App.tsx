@@ -7,18 +7,20 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from './_theme'
 import AppRouter from './AppRouter'
 import { Provider } from 'react-redux';
-import store from './store/store'; // Import Redux store
+import { PersistGate } from 'redux-persist/integration/react';
+import {store, persistor } from './store/store'; // Import Redux store
 import SocketComponent from './SocketComponent'
 const App: React.FC = () => {
   return (
     <Provider store={store}>
       
-    
+      <PersistGate loading={null} persistor={persistor}>
     <div className="App">
       <CssBaseline />
       
       <AppRouter />
     </div>
+    </PersistGate>
     </Provider>
 
   )

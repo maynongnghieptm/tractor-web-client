@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PieChart, Pie, Legend, Tooltip, Cell, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Legend, Tooltip, Cell, ResponsiveContainer, Label } from 'recharts';
 import { connect } from 'react-redux';
 
 class Test2 extends Component {
@@ -33,8 +33,9 @@ class Test2 extends Component {
 
       this.setState({
         data: [
-          { name: 'Quãng đường đã đi', value: percentageA },
+        
           { name: 'Quãng đường còn lại', value: percentageB },
+          { name: 'Quãng đường đã đi', value: percentageA },
         ],
       });
     }
@@ -44,17 +45,17 @@ class Test2 extends Component {
     const { data } = this.state;
 
     return (
-      <ResponsiveContainer width='100%' height='100%'>
-        <PieChart width='100%' height='100%'>
+      <ResponsiveContainer >
+        <PieChart >
           <Pie
             data={data}
             dataKey="value"
             cx="50%"
             cy="50%"
-            innerRadius={60}
-            outerRadius={80}
+            innerRadius="60%"
+            outerRadius="80%"
             fill="#8884d8"
-            paddingAngle={5}
+           
             isAnimationActive={false}
             startAngle={90} // Bắt đầu từ vị trí 90 độ
             endAngle={450} // Kết thúc tại vị trí 450 độ (90 + 360)
@@ -62,8 +63,15 @@ class Test2 extends Component {
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={index === 0 ? '#FF5733' : '#34A853'} />
             ))}
+            <Label
+                value={"66%"} // Hiển thị giá trị data.value
+                position="center"
+                fill="#34A853"
+                fontSize={20}
+              />
           </Pie>
           <Tooltip />
+          
           <Legend />
         </PieChart>
       </ResponsiveContainer>

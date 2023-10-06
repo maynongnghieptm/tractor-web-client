@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PieChart, Pie, Legend, Tooltip, Cell, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Legend, Tooltip, Cell, ResponsiveContainer, Label } from 'recharts'; // Import Label từ Recharts
 import { connect } from 'react-redux';
 
 class Test1 extends Component {
@@ -29,12 +29,12 @@ class Test1 extends Component {
       const sum = socketData.sum;
       const total = sum[0] + sum[1];
       const percentageA = Math.floor((sum[0] / total) * 100);
-      const percentageB = 100 - percentageA
+      const percentageB = 100 - percentageA;
 
       this.setState({
         data: [
+          { name: 'Thời gian còn lại', value: percentageB }, // Thời gian còn lại đặt ở đầu
           { name: 'Thời gian đã đi', value: percentageA },
-          { name: 'Thời gian còn lại', value: percentageB },
         ],
       });
     }
@@ -42,31 +42,46 @@ class Test1 extends Component {
 
   render() {
     const { data } = this.state;
-
+    
+ 
+  
+   
+  
     return (
-      <ResponsiveContainer width='100%' height='100%'>
-        <PieChart width='100%' height='100%'>
-          <Pie
-            data={data}
-            dataKey="value"
-            cx="50%"
-            cy="50%"
-            innerRadius={60}
-            outerRadius={80}
-            fill="#8884d8"
-            paddingAngle={5}
-            isAnimationActive={false}
-            startAngle={90} // Bắt đầu từ vị trí 90 độ
-            endAngle={450} // Kết thúc tại vị trí 450 độ (90 + 360)
-          >
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={index === 0 ? '#FF5733' : '#34A853'} />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend />
-        </PieChart>
-      </ResponsiveContainer>
+      <div style={{ width: '100%', height: '100%' }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart width="100%" height="100%">
+            <Pie
+              width="100%"
+              height="100%"
+              data={data}
+              dataKey="value"
+              cx="50%"
+              cy="50%"
+              innerRadius="60%"
+              outerRadius="80%"
+              fill="#8884d8"
+              isAnimationActive={false}
+              startAngle={90} // Bắt đầu từ vị trí 90 độ
+              endAngle={450} // Kết thúc tại vị trí 450 độ (90 + 360)
+              labelLine={false} // Tắt đường dẫn đến nhãn
+            >
+              {data.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={index === 0 ? '#FF5733' : '#34A853'} />
+              ))}
+              {/* Hiển thị giá trị bên trong biểu đồ */}
+              <Label
+                value={"40%"} // Hiển thị giá trị data.value
+                position="center"
+                fill="#34A853"
+                fontSize={20}
+              />
+            </Pie>
+            <Tooltip />
+            <Legend />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
     );
   }
 }

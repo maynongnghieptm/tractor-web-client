@@ -1,18 +1,24 @@
 import { createStore, applyMiddleware, combineReducers} from 'redux';
-
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'
 //import rootReducer from './reducer/rootReducer';
 import thunk from 'redux-thunk';
-import authReducer from './reducer/Authreducer'; 
+import authStatusReducer from './reducer/Authreducer'; 
+
 const initialState = {
   socketData: [],
-  auth: {
-    isAdmin: false,
-  },
+ 
 };
 const MAX_DATA_COUNT = 1; // Giới hạn số lượng dữ liệu
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['authStatus'], // Lưu trữ bạn đã chọn
+};
 
 const rootReducer = combineReducers({
-  auth: authReducer, // Add authReducer here
+  
+  authStatus: authStatusReducer, // Add authStatusReducer here
   socketData: (state = initialState.socketData, action) => {
     switch (action.type) {
       case 'UPDATE_SOCKET_DATA':
@@ -22,39 +28,19 @@ const rootReducer = combineReducers({
         } else {
           // Xử lý hoặc gán giá trị mặc định tùy thuộc vào trường hợp cụ thể của bạn.
         }
-        return  newSocketData
+        return newSocketData;
       // ...
-   
-        
-        default:
-          return state;
+      default:
+        return state;
     }
   },
 });
-/*
-const rootReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'UPDATE_SOCKET_DATA':
-      const newSocketData = action.payload || [];
-      if (Array.isArray(state.socketData) && state.socketData.length > 0) {
-        newSocketData.unshift(...state.socketData.slice(0, MAX_DATA_COUNT - 1));
-      } else {
-        // Xử lý hoặc gán giá trị mặc định tùy thuộc vào trường hợp cụ thể của bạn.
-      }
 
-      return {
-        ...state,
-        socketData: newSocketData,
-      };
-    // ...
-    default:
-      return state;
-  }
-};
-*/
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 const store = createStore(
-  rootReducer,
+  persistedReducer ,
   applyMiddleware(thunk)
 );
+const persistor = persistStore(store);
 
-export default store;
+export { store, persistor };

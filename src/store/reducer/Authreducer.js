@@ -1,20 +1,11 @@
-// redux/authReducer.js
-
-const initialState = {
-    isAdmin: false,
+const authStatusReducer = (state = { isAdmin: false, isLoggedIn: false }, action) => {
+  switch (action.type) {
+    case 'SET_ADMIN':
+      return { ...state, isAdmin: action.isAdmin };
+    case 'SET_LOGGED_IN':
+      return { ...state, isLoggedIn: action.isLoggedIn };
+    default:
+      return state;
   }
-  
-  const authReducer = (state = initialState, action) => {
-    switch (action.type) {
-      case 'SET_IS_ADMIN':
-        return {
-          ...state,
-          isAdmin: action.payload,
-        };
-      default:
-        return state;
-    }
-  };
-  
-  export default authReducer;
-  
+};
+export default authStatusReducer

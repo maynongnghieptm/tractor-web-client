@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import { connect } from 'react-redux';
 
 class DualYAxisChart extends Component {
@@ -59,8 +59,8 @@ class DualYAxisChart extends Component {
         ...currentData,
         {
           date: time.toLocaleString(),
-          'Độ cao càng thực tế': newData.ctr_fed[11],
-          'Độ nghiêng dàn xới thực tế ': newData.ctr_fed[13],
+          'Độ nghiêng dàn xới mong muốn': newData.ctr_fed[12],
+          'Độ nghiêng dàn xới thực tế': newData.ctr_fed[13],
         },
       ];
     } else {
@@ -73,43 +73,28 @@ class DualYAxisChart extends Component {
 
     return (
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart
-          data={data}
-          margin={{
-            top: 0,
-            right: 0,
-            left: 0,
-            bottom: 0,
-          }}
-          padding={{
-            top: 0,
-            right: 0,
-            left: 0,
-            bottom: 0,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" hide />
-          <YAxis yAxisId="left" />
-          <YAxis yAxisId="right" orientation="right" />
-          <Tooltip />
-          <Legend />
-          <Line
-            yAxisId="left"
-            type="monotone"
-            dataKey="Độ cao càng thực tế"
-            stroke="green"
-            strokeWidth="2"
-            activeDot={{ r: 8 }}
-          />
-          <Line
-            yAxisId="right"
-            type="monotone"
-            dataKey="Độ nghiêng dàn xới thực tế"
-            stroke="red"
-            strokeWidth="2"
-          />
-        </LineChart>
+        <AreaChart width={730} height={250} data={data}
+  margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+  <defs>
+    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
+      <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
+    </linearGradient>
+    <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
+      <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
+    </linearGradient>
+  </defs>
+  <XAxis dataKey="name" />
+  <YAxis />
+  <CartesianGrid strokeDasharray="3 3" strokeWidth={1.5} />
+  <Tooltip />
+  <Area type="monotone" dataKey="Độ nghiêng dàn xới mong muốn" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
+  <Area type="monotone" dataKey="Độ nghiêng dàn xới thực tế" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+  <Legend/>
+</AreaChart>
+
+
       </ResponsiveContainer>
     );
   }

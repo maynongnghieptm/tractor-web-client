@@ -9,7 +9,7 @@ const styles = {
     justifyContent: "center",
     width: "100%",
     height: "100%",
-    backgroundColor: "#f0f0f0", // Light gray background
+    backgroundColor: "#040D12", // Light gray background
     borderRadius: "8px",
     boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow
   },
@@ -69,8 +69,7 @@ class Speedometer1 extends Component {
         <ReactSpeedometer
           maxValue={2500}
           minValue={0}
-          height={100}
-          width={200}
+          height="100%"
           value={this.state.data.value}
           needleTransition="easeQuadIn"
           needleTransitionDuration={1000}

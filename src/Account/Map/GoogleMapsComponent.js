@@ -41,10 +41,12 @@ class GoogleMapsComponent extends React.PureComponent {
     // Google Maps API is loaded, you can now access window.google.maps
     // Initialize your customIcon here
     const customIcon = {
+      
       url: '/tractor.png',
       scaledSize: new window.google.maps.Size(40, 40),
       origin: new window.google.maps.Point(0, 0), // origin
-      anchor: new window.google.maps.Point(20, 40)
+      anchor: new window.google.maps.Point(20, 20)
+
     };
 
     this.setState({ customIcon });
@@ -54,9 +56,12 @@ class GoogleMapsComponent extends React.PureComponent {
     const {yaw} = this.state
     if (this.props.socketData !== prevProps.socketData) {
       this.updatePositionAndPlans(this.props.socketData);
-     const rotation = document.querySelector('img')
+      const rotation = document.querySelector('img[src="/tractor.png"]');
+      //console.log(rotation)
+     //
         if(rotation){
-        //  rotation.style.transform = 'rotate(' + yaw + 'deg)';
+         
+          rotation.style.transform = 'rotate(' + yaw + 'deg)';
         }
     }
   }
@@ -86,7 +91,7 @@ class GoogleMapsComponent extends React.PureComponent {
   
         // Giới hạn số lượng phần tử trong positionArray
         let updatedPositionArray = [...this.state.positionArray, newPosition];
-        if (updatedPositionArray.length > 100) {
+        if (updatedPositionArray.length > 1000) {
           updatedPositionArray = updatedPositionArray.slice(1); // Xóa phần tử đầu tiên
         }
   
@@ -132,9 +137,9 @@ class GoogleMapsComponent extends React.PureComponent {
           <Polyline
             path={positionArray}
             options={{
-              strokeColor: '#FF0000',
-              strokeOpacity: 1,
-              strokeWeight: 1,
+              strokeColor: "#00FF00",
+        strokeOpacity: 1.0,
+        strokeWeight: 3,
             }}
           />
           <Polyline
@@ -142,12 +147,14 @@ class GoogleMapsComponent extends React.PureComponent {
             options={{
               strokeColor: 'blue',
               strokeOpacity: 1,
-              strokeWeight: 1,
+              strokeWeight: 3,
             }}
           />
 
           <Marker position={positionArray[positionArray.length - 1]}
-          // icon={customIcon}
+           icon={customIcon}
+           
+           
      // Sử dụng giá trị yaw để xoay biểu tượng} 
      />
 

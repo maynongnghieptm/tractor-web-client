@@ -1,0 +1,259 @@
+/* styles.css */
+
+.tab-tractor{
+  position: absolute;
+  left: 30px;
+  z-index: 1;
+}
+.list-tractor {
+   
+
+  
+  border: 3px solid white;
+  border-right: none;
+  background-color: #202126;
+  
+  overflow: scroll;
+}
+  .list{
+   border-top: 1px solid #ccc;
+   border-left: 1px solid #ccc;
+
+  }
+.tractor-item{
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+  justify-content: space-between;
+  border-right: 3px solid white;;
+}
+  .logo-img{
+    width: 24px;
+    height: 24px;
+    
+  }
+  
+  .list li{
+    border-bottom: 1px solid #ccc;
+  }
+  
+.segment-value {
+  display: none !important;
+}
+.pointer{
+  transform: translate(20,20);
+}
+.tractor-details {
+  color: aliceblue;
+  position: absolute;
+  
+  height: auto;
+  top:0;
+  left: 50%;
+
+  
+  z-index: 1;
+
+  border-radius: 5px;
+}
+.tab{
+  width: 60%;
+  font-size: 1.5rem;
+  background-color: #202126;
+  padding: 5px 5px 0 5px;
+  border-top-right-radius: 40px;
+ border-top-left-radius: 5px ;
+}
+
+.realtime-data{
+  background-color: #202126;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.sensor-data {
+  display: grid;
+  padding-top: 10px;
+ 
+ grid-template-rows: repeat(2, 1fr);
+ border: none;
+}
+.line{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+ 
+}
+.line-item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  
+  width: 100%;
+  height: 100px;
+ 
+}
+
+.column {
+  flex: 1;
+  padding: 10px;
+  
+  position: relative;
+   /* Đảm bảo mỗi cột trong hàng dưới không vượt quá 1/6 chiều rộng */
+}
+
+.icon-detail{
+
+  margin-bottom: 5px;
+
+}
+.item-child{
+  border-bottom: 1px solid #ccc;
+}
+circle{
+  stroke: none;
+  fill: none;
+}
+text{
+  fill: white;
+}
+.chart-container{
+  padding:  0 10px 0 10px;
+  margin-bottom: 10px;
+}
+.chart {
+  display: inline-block; /* Hiển thị các biểu đồ cùng một hàng */
+  margin-right: 5px; /* Khoảng cách giữa các biểu đồ */
+}
+.chart-label{
+  text-align: center;
+}
+.status-data {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Tạo 2 cột bằng cách lặp lại 1fr (1 fraction) */
+  gap: 10px; /* Khoảng cách giữa các ô */
+
+  
+}
+.column{
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+}
+.device-data {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Tạo 2 cột bằng cách lặp lại 1fr (1 fraction) */
+  gap: 10px; /* Khoảng cách giữa các ô */
+
+  
+}
+/* Add this CSS to your component's stylesheet */
+/* Add this CSS to your component's stylesheet */
+.list-tab {
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkbox-label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin-right: 3px; /* Add 3px spacing between checkboxes */
+}
+
+.checkbox-label input[type="checkbox"] {
+  appearance: none; /* Remove default checkbox styles */
+  -webkit-appearance: none; /* For Safari */
+  width: 100%; /* Take up the entire width of the parent */
+  height: 5px;
+ /* Add spacing between checkbox and label */
+   /* Add a border to the custom checkbox */
+  border-radius: 3px; /* Rounded corners */
+  outline: none; /* Remove outline on focus */
+  cursor: pointer; /* Change cursor on hover */
+  background-color: white; /* Set background color to white */
+  transition: background-color 0.2s ease; /* Add a transition for smooth color change */
+}
+
+/* Define styles for the checked state */
+.checkbox-label input[type="checkbox"]:checked::before {
+  content: ''; /* Empty content to hide the checkmark */
+  display: block;
+  width: 100%; /* Size of the checkmark */
+  height: 100%;
+  background-color:#2596be; /* Color of the checkmark when checked */
+  border-radius: 2px; /* Rounded checkmark */
+  /* Center the checkmark within the checkbox */
+  transition: background-color 0.2s ease; /* Add a transition for smooth color change */
+}
+
+/* Hover effect to highlight the entire checkbox */
+.checkbox-label:hover input[type="checkbox"] {
+  background-color: #f0f0f0; /* Change background color on hover */
+}
+
+/* Hover effect to highlight the entire checkbox when checked */
+.tab-list{
+  display: flex;
+  
+}
+.tab-all{
+  color: white;
+}
+.tab-standing{
+  color: #ffc107;
+}
+.tab-running{
+  color: #4aee40;
+}
+.tab-child{
+  background-color: #202126;
+  cursor: pointer;
+  width: 33%;
+  height: 40px;
+  border: 1px solid black ;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 8px;
+  overflow: hidden;
+  align-items: center;
+  text-align: center;
+
+}
+
+.choose{
+  background-color: white;
+  color: #202126;
+  border-top: 1px solid #ccc ;
+  border-right: 1px solid #ccc ;
+  border-left: 1px solid #ccc ;
+  border-bottom: none;
+}
+.tab-child input{
+  margin: 0;
+  border: none;
+ height: 100%;
+ width: 100%;
+}
+.sensor-value{
+  font-size: 0.7rem;
+}
+.same-height{
+  height: 20px;
+  display: flex;
+  align-items: center;
+  
+}
+.tractor-item-child{
+  text-align: center;
+}
+.parametter{
+
+
+  color: white;
+  padding: 2px;
+}

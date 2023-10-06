@@ -16,7 +16,7 @@ import AuthHeader from '../_common/AuthHeader'
 import AuthContent from '../_common/AuthContent'
 import authService from '_services/authService'
 import { useDispatch } from 'react-redux';
-import { setIsAdmin } from '../../store/actions/authActions'
+import { setIsAdmin, setIsLoggedIn } from '../../store/actions/authActions'
 
 const Login: React.FC = () => {
   const classes = useStyles()
@@ -24,11 +24,14 @@ const Login: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   const dispatch = useDispatch();
+  
   const handleLoginSubmit = (e: any) => {
     try{
+      
       e.preventDefault();
-      setIsLoggedIn(true)
+      //setIsLoggedIn(true)
       authService.logIn({ username, password})
         .then(result => {
          // console.log(result)
@@ -39,11 +42,21 @@ const Login: React.FC = () => {
                 .then(response => {
                  // console.log(response.data.data.role)
                   if(response.data.data.role=='USER'){
-                    dispatch(setIsAdmin(false))
+                    //dispatch(setIsLoggedIn(true));
+                    dispatch({ type: 'SET_ADMIN', isAdmin: false });
+
+// Thay đổi giá trị của isLoggedIn
+dispatch({ type: 'SET_LOGGED_IN', isLoggedIn: true })
+                  //  dispatch(setIsLoggedIn(true))
                    history.push('/user/dashboard')
                   } else if(response.data.data.role=='ADMIN')
-                  {dispatch(setIsAdmin(true))
-                    history.push('/administration')}
+                  {
+                    dispatch({ type: 'SET_ADMIN', isAdmin: true });
+
+                    // Thay đổi giá trị của isLoggedIn
+                    dispatch({ type: 'SET_LOGGED_IN', isLoggedIn: true })
+                    history.push('/administration')
+                  }
                   else{
                     console.log('Co loi xay ra')
                   }
@@ -84,7 +97,7 @@ const Login: React.FC = () => {
           required
           fullWidth
           id="username"
-          label="Username"
+          label="Tài khoản"
           name="username"
           autoComplete="username"
           autoFocus
@@ -96,7 +109,7 @@ const Login: React.FC = () => {
           required
           fullWidth
           name="password"
-          label="Password"
+          label="Mật khẩu"
           type="password"
           id="password"
           autoComplete="current-password"
@@ -114,17 +127,17 @@ const Login: React.FC = () => {
           className={classes.submit}
           onClick={handleLoginSubmit}
         >
-          Sign In
+          ĐĂNG NHẬP
         </Button>
         <Grid container>
           <Grid item xs>
             <Link component={RouterLink} to="/auth/recover" variant="body2">
-              Forgot password?
+              Quên mật khẩu?
             </Link>
           </Grid>
           <Grid item>
             <Link component={RouterLink} to="/auth/signup" variant="body2">
-              {"Don't have an account? Sign Up"}
+              Chưa có tài khoản? Đăng kí
             </Link>
           </Grid>
         </Grid>

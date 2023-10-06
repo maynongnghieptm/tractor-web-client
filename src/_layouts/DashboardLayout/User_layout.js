@@ -33,6 +33,7 @@ const DashboardLayout1 = ({ children }) => {
     if ((isDesktop && !isSidebarOpenDesktop) || isMobile) {
       return 0;
     } else if (isDesktop && isSidebarCollapsed) {
+      console.log(theme.sidebar.widthCollapsed)
       return theme.sidebar.widthCollapsed;
     } else {
       return theme.sidebar.width;
@@ -130,7 +131,7 @@ DashboardLayout1.propTypes = {
 const useStyles = makeStyles((theme) => ({
   dashboardContainer: {
     display: 'flex',
-    background: '#f5f5f5',
+    background: '#040D12',
   },
   headerContainer: {
     top: 0,

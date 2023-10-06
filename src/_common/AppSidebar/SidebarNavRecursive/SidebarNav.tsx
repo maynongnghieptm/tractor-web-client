@@ -58,26 +58,7 @@ const SidebarNav: React.FC<ISidebarNavProps> = (props) => {
    
   ]
 
-  const itemsTheme = [
-    // {
-    //   name: 'Why Modular?',
-    //   link: '/demo/features',
-    //   Icon: IconNewReleases,
-    //   IconClassName: classes.iconFeatures,
-    // },
-    {
-      name: 'Docs',
-      link: 'https://github.com/modularcode/modular-admin-react/blob/master/README.md',
-      Icon: IconLibraryBooks,
-      IconClassName: classes.iconDocs,
-    },
-    {
-      name: 'Discuss',
-      link: 'https://github.com/modularcode/modular-admin-react/discussions',
-      Icon: IconQuestionAnswer,
-      IconClassName: classes.iconDiscuss,
-    },
-  ]
+ 
 
   return (
     <div>

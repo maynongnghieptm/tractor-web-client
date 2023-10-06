@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  Area, AreaChart
 } from 'recharts';
 
 class SensorChart1 extends Component {
@@ -70,7 +71,7 @@ class SensorChart1 extends Component {
         {
           date: time.toLocaleString(),
           "Độ cao càng mong muốn": newData.ctr_fed[10],
-          "Độ nghiêng dàn xới mong muốn": newData.ctr_fed[12],
+          "Độ cao càng thực tế": newData.ctr_fed[11],
         },
       ];
     } else {
@@ -85,46 +86,28 @@ class SensorChart1 extends Component {
       <div style={{ width: '100%', height: '100%' }}>
         <div style={{ width: '100%', height: '100%' }}>
           <ResponsiveContainer>
-            <LineChart
-              width="100%"
-              height="100%"
-              data={data}
-              margin={{
-                top: 0,
-                right: 0,
-                left: 0,
-                bottom: 0,
-              }}
-              padding={{
-                top: 0,
-                right: 0,
-                left: 0,
-                bottom: 0,
-              }}
-            >
-              <CartesianGrid strokeDasharray="10 5 3 5" />
-              <XAxis dataKey="date" hide />
-              <YAxis />
-              <YAxis yAxisId="right" orientation="right" />
-              <Tooltip />
-              <Legend />
-              <Line
-                type="monotone"
-                dataKey="Độ cao càng mong muốn"
-                stroke="blue"
-                activeDot={{ r: 24 }}
-                strokeWidth="2"
-                
-              />
-              <Line
-                type="monotone"
-                dataKey="Độ nghiêng dàn xới mong muốn"
-                stroke="black"
-                activeDot={{ r: 24 }}
-                strokeWidth="2"
-              />
-              {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
-            </LineChart>
+          <AreaChart width={730} height={250} data={data}
+  margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+  <defs>
+    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
+      <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
+    </linearGradient>
+    <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
+      <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
+    </linearGradient>
+  </defs>
+  <XAxis dataKey="name" />
+  <YAxis />
+  <CartesianGrid strokeDasharray="3 3" strokeWidth={1.5} />
+  <Tooltip />
+  <Area type="monotone" dataKey="Độ cao càng mong muốn" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
+  <Area type="monotone" dataKey="Độ cao càng thực tế" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+  <Legend/>
+</AreaChart>
+
+
           </ResponsiveContainer>
         </div>
       </div>

@@ -3,27 +3,16 @@ import Grid from '@mui/material/Grid';
 import './layout.css'
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css"
-import './Grid.css'
 import GoogleMapsComponent from "Account/Map/GoogleMapsComponent";
-import GoogleMapsComponent1 from "../Map/test"
 import SensorChart from './Linechart3';
 import SensorChart1 from './Linechart1';
 import Speedometer from './Gaue'
 import DualYAxisChart from './Linechart2'
-import ApexChart1 from './Dounut1';
 import Speedometer1 from './Gaue2'
-import ApexChart3 from './Donut3'
-import ApexChart2 from './Donut2'
 import BasePageContainer from '_common/BasePageContainer/BasePageContainer';
 import BasePageToolbar from '_common/BasePageToolbar/BasePageToolbar';
-
 import { Provider } from 'react-redux';
 import SocketComponent from 'SocketComponent';
-
-import { colors } from '@material-ui/core';
-import DonutChart  from './Dounut1';
-import DonutChart1  from './Donut2';
-import DonutChart2  from './Donut3';
 import Test1 from './Test1'
 import Test2 from './Test2'
 import Test3 from './Test3'

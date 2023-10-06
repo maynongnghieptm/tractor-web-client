@@ -3,7 +3,7 @@
     height: 10px;
     width: 80%;
     border: 1px solid #ccc;
-    background: green;
+    background: red;
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
@@ -13,7 +13,7 @@
     height: 100%;
     position: absolute;
     top: 0;
-    background-color: #fafafa;
+    background-color: #040D12;
     min-width: 50%;
 
     overflow: hidden;
@@ -21,24 +21,24 @@
   
   .blind.right {
     left: 50%;
-    border-left: 1px solid white;
+    border-left: 1px solid #040D12;
     transform-origin: left top;  
     overflow: hidden;
   }
   
   .blind.left {
-    border-right: 1px solid white;
+    border-right: 1px solid #040D12;
     transform-origin: left top;
     overflow: hidden;
   }
   
 
   .progress-1{
-    background-color: red;
+    background-color: green;
 
   }
   .blind.progress-1 {
-    background-color: #fafafa;
+    background-color: #040D12;
     border-bottom: 0,5px solid #ccc;
   }
   .progress-2{
@@ -46,6 +46,7 @@
     
   }
   .blind.progress-2 {
-    background-color: #fafafa;
+    background-color: #040D12;
     border-top: 0,5px solid #ccc;
   }
+ 

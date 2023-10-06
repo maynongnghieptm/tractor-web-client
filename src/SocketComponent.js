@@ -8,7 +8,7 @@ const SocketComponent = ({ socketData, updateSocketData }) => {
     const socket = io('http://tractorserver.myddns.me:8000',  {
       extraHeaders: {
        // tractorid: '64e2241bf3ea921e3f7855bb',
-        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGRhZmRkMDAxM2U4OWU1YmYzNjk1OWIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2OTU2MDg5MDEsImV4cCI6MTY5NTc4MTcwMX0.bPF8z_gewp2NxRK45Tbql1Jcpjsn-LOgwn6Jr8YM-GY"
+        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGRhZmRkMDAxM2U4OWU1YmYzNjk1OWIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2OTYyMTI0NTAsImV4cCI6MTY5NjM4NTI1MH0.hReIc_qIhrXux2fCWTi6C3fig0ebmtHn2Bv9Ams-HtY"
       }
     });
   

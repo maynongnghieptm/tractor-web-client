@@ -2,6 +2,8 @@ html, body {
   width: 100%;
     margin: 0;
     padding: 0;
+    
+    
   }
 
 .grid-item {
@@ -22,8 +24,78 @@ html, body {
     }
   }
   
+.square {
+
+  position: relative;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.square span{
+ 
+  font-weight: 500;
+}
+.value{
+  font-size: 35px;
+}
+.barvalue{
+  font-size: 24px;
+}
+.icon{
+  position: absolute;
+
+  top: 10%; /* Đặt top là 10% của chiều cao màn hình */
+  left: 5%;
+  width: 55px;
+  height: 55px;
+  margin: 0;
+  padding: 0;
+  float: left; 
+}
+.hello-span {
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  margin: 0;
+  padding: 0;
+  float: right;/* Đặt .span ở bên phải .square */
+  /* Thêm padding để tạo khoảng cách từ cạnh */
+ 
+}
+.temperature-value{
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+
+}
+
+
+.square1{
+ 
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap:1px
+}
+
+
+.bar{
+  margin-left: 100px;
+}
+.gauge-chart{
+ 
+  border: 1px solid black;
+ 
+  border-radius: 5px;
+}
+
+
+
 .item{
-  border: 1px solid #ccc;
+  border: 1px solid black;
 }
 .item1{
   display: grid;
@@ -48,7 +120,7 @@ html, body {
 
 }
 .gauge{
-  border: 1px solid #ccc;
+  border: 1px solid black;
   border-radius: 5px;
 }
 .a4{
@@ -62,7 +134,7 @@ html, body {
 }
 .a3-item1 {
 
-  border: 1px solid #ccc;
+  border: 1px solid black;
   border-radius: 5px;
 }
 .a2-item2{
@@ -72,7 +144,7 @@ html, body {
 .a{
   display: grid;
  
-  border: 1px solid #ccc;
+  border: 1px solid black;
   border-radius: 5px;
 }
 .a3{
@@ -80,12 +152,12 @@ html, body {
  gap:2px
 }
 .donut{
-  border: 1px solid #ccc;
+  border: 1px solid black;
   border-radius: 5px;
 }
 .square{
   position: relative;
-  overflow: hidden;
+  
 
 }
 .barchar{
@@ -93,7 +165,7 @@ html, body {
   bottom: 0; /* Đặt .barchar ở dưới */
   left: 0; /* Đặt .barchar ở bên trái (có thể điều chỉnh theo ý muốn) */
   width: 100%; /* Đặt chiều rộng của .barchar là 100% để nó chiếm toàn bộ chiều rộng của .square */
-  height: calc(45%); 
+  height: calc(55%); 
 }
 @media (min-width: 768px) {
   .item1 {
@@ -124,15 +196,16 @@ html, body {
 }
 .a3-item2{
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap:1px
+  grid-template-columns: repeat(10, 1fr);
+  gap:1px;
+  color: white;
 }
 .a3-item2-chart{
   width: auto;
   height: auto;
 }
 .a5{
-  border: 1px solid #ccc;
+  border: 1px solid black;
   border-radius: 5px;
 }
 
@@ -193,13 +266,13 @@ html, body {
 }
 
 .item3{
-  border: 1px solid #ccc;
+  border: 1px solid black;
 }
 .item4{
-  border: 1px solid #ccc;
+  border: 1px solid black;
 }
 .a{
-  border: 1px solid #ccc;
+  border: 1px solid black;
   
   height: 100%;
 }
@@ -215,7 +288,7 @@ html, body {
   position: relative;
 }
 
-.progress-bar {
+.progress-engine {
   height: 100%;
   transition: width 1s ease-in-out;
 
@@ -244,6 +317,11 @@ button {
 
 .icon1 {
   position: absolute;
+
+  width: 55px;
+  height: 55px;
+  margin: 0;
+  padding: 0;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

@@ -10,11 +10,11 @@ import { Administration } from './Administration'
 import { Dashboard } from './Dashboard'
 import Layoutgrid from './Account/LiveData/Layout'
 import Login from './Auth/Login'
-import DonutRoad from './Account/LiveData/Donut'
 import DashboardLayout1 from './_layouts/DashboardLayout/User_layout'
 import Homepage from './Dashboard/Homepage'
 import { useSelector } from 'react-redux'
 import ErrPage from '_common/ErrPage/Unthori';
+import MapContainer from "./Administration/Dashboard/Dashboard";
 // Use different router type depending on configuration
 const AppRouterComponent: React.FC = ({ children }) => {
   return config.navigationType === 'history' ? (
@@ -25,8 +25,9 @@ const AppRouterComponent: React.FC = ({ children }) => {
 }
 
 const AppRouter: React.FC = () => {
-  const isAdmin = useSelector((state) => state.auth.isAdmin);
-  console.log(isAdmin)
+  const isAdmin = useSelector((state) => state.authStatus.isAdmin);
+  const isLoggedIn = useSelector((state) => state.authStatus.isLoggedIn)
+  console.log(isAdmin,isLoggedIn)
   return (
     <AppRouterComponent>
       <Switch>
@@ -62,6 +63,12 @@ const AppRouter: React.FC = () => {
     )
   }
 />
+<RouteWithLayout
+  path="/administration/dashboard"
+  component={MapContainer}
+  layout={DashboardLayout} // Đổi layout tùy theo yêu cầu của bạn
+/>
+
         <RouteWithLayout
           path={`/user/account/profile`}
           component={Profile}

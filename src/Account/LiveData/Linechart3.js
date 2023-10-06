@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  Area, AreaChart
 } from "recharts";
 
 class SensorChart extends Component {
@@ -67,55 +68,38 @@ class SensorChart extends Component {
   }
 
   render() {
+    const {data} = this.state
     return (
       
           <ResponsiveContainer width='100%'
           height='100%'>
-            <LineChart
-              
-              data={this.state.data}
-              margin={{
-                top: 0,
-                right: 0,
-                left: 0,
-                bottom: 0,
-              }}
-              padding={{
-                top: 0,
-                right: 0,
-                left: 0,
-                bottom: 0,
-              }}
-            >
-              <CartesianGrid strokeDasharray="10 5 3 5" />
-              <XAxis dataKey="date" hide />
-              <YAxis  />
-          <YAxis yAxisId="right" orientation="right" />
+           <AreaChart width={730} height={250} data={data}
+  margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+  <defs>
+    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
+      <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
+    </linearGradient>
+    <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
+      <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
+    </linearGradient>
+    <linearGradient id="colorPc" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="5%" stopColor="#a63333" stopOpacity={0.8}/>
+      <stop offset="95%" stopColor="#a63333" stopOpacity={0}/>
+    </linearGradient>
+  </defs>
+  <XAxis dataKey="name" />
+  <YAxis />
+  <CartesianGrid strokeDasharray="3 3"  stroke="#ccc"/>
+  <Tooltip />
+  <Area type="monotone" dataKey="yaw" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
+  <Area type="monotone" dataKey="pitch" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+  <Area type="monotone" dataKey="roll" stroke="#a63333" fillOpacity={1} fill="url(#colorPc)" />
+  <Legend/>
+</AreaChart>
 
-              <Tooltip />
-              <Legend layout="vertical" align="right" verticalAlign="middle" />
-              <Line
-                type="monotone"
-                dataKey="raw"
-                stroke="green"
-                activeDot={{ r: 24 }}
-                strokeWidth="2"
-              />
-              <Line
-                type="monotone"
-                dataKey="pitch"
-                stroke="red"
-                activeDot={{ r: 24 }}
-                strokeWidth="2"
-              />
-              <Line
-                type="monotone"
-                dataKey="roll"
-                stroke="blue"
-                activeDot={{ r: 24 }}
-                strokeWidth="2"
-              />
-            </LineChart>
+
           </ResponsiveContainer>
       
     );

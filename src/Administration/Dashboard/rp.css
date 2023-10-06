@@ -1,0 +1,70 @@
+@media (min-width: 992px) { 
+    .tab-tractor{
+        top: 20%;
+      }
+    .list-tractor {
+        width: 400px;
+        height: 400px;
+      }
+      .tractor-details {
+        font-size: 8px;
+        width: 300px;
+       
+ 
+      }
+      .parametter{
+        width: 80px;
+        height: 60px;
+      }
+      .icon-detail{
+        width: 24px;
+        height: 24px;
+        
+      }
+      .sensor-data {
+        
+       height: 120px;
+      }
+      .working-bar-detail{
+        height: 7px;
+      }
+      .work-progress{
+        margin-bottom: 5px;
+      }
+ }
+
+ @media (min-width: 2000px){
+    .tab-tractor{
+        top: 30%;
+      }
+    .list-tractor {
+        width: 400px;
+        height: 600px;
+      }
+      .tractor-details {
+        font-size: 14px;
+        width: 400px;
+       
+ 
+      }
+      .parametter{
+        width: 120px;
+        height: 100px;
+      }
+      .icon-detail{
+        width: 40px;
+        height: 40px;
+
+      
+      }
+      .sensor-data {
+     
+        height: 200px;
+       }
+       .working-bar-detail{
+        height: 10px;
+      }
+      .work-progress{
+        margin-bottom: 10px;
+      }
+ }
