@@ -10,18 +10,16 @@ function Footer() {
             <div className='footer-container'>
                 <div className='up'>
                 <Hidden mdUp>
-                    {/* Hiển thị trên điện thoại (kích thước màn hình nhỏ hơn hoặc bằng "md") */}
                     <Typography variant="body1" className='footer-item'>
                         <div className='subscribe'>
                             Đăng kí nhận tin
                             <ul>
-                                <li><input type="text" placeholder="Email của bạn" style={{ padding: '10px', width: '100px', fontSize: '1rem' }} /></li>
-                                <li> <button type="button" >Đăng kí</button></li>
+                                <li><input type="text" placeholder="Email của bạn" style={{ padding: '10px', width: '300px', fontSize: '1rem' }} /></li>
+                                <li> <button type="button" style={{margin:"0"}}>Đăng kí</button></li>
                             </ul>
-
                         </div>
-                    </Typography>
-
+                    </Typography>                            
+                   
                 </Hidden>
                 <Hidden mdDown>
                     <Typography variant="body1" className='footer-item'>
@@ -54,14 +52,14 @@ function Footer() {
                             Đăng kí nhận tin
                             <ul>
                                 <li><input type="text" placeholder="Email của bạn" style={{ padding: '10px', width: '250px', fontSize: '1rem' }} /></li>
-                                <li> <button type="button" >Đăng kí</button></li>
+                                <li> <button type="button" style={{margin:"0"}}>Đăng kí</button></li>
                             </ul>
-
                         </div>
                     </Typography>
                 </Hidden>
                 </div>
 
+                <Hidden mdDown>
                 <div className='signature' style={{ color: 'darkgray' }}>
                     <div className='author'>
                         <Typography variant="body1" align="center">
@@ -73,8 +71,22 @@ function Footer() {
                         <div className='maintance' style={{ paddingLeft: '20px' }}>Điều khoản sử dụng</div>
                     </div>
                 </div>
+                </Hidden>
+                 
+                <Hidden mdUp>
+                <div className='signature' style={{ color: 'darkgray', flexWrap: "wrap" }}>
+                    <div className='author' style={{flexBasis:'100%'}}>
+                        <Typography variant="body1" align="center">
+                            © {new Date().getFullYear()} Designed by SMS Teams.
+                        </Typography>
+                    </div>
+                    <div className='license' style={{ display: 'flex', flexDirection: 'row', marginTop:'10px' }}>
+                        <div className='fix' style={{ paddingRight: '20px', borderRight: '1px solid darkgray' }}>Dịch vụ sửa chữa bảo hành</div>
+                        <div className='maintance' style={{ paddingLeft: '20px' }}>Điều khoản sử dụng</div>
+                    </div>
+                </div>
+                </Hidden>
             </div>
-
         </Box>
     );
 }

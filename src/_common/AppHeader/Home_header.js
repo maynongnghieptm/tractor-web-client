@@ -24,8 +24,8 @@ function Header() {
   };
   const headerStyle = {
     display: 'flex',
-    justifyContent: 'space-between', // Các mục header sẽ được căn đều
-    alignItems: 'center', // Căn giữa dọc cho các mục header
+    justifyContent: 'space-between', 
+    alignItems: 'center',
 
   };
   const menuItemStyle = {
@@ -38,27 +38,26 @@ function Header() {
     borderRadius: '10px',
     background: 'white',
     color: 'black',
-    transform: isHeaderHidden ? 'translateY(-120%)' : 'translateY(0)', // Ẩn hoặc hiển thị AppBar
-    transition: 'transform 0.5s ease', // Thêm hiệu ứng mượt mà
-    // Đổi con trỏ chuột thành bàn tay khi di chuột qua
+    transform: isHeaderHidden ? 'translateY(-200%)' : 'translateY(0)',
+    transition: 'transform 0.5s ease', 
   };
+  if (window.innerWidth < 900) {
+    menuItemStyle.transform = isHeaderHidden ? 'translateY(0)' : 'translateY(0)';
+ 
+  }
   useEffect(() => {
     const handleWheel = (event) => {
       if (event.deltaY > 0) {
-        // Cuộn chuột xuống
-        console.log(event.deltaY )
+        //console.log(event.deltaY )
         setIsmousedown(true)
 
       } else if (event.deltaY < 0) {
-        // Cuộn chuột lên
-        //setIsHeaderHidden(false)
-        console.log(event.deltaY )
+        //console.log(event.deltaY )
         setIsmousedown(false)
 
       }
     };
     window.addEventListener('wheel', handleWheel);
-
     return () => {
       window.removeEventListener('wheel', handleWheel);
     };
@@ -83,7 +82,6 @@ function Header() {
   };
 
   const handleMouseEnter = (event) => {
-    // Xóa bất kỳ setTimeout hiện tại nếu có
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
@@ -92,10 +90,9 @@ function Header() {
   };
 
   const handleMouseLeave = () => {
-    // Tạo một setTimeout để kiểm tra xem chuột có rời khỏi mục không
     timerRef.current = setTimeout(() => {
       setPopoverOpen(false);
-    }, 100); // Sau 100ms, đóng Popover nếu chuột đã rời khỏi mục
+    }, 100); 
   };
   const handleSignin = () => {
     history.push('/auth/login')
@@ -120,14 +117,11 @@ function Header() {
             Logo
           </Typography>
           <Hidden mdUp>
-            {/* Hiển thị trên điện thoại (kích thước màn hình nhỏ hơn hoặc bằng "md") */}
             <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer}>
               <MenuIcon />
             </IconButton>
-
           </Hidden>
           <Hidden mdDown>
-            {/* Hiển thị trên desktop (kích thước màn hình lớn hơn "sm") */}
             <Typography variant="subtitle1" className='app-bar-item homepage'>
               TRANG CHỦ
             </Typography>
@@ -159,6 +153,7 @@ function Header() {
                       vertical: 'top',
                       horizontal: 'left',
                     }}
+                    style={{zIndex:'2001'}}
                   >
                     <MenuItem onClick={handleSignin}>Đăng nhập</MenuItem>
                     <MenuItem onClick={handleSignup}>Đăng ký</MenuItem>
@@ -169,7 +164,7 @@ function Header() {
           </Hidden>
 
         </Toolbar>
-        <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer} style={{ width: '80%', zIndex: 1100 }} disableScrollLock={ true }>
+        <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer} style={{ width: '80%', zIndex: 2100 }} disableScrollLock={ true }>
         <Toolbar style={{ background: 'darkgray' }}>
           <Typography variant="h6" >
             Logo
@@ -195,16 +190,15 @@ function Header() {
       <Collapse in={isOpen} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItem button onClick={handleSignin}>
-            <LockOpenIcon /> {/* Đăng nhập */}
+            <LockOpenIcon />
             <ListItemText primary="Đăng nhập" />
           </ListItem>
           <ListItem button onClick={handleSignup}>
-            <HowToRegIcon /> {/* Đăng ký */}
+            <HowToRegIcon />
             <ListItemText primary="Đăng ký" />
           </ListItem>
         </List>
       </Collapse>
-          {/* Thêm các lựa chọn khác tại đây */}
         </List>
       </Drawer>
       </AppBar>

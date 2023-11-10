@@ -3,10 +3,9 @@ import DEGEngine from './Steerbar'
 import Image from "material-ui-image";
 import EngineBar from './Enginebar';
 import GearBar from './Gear';
-import { connect } from 'react-redux';
 const Sensor = ( data ) => {
   const imageStyle = {
-    background: 'none', // Đặt nền thành không có nền
+    background: 'none', 
 
   };
   

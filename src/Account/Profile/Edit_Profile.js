@@ -1,4 +1,3 @@
-// EditProfileModal.js
 import React, { useState, useEffect, useRef } from 'react';
 import axios from '../../_config/AxiosConfig';
 import {
@@ -9,12 +8,10 @@ import {
  
 } from '@material-ui/core'
 import BorderColorIcon from '@mui/icons-material/BorderColor';
-// Create a separate CSS file for modal styles
 
 const EditProfileModal = ({ onClose }) => {
   const [changeEmail, setChangeEmail] = useState(true)
   const [data, setData] = useState({
-
     fullname: '',
     email: '',
     address: '',
@@ -38,7 +35,6 @@ const EditProfileModal = ({ onClose }) => {
       });
   }, []);
   const handleConfirmEdit = () => {
-    // Compare the current data with the initial data
     if (
       data.fullname !== initialData.current.fullname ||
       data.email !== initialData.current.email ||
@@ -57,23 +53,20 @@ const EditProfileModal = ({ onClose }) => {
         })
         .catch((error) => {
           console.error('Error saving user data:', error);
-          // Handle error
         });
     }
-
     onClose();
   };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (modalContentRef.current && !modalContentRef.current.contains(event.target)) {
-        onClose(); // Close the modal when clicking outside
+        onClose();
       }
     };
     const child = document.getElementById('profile')
     const parentElement = child.parentNode;
     parentElement.addEventListener('mousedown', handleClickOutside);
-
     return () => {
       parentElement.removeEventListener('mousedown', handleClickOutside);
     };
@@ -136,7 +129,6 @@ const EditProfileModal = ({ onClose }) => {
                     onClick={(e)=>{
                       setChangeEmail(!changeEmail)
                     }}
-  
                     edge="end"
                   >
                    <BorderColorIcon /> 

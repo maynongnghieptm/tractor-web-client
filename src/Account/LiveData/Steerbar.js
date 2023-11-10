@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import './loading.css'
-import { connect } from 'react-redux';
 
 const DEGEngine = (props) => {
-  const { data, id } = props; // Thêm id để xác định phần tử .blind tương ứng
+  const { data, id } = props;
 
   const easing = "cubic-bezier(0.5, 1, 0.89, 1)";
   const duration = 500;
@@ -15,7 +14,7 @@ const DEGEngine = (props) => {
   const [currentPercentageState, setCurrentPercentageState] = useState(0);
 
   const animate = (percentage) => {
-    const blindClass = `blind.${id}`; // Sử dụng id để xác định class của .blind
+    const blindClass = `blind.${id}`;
 
     let threshold = currentPercentageState / percentage < 0;
 
@@ -89,7 +88,7 @@ const DEGEngine = (props) => {
           iterationStart: Math.max(0, Math.abs(easeReversal(firstTravel))),
           iterations: Math.max(0, 1 - Math.abs(easeReversal(firstTravel))),
           delay: duration * Math.max(0, Math.abs(easeReversal(firstTravel))),
-          // Use Math.abs to ensure non-negative value
+
         }
       );
     }
@@ -98,7 +97,6 @@ const DEGEngine = (props) => {
   };
 
   useEffect(() => {
-    // Trigger the animation when the component mounts or when data changes
     animate(data);
   }, [data]);
 
@@ -110,8 +108,4 @@ const DEGEngine = (props) => {
     </div>
   );
 };
-
-
-
-
 export default DEGEngine;

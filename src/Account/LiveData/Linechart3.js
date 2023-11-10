@@ -1,11 +1,7 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
 import {
-  LineChart,
-  Line,
   YAxis,
   XAxis,
-  CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,

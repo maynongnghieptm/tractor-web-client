@@ -6,10 +6,9 @@ const GearBar = (props) => {
     const renderBars = () => {
         const bars = [];
         for (let i = 0; i < count; i++) {
-            // Determine the background color based on the value
             let backgroundColor = 'transparent';
             if (i <= value + min) {
-                backgroundColor =  'green'; // Set the color based on your condition
+                backgroundColor =  'green';
             }
             
             bars.push(

@@ -14,9 +14,7 @@ const ParentComponent = ()=> {
     });
 
     socket.on('logs', (newData) => {
-      // Update the socketData state with the new data
     // console.log(newData)
-     
       setSocketData(newData);
     });
 
@@ -26,9 +24,7 @@ const ParentComponent = ()=> {
   }, []);
 
   return (
-   
       <MapContainer1  data= {socketData} /> 
-   
   );
 }
 

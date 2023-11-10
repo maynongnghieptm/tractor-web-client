@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
-import { connect } from 'react-redux';
+import { XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
 
 class DualYAxisChart extends Component {
   constructor(props) {
@@ -12,18 +11,10 @@ class DualYAxisChart extends Component {
   }
 
   componentDidMount() {
-    // Thực hiện các tác vụ cần thiết sau khi component đã render
-    // Không cần kết nối socket ở đây nữa
-    // Thay vào đó, sử dụng socketData từ Redux
-    // Cập nhật biểu đồ bằng socketData
-
-    // Các logic xử lý socketData ở đây
     this.updateChartWithSocketData();
   }
 
   componentDidUpdate(prevProps) {
-    // Thực hiện các tác vụ cần thiết sau khi props hoặc state thay đổi
-    // Kiểm tra xem socketData đã thay đổi chưa trước khi cập nhật biểu đồ
     if (this.props.data !== prevProps.data) {
       this.updateChartWithSocketData();
     }
@@ -41,7 +32,7 @@ class DualYAxisChart extends Component {
 
   limitData(currentData, newData) {
     if (currentData.length >= 30) {
-      currentData.shift(); // Loại bỏ giá trị cũ
+      currentData.shift(); 
     }
 
     if (newData.ctr_fed && newData.ctr_fed.length >= 10) {
@@ -99,8 +90,4 @@ class DualYAxisChart extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  socketData: state.socketData,
-});
-
-export default connect(mapStateToProps)(DualYAxisChart);
+export default DualYAxisChart;

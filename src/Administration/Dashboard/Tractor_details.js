@@ -7,15 +7,14 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
     const [showSensor, setShowSensor] = useState(true);
     const [showSpeed, setShowSpeed] = useState(true);
     const [showStatus, setShowStatus] = useState(true);
-    const [showDevice, setShowDevice] = useState(true);
-    // Find the tractor data based on tractorId
+    const [showDevice, setShowDevice] = useState(true)
     const selectedTractorData = data.find(item => item.tractorId === tractorId);
    // console.log(selectedTractorData)
     if (!selectedTractorData) {
-        return null; // Handle the case where tractor data is not found
+        return null; 
     }
     const handleRemoveTractor = () => {
-        onRemove(tractorId); // Gọi hàm callback để xóa tractor
+        onRemove(tractorId);
         updateShowPasswordState(tractorId, false);
       };
     const handleCheckboxChange = (event) => {

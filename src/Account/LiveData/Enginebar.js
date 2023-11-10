@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
 const EngineBar = (props) => {
     const { value, id } = props;
  // console.log(value)
@@ -13,8 +11,5 @@ const EngineBar = (props) => {
     </div>
   );
 };
-
-
-
 
 export default EngineBar;

@@ -6,8 +6,6 @@ const Chart = (props)=>{
     const { tractorId } = props.match.params;
     const [data,setData] = useState(null)
     const token = localStorage.getItem("accessToken")
-    
-      // Gọi hàm lắng nghe sự kiện từ socket
       useEffect(()=>{
         const socket = io('http://tractorserver.myddns.me:8000',  {
             extraHeaders: {
@@ -16,18 +14,10 @@ const Chart = (props)=>{
             }
           });
           socket.on(`${tractorId}`, (log) => {
-            // Cập nhật dữ liệu từ socket vào Redux 
-           // console.log(log)
-          //
-         //   const payload = JSON.parse(data.logs);
-          //  console.log(payload)
-           // updateSocketData(payload);
            const parseData = JSON.parse(log.logs)
            //console.log(parseData)
            setData(parseData)
            return () => {
-            // Hủy lắng nghe khi component bị unmount
-            //console.log('aaaaaaaa')
             socket.off(`${tractorId}`);
           };
           });

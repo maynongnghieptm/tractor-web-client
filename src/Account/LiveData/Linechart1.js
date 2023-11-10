@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import {
-  LineChart,
-  Line,
   YAxis,
   XAxis,
-  CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
@@ -22,24 +18,15 @@ class SensorChart1 extends Component {
   }
 
   componentDidMount() {
-    // Thực hiện các tác vụ cần thiết sau khi component đã render
-    // Không cần kết nối socket ở đây nữa
-    // Thay vào đó, sử dụng socketData từ Redux
-    // Cập nhật biểu đồ bằng socketData
-
-    // Các logic xử lý socketData ở đây
     this.updateChartWithSocketData();
   }
 
   componentDidUpdate(prevProps) {
-    // Thực hiện các tác vụ cần thiết sau khi props hoặc state thay đổi
-    // Kiểm tra xem socketData đã thay đổi chưa trước khi cập nhật biểu đồ
     if (this.props.data !== prevProps.data) {
       this.updateChartWithSocketData();
     }
   }
 
-  // Cập nhật biểu đồ dựa trên socketData từ Redux
   updateChartWithSocketData = () => {
     const { data } = this.props;
 
@@ -52,7 +39,7 @@ class SensorChart1 extends Component {
 
   limitData(currentData, newData) {
     if (currentData.length >= 30) {
-      currentData.shift(); // Loại bỏ giá trị cũ
+      currentData.shift(); 
     }
 
     if (newData.ctr_fed && newData.ctr_fed.length >= 3) {
@@ -113,8 +100,5 @@ class SensorChart1 extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  socketData: state.socketData,
-});
 
-export default connect(mapStateToProps)(SensorChart1);
+export default SensorChart1;

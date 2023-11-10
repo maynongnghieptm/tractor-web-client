@@ -38,7 +38,7 @@ const Barometer = ({ id, value, tick, min, max,danger,to, height, width }) => {
           animation: {
             duration: 1000,
             easing: "out",
-          },// Bỏ hiển thị giá trị min và max
+          },
        
         }}
       />

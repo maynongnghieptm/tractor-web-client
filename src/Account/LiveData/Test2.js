@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
-import { PieChart, Pie, Legend, Tooltip, Cell, ResponsiveContainer, Label } from 'recharts';
+import { PieChart, Pie, Legend, Tooltip, Cell, ResponsiveContainer } from 'recharts';
 import { connect } from 'react-redux';
 
 class Test2 extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       data: [],
     };
   }
 
   componentDidMount() {
-    // Các logic xử lý socketData ở đây
     this.updateChartWithSocketData();
   }
 
@@ -57,8 +55,8 @@ class Test2 extends Component {
             fill="#8884d8"
            
             isAnimationActive={false}
-            startAngle={90} // Bắt đầu từ vị trí 90 độ
-            endAngle={450} // Kết thúc tại vị trí 450 độ (90 + 360)
+            startAngle={90} 
+            endAngle={450}
           >
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={index === 0 ? '#FF5733' : '#34A853'} />
@@ -74,8 +72,4 @@ class Test2 extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  socketData: state.socketData,
-});
-
-export default connect(mapStateToProps)(Test2);
+export default Test2;
