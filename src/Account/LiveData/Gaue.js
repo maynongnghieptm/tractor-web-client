@@ -44,17 +44,17 @@ class Speedometer extends Component {
     componentDidUpdate(prevProps) {
       // Thực hiện các tác vụ cần thiết sau khi props hoặc state thay đổi
       // Kiểm tra xem socketData đã thay đổi chưa trước khi cập nhật biểu đồ
-      if (this.props.socketData !== prevProps.socketData) {
+      if (this.props.data !== prevProps.data) {
         this.updateChartWithSocketData();
       }
     }
   
     updateChartWithSocketData = () => {
-      const { socketData } = this.props;
+      const { data } = this.props;
      // console.log(socketData)
-      if (socketData && socketData.ctr_fed && socketData.ctr_fed[0]) {
+      if (data && data.ctr_fed && data.ctr_fed[0]) {
         this.setState({
-          data: { name: "Egine Speed", value: socketData.ctr_fed[2] }
+          data: { name: "Egine Speed", value: data.ctr_fed[2] }
          
           
         });

@@ -3,14 +3,20 @@
     justify-content: space-between; /* Để căn giữa theo chiều ngang */
      /* Để canh lề giữa các văn bản bên trong item */
 
-    width: 80%;
+   
     height: 100%;
+    max-width: 1280px;
     margin: auto;
     /* Để căn giữa theo chiều dọc */
      /* Để đảm bảo footer có chiều cao 100% của parent */
      padding-bottom: 60px;
+     flex-direction: column;
   }
-  
+  .up{
+    display: flex;
+    justify-content: space-between;
+   
+  }
   .footer-item {
     margin: 0 20px; /* Để tạo khoảng cách giữa các item */
   }
@@ -36,8 +42,8 @@ li:hover{
     color: red;
 }
 .signature{
-  width: 80%;
-  margin: auto;
+  
+  
   padding-top: 15px;
   border-top: 1px solid darkgray;
   display: flex;

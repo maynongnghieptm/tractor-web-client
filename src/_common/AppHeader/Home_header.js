@@ -114,7 +114,7 @@ function Header() {
   return (
 
       
-      <AppBar position="static" style={menuItemStyle}>
+      <AppBar position="static" style={menuItemStyle} className='header'>
         <Toolbar style={headerStyle}>
           <Typography variant="h6" className='app-bar-item'>
             Logo

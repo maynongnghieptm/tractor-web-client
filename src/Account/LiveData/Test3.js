@@ -17,23 +17,23 @@ class Test3 extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.socketData !== prevProps.socketData) {
+    if (this.props.data !== prevProps.data) {
       this.updateChartWithSocketData();
     }
   }
 
   updateChartWithSocketData = () => {
-    const { socketData } = this.props;
+    const { data } = this.props;
 
-    if (socketData && socketData.sum && socketData.sum.length >= 2) {
-      const sum = socketData.sum;
+    if (data && data.sum && data.sum.length >= 2) {
+      const sum = data.sum;
       const total = sum[5] + sum[4];
       const percentageA = Math.floor((sum[5] / total) * 100);
       const percentageB = 100 - percentageA
 
       this.setState({
         data: [
-          
+
           { name: 'Nhiên liệu còn lại', value: percentageB },
           { name: 'Nhiên liệu đã dùng', value: percentageA },
         ],
@@ -43,7 +43,7 @@ class Test3 extends Component {
 
   render() {
     const { data } = this.state;
-    console.log(data)
+    //console.log(data)
     return (
       <ResponsiveContainer >
         <PieChart >
@@ -62,15 +62,9 @@ class Test3 extends Component {
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={index === 0 ? '#FF5733' : '#34A853'} />
             ))}
-            <Label
-                value={"67%"} // Hiển thị giá trị data.value
-                position="center"
-                fill="white"
-                fontSize={20}
-                fill="#34A853"
-              />
+           
           </Pie>
-          
+
           <Tooltip />
           <Legend />
         </PieChart>

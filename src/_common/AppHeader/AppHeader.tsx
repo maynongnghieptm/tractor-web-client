@@ -6,8 +6,6 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import IconMenu from '@material-ui/icons/Menu'
-
-import HeaderDemo from './AppHeaderDemoButtons'
 import HeaderProfile from './AppHeaderProfile'
 // import HeaderSearch from './AppHeaderSearch'
 // import HeaderNotifications from './AppHeaderNotifications'
@@ -33,7 +31,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ onToggleClick }) => {
         >
           <IconMenu />
         </IconButton>
-        <HeaderDemo />
+       
         <div className={classes.actions}>
           <HeaderProfile />
         </div>

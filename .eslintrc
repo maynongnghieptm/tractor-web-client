@@ -2,7 +2,7 @@
     "extends": "react-app",
     "plugins": ["prettier"],
     "rules": {
-      "prettier/prettier": "warn",
+      "prettier/prettier": [0],
       "import/no-anonymous-default-export": [0]
     }
   }

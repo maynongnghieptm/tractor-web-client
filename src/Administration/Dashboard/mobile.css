@@ -1,0 +1,94 @@
+.mobile-tab-tractor{
+    position: absolute;
+    z-index: 1;
+    top: 20%;
+}
+.mobile-list-tractor{
+    width: 300px;
+   height: 400px;
+
+    border-radius: 5px;
+    
+}
+.mobile-list-tractor{
+    display: flex;
+}
+.mobile-tab-item{
+    width: 33.33333%;
+   
+  border: 1px solid white;
+   
+   padding: 5px 5px 0 5px;
+   border-top-right-radius: 40px;
+  border-top-left-radius: 5px ;
+}
+.mobile-tab-item-standing{
+    color: #ffc107;
+}
+.mobile-tab-item-running{
+    color: #4aee40;
+}
+.mobile-list{
+    border: 2px solid white;
+       background-color: #202126;
+    
+    
+    
+}
+.mobile-list ul{
+  
+}
+.mobile-list li{
+    border-bottom: 1px solid #ccc;
+}
+.mobile-tractor-item{
+    padding: 0 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    height: auto;
+    width: 100%;
+    justify-content: space-between;
+}
+.tractorname{
+    text-align: center;
+    margin-right: 5px;
+    min-width:  60px;
+    max-width: 60px;
+}
+.mobile-item-child{
+    flex-basis: 10%
+}
+.mobile-command{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+.mobile-command-item{
+    width: 80px;
+    height: 30px;
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center;
+    border-radius: 5px;
+    background-color: #ccc;
+    color: darkgrey;
+    margin-bottom: 5px;
+}
+.continue{
+    background-color: #4aee40;
+    color: white;
+}
+.stop{
+    background-color: orange;
+    color: white;
+}
+.power-off{
+    background-color: red;
+    color: white;
+}
+.openchart{
+    background-color: #4aee40;
+    color: #202126;
+  }

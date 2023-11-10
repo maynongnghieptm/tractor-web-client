@@ -1,36 +1,28 @@
 import React, { MouseEvent } from 'react'
 import clsx from 'clsx'
-
-import { Link } from 'react-router-dom'
-
+import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import IconButton from '@material-ui/core/IconButton'
-import Avatar from '@material-ui/core/Avatar'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import Divider from '@material-ui/core/Divider'
 import IconArrowDropDown from '@material-ui/icons/ArrowDropDown'
-import IconProfile from '@material-ui/icons/AccountBox'
-import IconAccount from '@material-ui/icons/AccountBalance'
-import IconSettings from '@material-ui/icons/Settings'
 import IconLogout from '@material-ui/icons/ExitToApp'
 
 const AppHeaderProfile: React.FC = () => {
+  const history = useHistory()
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement>()
-  
-
   function handleClick(event: MouseEvent<HTMLButtonElement>) {
     setAnchorEl(event.currentTarget)
   }
-
   function handleClose() {
     localStorage.removeItem('accessToken')
     localStorage.removeItem('userId')
-
-    setAnchorEl(undefined)
+    history.push('/auth/login')
+    window.location.reload()
   }
 
   return (
@@ -44,8 +36,6 @@ const AppHeaderProfile: React.FC = () => {
         aria-haspopup="true"
         onClick={handleClick}
       >
-      
-       
         <IconArrowDropDown />
       </IconButton>
       <Menu
@@ -53,7 +43,7 @@ const AppHeaderProfile: React.FC = () => {
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
-        onClose={handleClose}
+        onClose={() => { setAnchorEl(undefined) }}
         elevation={1}
         getContentAnchorEl={null}
         anchorOrigin={{
@@ -64,15 +54,9 @@ const AppHeaderProfile: React.FC = () => {
           paper: classes.profileMenu,
         }}
       >
-        <MenuItem onClick={handleClose} component={Link} to="/profile">
-          <ListItemIcon className={classes.profileMenuItemIcon}>
-            <IconProfile />
-          </ListItemIcon>
-          <ListItemText primary="My Profile" />
-        </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose} component={Link} to="/auth/login">
-          <ListItemIcon className={classes.profileMenuItemIcon}>
+        <MenuItem onClick={handleClose} >
+          <ListItemIcon className={classes.profileMenuItemIcon} >
             <IconLogout />
           </ListItemIcon>
           <ListItemText primary="Logout" />

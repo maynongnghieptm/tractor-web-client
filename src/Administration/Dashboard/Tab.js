@@ -15,11 +15,12 @@ const styles = {
   }
 };
 
-const Barometer = ({ id, value, tick, min, max,danger,to }) => {
+const Barometer = ({ id, value, tick, min, max,danger,to, height, width }) => {
   return (
-    <div  className="parametter">
+   <div className="speeder">
       <Chart
-        height={120}
+        height={height}
+        width={width}
         chartType="Gauge"
         loader={<div></div>}
         data={[
@@ -42,7 +43,7 @@ const Barometer = ({ id, value, tick, min, max,danger,to }) => {
         }}
       />
       
-    </div>
+      </div>
   );
 };
 

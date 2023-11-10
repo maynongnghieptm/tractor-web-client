@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import VideoPlayer from "react-background-video-player";
 import BasePageContainer from "_common/BasePageContainer";
-import Dashboard from "../../Dashboard/Dashboard" 
+ 
 function Background_vid() {
   return (
 <div style={{ width: '100vw', height: '80vh' }}>

@@ -4,17 +4,22 @@
   position: absolute;
   left: 30px;
   z-index: 1;
+ 
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: #202126;
 }
 .list-tractor {
-   
-
-  
   border: 3px solid white;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  
   border-right: none;
   background-color: #202126;
-  
   overflow: scroll;
 }
+
   .list{
    border-top: 1px solid #ccc;
    border-left: 1px solid #ccc;
@@ -23,11 +28,12 @@
 .tractor-item{
   padding: 0 5px;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  height: 60px;
+  height: auto;
   width: 100%;
   justify-content: space-between;
-  border-right: 3px solid white;;
+  
 }
   .logo-img{
     width: 24px;
@@ -83,6 +89,7 @@
 .line{
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  margin-bottom: 10px;
  
 }
 .line-item{
@@ -133,6 +140,7 @@ text{
 }
 .chart-label{
   text-align: center;
+  margin-top: 7px;
 }
 .status-data {
   display: grid;
@@ -249,6 +257,7 @@ text{
   
 }
 .tractor-item-child{
+  flex-basis: 5%;
   text-align: center;
 }
 .parametter{
@@ -256,4 +265,23 @@ text{
 
   color: white;
   padding: 2px;
+}
+.btn-search{
+  border: none;
+  border-radius: 2px;
+  transition: transform 0.5s ease;
+  
+}
+.btn-search:hover{
+  transform: scale(1.1)
+  
+}
+.marker-rotate {
+  transform-origin: center center;
+  transform: rotate(0deg); /* Initialize with 0 degrees rotation */
+}
+
+.detail a {
+  text-decoration: none; /* Loại bỏ đường kẻ dưới chân của liên kết */
+  color: inherit; /* Sử dụng màu chữ giống với môi trường xung quanh */
 }

@@ -7,12 +7,12 @@
         height: 400px;
       }
       .tractor-details {
-        font-size: 8px;
-        width: 300px;
+        font-size: 12px;
+        width: 350px;
        
  
       }
-      .parametter{
+      .speeder{
         width: 80px;
         height: 60px;
       }
@@ -23,7 +23,7 @@
       }
       .sensor-data {
         
-       height: 120px;
+       height: auto;
       }
       .working-bar-detail{
         height: 7px;
@@ -47,7 +47,7 @@
        
  
       }
-      .parametter{
+      .speeder{
         width: 120px;
         height: 100px;
       }
@@ -59,7 +59,7 @@
       }
       .sensor-data {
      
-        height: 200px;
+        height: auto;
        }
        .working-bar-detail{
         height: 10px;

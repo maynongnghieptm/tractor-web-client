@@ -11,32 +11,27 @@ import {
   Button,
   IconButton, InputAdornment,
 } from '@material-ui/core'
-import { Link as RouterLink,useHistory } from 'react-router-dom'
-import {useState} from 'react'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
+import { useState } from 'react'
 import AuthContent from '../_common/AuthContent'
 import AuthHeader from '../_common/AuthHeader'
 
 const Signup: React.FC = () => {
   const classes = useStyles()
-  const history = useHistory()
   const [showPassword, setShowPassword] = useState(false);
- // ..const history = useHistory()
-  
- const [fullname, setFullname] = useState("");
- const [username, setUsername] = useState("");
- const [email, setEmail] = useState("");
- const [address, setAddress] = useState("");
- const [password, setPassword] = useState("");
- const [confirmPassword, setConfirmPassword]= useState("")
+  const [showCfPassword, setShowCfPassword] = useState(false);
+  const [fullname, setFullname] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [password, setPassword] = useState("");
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-   
     try {
-      // Gọi hàm signUp từ authService
-      const response = await authService.signUp({ fullname,username,email,address, password})
-     // 
-      console.log('Signup response:', response.data);     
+      const response = await authService.signUp({ fullname, username, email, address, password })
+      alert('Đăng kí thành công')
     } catch (error) {
+      alert('Lỗi khi đăng kí')
       console.error('Lỗi khi đăng ký:', error);
     }
   }
@@ -77,7 +72,7 @@ const Signup: React.FC = () => {
               id="email"
               label="Email Address"
               name="email"
-              
+
               autoComplete="email"
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -110,7 +105,6 @@ const Signup: React.FC = () => {
                     <IconButton
                       aria-label="toggle password visibility"
                       onClick={() => setShowPassword(!showPassword)}
-                      
                       edge="end"
                     >
                       {showPassword ? <Visibility /> : <VisibilityOff />}
@@ -127,27 +121,26 @@ const Signup: React.FC = () => {
               fullWidth
               name="confirmpassword"
               label="Confirm Password"
-              type={showPassword ? 'text' : 'password'}
+              type={showCfPassword ? 'text' : 'password'}
               id="confirmpassword"
-              
+
               onChange={(e) => setPassword(e.target.value)}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton
                       aria-label="toggle password visibility"
-                      onClick={() => setShowPassword(!showPassword)}
-                      
+                      onClick={() => setShowCfPassword(!showCfPassword)}
                       edge="end"
                     >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                      {showCfPassword ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
                   </InputAdornment>
                 ),
               }}
             />
           </Grid>
-        
+
           <Grid item xs={12}>
             <FormControlLabel
               control={<Checkbox value="allowExtraEmails" color="primary" />}
@@ -161,7 +154,6 @@ const Signup: React.FC = () => {
           variant="contained"
           color="primary"
           className={classes.submit}
-
           onClick={handleSubmit}
         >
           Sign Up

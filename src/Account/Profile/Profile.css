@@ -1,0 +1,104 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+   background-color: white;
+   max-width: 500px;
+   max-height: 800px;
+    width: 95%;
+    height: auto;
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    
+    
+  }
+  .user-profile{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+  }
+  .tractor-profile{
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+  }
+  .tractor-header{
+    text-align: center;
+  }
+  .profile-name{
+    font-weight: bolder;
+    text-align: center;
+    margin: 0 auto 0 auto;
+  }
+ .profile-item-header{
+    font-weight: bolder;
+    margin: 10px;
+ }
+.profile-item-child{
+    display: flex;
+    margin: 10px;
+}
+.title{
+   
+   width: 100px;
+}
+.value{
+    font-weight: bold;
+}
+.btn-profile{
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    width: 80%;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #ccc;
+    cursor: pointer;
+}
+.btn-profile:hover{
+    
+    transform: scale(1.1);
+}
+.edit-profile{
+    width: 95%;
+    height: 95%;
+    z-index: 1;
+    background-color: #ccc;
+    margin: auto
+}
+/* EditProfileModal.css */
+.edit-profile-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for the overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Make the modal appear on top of everything else */
+  }
+  
+  .edit-profile-content {
+    max-width: 500px;
+    max-height: 800px;
+    width: 95%;
+    height: auto;
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* Make the content inside the modal appear above the overlay */
+  }
+ 

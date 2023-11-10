@@ -1,8 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import { GoogleMap, LoadScript, Marker, Polyline } from '@react-google-maps/api';
-import { getDataFromRedux } from '../../store/actions/Socketaction';
-
 const containerStyle = {
   width: '100%',
   height: '100%',
@@ -41,7 +38,7 @@ class GoogleMapsComponent extends React.PureComponent {
     // Google Maps API is loaded, you can now access window.google.maps
     // Initialize your customIcon here
     const customIcon = {
-      
+
       url: '/tractor.png',
       scaledSize: new window.google.maps.Size(40, 40),
       origin: new window.google.maps.Point(0, 0), // origin
@@ -53,16 +50,15 @@ class GoogleMapsComponent extends React.PureComponent {
   };
 
   componentDidUpdate(prevProps) {
-    const {yaw} = this.state
-    if (this.props.socketData !== prevProps.socketData) {
-      this.updatePositionAndPlans(this.props.socketData);
+    const { yaw } = this.state
+    const data = this.props
+    if (this.props.data !== prevProps.data) {
+      this.updatePositionAndPlans(this.props.data);
       const rotation = document.querySelector('img[src="/tractor.png"]');
-      //console.log(rotation)
-     //
-        if(rotation){
-         
-          rotation.style.transform = 'rotate(' + yaw + 'deg)';
-        }
+      if (rotation) {
+
+        rotation.style.transform = 'rotate(' + yaw + 'deg)';
+      }
     }
   }
 
@@ -73,41 +69,41 @@ class GoogleMapsComponent extends React.PureComponent {
     });
   }
 
-  updatePositionAndPlans(socketData) {
-    if (socketData && socketData.ypr) {
-      if (socketData.llh && socketData.plans) {
+  updatePositionAndPlans(data) {
+    if (data && data.ypr) {
+      if (data.llh && data.plans) {
         const newPosition = {
-          lat: socketData.llh[0],
-          lng: socketData.llh[1],
+          lat: data.llh[0],
+          lng: data.llh[1],
         };
-  
+
         const plans = [];
-        for (let i = 0; i < socketData.plans.length; i += 2) {
+        for (let i = 0; i < data.plans.length; i += 2) {
           plans.push({
-            lat: socketData.plans[i],
-            lng: socketData.plans[i + 1],
+            lat: data.plans[i],
+            lng: data.plans[i + 1],
           });
         }
-  
+
         // Giới hạn số lượng phần tử trong positionArray
         let updatedPositionArray = [...this.state.positionArray, newPosition];
         if (updatedPositionArray.length > 1000) {
           updatedPositionArray = updatedPositionArray.slice(1); // Xóa phần tử đầu tiên
         }
-  
+
         this.setState((prevState) => ({
           positionArray: updatedPositionArray,
           plansArray: plans,
-          yaw: parseFloat(socketData.ypr[0]),
+          yaw: parseFloat(data.ypr[0]),
         }));
-  
+
         if (this.state.shouldUpdateMapCenter) {
           this.setMapCenter(newPosition);
         }
       }
     }
   }
-  
+
 
   setMapCenter = (newPosition) => {
     this.setState({
@@ -130,16 +126,16 @@ class GoogleMapsComponent extends React.PureComponent {
       customIcon,
       yaw
     } = this.state;
-  // / 
-      return (
+    // / 
+    return (
       <LoadScript googleMapsApiKey="AIzaSyDnLh_HYtNHAJhPQWb1RnGLhidH-Re07XM">
         <GoogleMap mapContainerStyle={containerStyle} center={mapCenter} zoom={20}>
           <Polyline
             path={positionArray}
             options={{
               strokeColor: "#00FF00",
-        strokeOpacity: 1.0,
-        strokeWeight: 3,
+              strokeOpacity: 1.0,
+              strokeWeight: 3,
             }}
           />
           <Polyline
@@ -152,11 +148,11 @@ class GoogleMapsComponent extends React.PureComponent {
           />
 
           <Marker position={positionArray[positionArray.length - 1]}
-           icon={customIcon}
-           
-           
-     // Sử dụng giá trị yaw để xoay biểu tượng} 
-     />
+            icon={customIcon}
+
+
+          // Sử dụng giá trị yaw để xoay biểu tượng} 
+          />
 
           <div
             style={{
@@ -181,8 +177,6 @@ class GoogleMapsComponent extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state) => ({
-  socketData: state.socketData,
-});
 
-export default connect(mapStateToProps)(GoogleMapsComponent);
+
+export default GoogleMapsComponent;

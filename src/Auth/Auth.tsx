@@ -1,19 +1,15 @@
 import React from 'react'
-import { Route, Redirect, match as Match } from 'react-router-dom' //
+import { Route, match as Match } from 'react-router-dom' //
 import { makeStyles } from '@material-ui/core/styles'
-
-import { Grid, Typography, Link, Box } from '@material-ui/core/'
-import { Link as RouterLink } from 'react-router-dom'
-
+import { Grid, Typography, Box } from '@material-ui/core/'
 import Login from './Login'
 import Signup from './Signup'
 import Recover from './Recover'
-import Reset from './Reset'
 import LogIn from './Login/Login'
+import Change_pass from './Recover/Change_password'
 const AuthFooter = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-    
     </Typography>
   )
 }
@@ -33,7 +29,7 @@ const Auth: React.FC<AuthProps> = ({ match }) => {
           <Route path={`${match.path}/login`} component={Login} />
           <Route path={`${match.path}/signup`} component={Signup} />
           <Route path={`${match.path}/recover`} component={Recover} />
-          <Route path={`${match.path}/reset`} component={Reset} />
+          <Route path={`${match.path}/changepassword`} component={Change_pass} />
           <Box mt={8}>
             <AuthFooter />
           </Box>

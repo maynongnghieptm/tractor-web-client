@@ -21,19 +21,13 @@ import { useHistory } from 'react-router-dom';
 
 const UserListPage: React.FC = () => {
   const history = useHistory();
-
   const [users, setUsers] = useState<User[]>([]);
   const [activeStatus, setActiveStatus] = useState<{ [key: string]: boolean }>({});
-  const [editingUserId, setEditingUserId] = useState<string | null>(null);
-  const [filterOption, setFilterOption] = useState('all'); // Default value for filtering
-  const [showAddUserTooltip, setShowAddUserTooltip] = useState(false); // State to control tooltip visibility
+  const [filterOption, setFilterOption] = useState('all');
   const [userTooltips, setUserTooltips] = useState<{ [key: string]: boolean }>({});
-
   const [tractorData, setTractorData] = useState<{ id: string; tractorid: string }[]>([]);
   const [selectedTractors, setSelectedTractors] = useState<string[]>([]);
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
   useEffect(() => {
-    // Fetch the tractor data here and update the state
     axios.get('/tractors')
       .then((response) => {
         const tractorList = response.data.data.map((item: any) => ({
@@ -47,7 +41,7 @@ const UserListPage: React.FC = () => {
       });
   }, []);
   useEffect(() => {
-    fetchUsers(filterOption); // Fetch users based on the selected filter
+    fetchUsers(filterOption);
   }, [filterOption]);
 
   const fetchUsers = (filter: string) => {
@@ -57,7 +51,6 @@ const UserListPage: React.FC = () => {
       headers: { 'Content-Type': 'application/json' }
     })
       .then(response => {
-        console.log(response.data)
         const userList: User[] = response.data.data.map((item: any) => ({
           id: item._id,
           fullname: item.fullname,
@@ -77,22 +70,20 @@ const UserListPage: React.FC = () => {
         console.error('Error fetching data:', error);
       });
   };
-  const toggleAddUserForm = () => {
-    setShowAddUserTooltip(!showAddUserTooltip); // Hide the tooltip when the form is shown
-    // ... Rest of your code
-  };
 
   const handleDeleteUser = (userId: string) => {
     axios.delete(`/users/${userId}`)
       .then(response => {
         const updatedUsers = users.filter(user => user.id !== userId);
         setUsers(updatedUsers);
+        alert('Delete complete')
       })
       .catch(error => {
+        alert("Error")
         console.error('Error deleting user:', error);
       });
   };
-  console.log(selectedTractors)
+
   const handleToggleActive = (userId: string) => {
     const updatedActiveStatus = { ...activeStatus };
     updatedActiveStatus[userId] = !updatedActiveStatus[userId];
@@ -101,9 +92,10 @@ const UserListPage: React.FC = () => {
     const newStatus = updatedActiveStatus[userId] ? 'confirm' : 'unconfirm';
     axios.patch(`/users/${newStatus}/${userId}`)
       .then(response => {
-        console.log(response);
+        alert('Update Complete')
       })
       .catch(error => {
+        alert('Error')
         console.error('Error updating active status:', error);
         setActiveStatus({ ...activeStatus });
       });
@@ -119,10 +111,8 @@ const UserListPage: React.FC = () => {
   const handleCheckboxChange = (tractorid: string) => {
     setSelectedTractors((prevSelectedTractors) => {
       if (prevSelectedTractors.includes(tractorid)) {
-        // If the tractor ID is already in the list, remove it
         return prevSelectedTractors.filter((id) => id !== tractorid);
       } else {
-        // If the tractor ID is not in the list, add it
         return [...prevSelectedTractors, tractorid];
       }
     });
@@ -138,12 +128,11 @@ const UserListPage: React.FC = () => {
 
       axios.patch('/users/assign-tractors-to-user', userDataToSend)
         .then(response => {
-          console.log('User data saved successfully:', response.data);
-          // Do something after successful save
+          alert('Assign Complete')
         })
         .catch(error => {
           console.error('Error saving user data:', error);
-          // Handle error
+          alert('Error')
         });
     }
   }
@@ -159,10 +148,6 @@ const UserListPage: React.FC = () => {
           <AddIcon />
         </IconButton>
       </div>
-
-
-      {/* Conditional rendering of the "Add User" form */}
-
 
       <div className="user-table-container">
         <Table className="user-table">
@@ -200,7 +185,7 @@ const UserListPage: React.FC = () => {
                   <TableCell>
                     <Tooltip disableTouchListener={false}
                       onClick={(e) => {
-                        e.stopPropagation(); // Prevent the click from propagating to the IconButton
+                        e.stopPropagation();
                       }}
                       arrow
                       style={{ backgroundColor: 'white' }}
@@ -237,17 +222,24 @@ const UserListPage: React.FC = () => {
                           </div>
                         </div>}
                       open={userTooltips[user.id] || false}
-
                       classes={{
-                        tooltip: 'custom-tooltip', // Add this class to the tooltip content
+                        tooltip: 'custom-tooltip',
                       }}
                     >
                       <IconButton
-                        onClick={() =>
+                        onClick={() => {
+                          axios.get(`/users/${user.id}`)
+                            .then(response => {
+                              setSelectedTractors(response.data.data.tractorList)
+                            })
+                            .catch(error => {
+                              console.log(error)
+                            })
                           setUserTooltips((prevState) => ({
                             ...prevState,
-                            [user.id]: !prevState[user.id], // Toggle the tooltip visibility for this user
+                            [user.id]: !prevState[user.id],
                           }))
+                        }
                         }
                       >
                         <AddIcon />
@@ -259,13 +251,11 @@ const UserListPage: React.FC = () => {
                     <IconButton onClick={() => handleDeleteUser(user.id)}>
                       <DeleteIcon />
                     </IconButton>
-
                   </TableCell>
                 </TableRow>
               )
             ))}
           </TableBody>
-
         </Table>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import { Link } from 'react-router-dom';
+
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
@@ -14,8 +14,9 @@ import IconProfile from '@material-ui/icons/AccountBox';
 import IconAccount from '@material-ui/icons/AccountBalance';
 import IconSettings from '@material-ui/icons/Settings';
 import IconLogout from '@material-ui/icons/ExitToApp';
-
+import { Link, useHistory } from "react-router-dom";
 const AppHeaderProfile = () => {
+  const history = useHistory();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -29,8 +30,17 @@ const AppHeaderProfile = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userId');
     setAnchorEl(null);
+    history.push("/auth/login");
+window.location.reload()
   }
+const handleCloseAndReload = () => {
+    // Đóng menu trước khi chuyển đến trang mới
+    handleClose();
 
+    // Sử dụng history để điều hướng đến trang mới và tải lại trang
+    
+   
+  };
   return (
     <div className={clsx('headerProfile', classes.headerProfile)}>
       <IconButton
@@ -64,7 +74,7 @@ const AppHeaderProfile = () => {
         
       
         <Divider />
-        <MenuItem onClick={handleClose} component={Link} to="/auth/login">
+        <MenuItem onClick={handleClose} component={Link} >
           <ListItemIcon className={classes.profileMenuItemIcon}>
             <IconLogout />
           </ListItemIcon>

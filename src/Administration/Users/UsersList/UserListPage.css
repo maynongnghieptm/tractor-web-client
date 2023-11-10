@@ -1,106 +1,111 @@
 .user-list-container {
-    display: flex;
-    flex-direction: column; /* Hiển thị dọc */
-    align-items: center; /* Căn giữa theo chiều ngang */
-    min-height: 100vh;
-    background-color: #f4f4f4;
-  }
-  
-  .user-table-container {
-    width: 100%; /* Đặt chiều rộng cho container */
-    padding: 20px;
-    z-index: 1;
-  }
-  
-  .user-table {
-    width: 100%; /* Đặt chiều rộng cho bảng */
-    border-collapse: collapse;
-    background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .user-table th,
-  .user-table td {
-    padding: 12px 16px;
-    text-align: left;
-  }
-  
-  .user-table th {
-    background-color: #f1f1f1;
-    font-weight: bold;
-  }
-  
-  .user-table td {
-    border-bottom: 1px solid #e0e0e0;
-  }
-  
-  .user-table tbody tr:hover {
-    background-color: #f9f9f9;
-  }
-  .user-table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.user-table-container {
+  width: 100%;
+  padding: 20px;
+  z-index: 1;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-table th,
+.user-table td {
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.user-table th {
+  background-color: #f1f1f1;
+  font-weight: bold;
+}
+
+.user-table td {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.user-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.user-table {
   table-layout: fixed;
   width: 100%;
 }
 
-.user-table th, .user-table td {
-  width: 150px; /* Adjust this value as needed */
-  white-space: nowrap; /* Prevent text wrapping */
-  overflow: hidden; /* Hide overflow content */
-  text-overflow: ellipsis; /* Show ellipsis (...) for overflow text */
+.user-table th,
+.user-table td {
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-  /* ... */
-  .filter-dropdown select {
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: white;
-    cursor: pointer;
-    outline: none;
-    transition: border-color 0.3s ease;
-  }
-  
-  .filter-dropdown select:hover {
-    border-color: #999;
-  }
-  
-  /* Adjust the width and appearance of the dropdown arrow */
-  .filter-dropdown select::-ms-expand {
-    display: none;
-  }
-  
-  /* Style for the user table */
-  .user-table {
-    table-layout: fixed;
-    width: 100%;
-  }
-  
-  .user-table th,
-  .user-table td {
-    width: 150px; /* Adjust this value as needed */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
 
-  .custom-tooltip {
-    z-index: 9999;
-    font-size: 16px; /* Increase the font size */
-    padding: 10px; /* Increase padding for more space */
-    pointer-events: auto; 
-    background-color:#f4f4f4 ;
-  }
-  .tooltip{
-    cursor: pointer;
-  }
-  .tittle{
-    z-index: 9999;
-    pointer-events: auto; 
-    display: flex;
-    flex-direction: column; /* Hiển thị dọc */
-    align-items: center; 
-    
-  }
-  .btn-asign{
-    align-items: center;
-  }
+.filter-dropdown select {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.filter-dropdown select:hover {
+  border-color: #999;
+}
+
+
+.filter-dropdown select::-ms-expand {
+  display: none;
+}
+
+
+.user-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.user-table th,
+.user-table td {
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.custom-tooltip {
+  z-index: 9999;
+  font-size: 16px;
+  padding: 10px;
+  pointer-events: auto;
+  background-color: #f4f4f4;
+}
+
+.tooltip {
+  cursor: pointer;
+}
+
+.tittle {
+  z-index: 9999;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.btn-asign {
+  align-items: center;
+}

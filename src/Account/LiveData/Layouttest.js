@@ -27,8 +27,9 @@ const Layoutgrid = React.memo(({data}) => {
   // Ví dụ: ngừng lặp lại sau 5 giây
 //console.log(data)
   return (
-    <div style={{height:'auto'}}>
- 
+    <div>
+   
+   
       <Grid container spacing={3}>
         <Grid item xs={12} className='item1'>
           <div className='a'>
@@ -42,8 +43,8 @@ const Layoutgrid = React.memo(({data}) => {
         <Grid item xs={12} className='item2'>
           <div className='a2'>
             <div className='a2-item1'>
-              <div className='gauge'>{/* */} <Barometer id="dial1" value={data?.ctr_fed[14]} tick={5} min={0} max={60} danger={50} to={60} height={"90%"} /></div>
-              <div className='gauge'>{/* */} <Barometer id="dial1" value={data?.ctr_fed[15]} tick={5} min={0} max={60} danger={50} to={60} height={"90%"} /></div>
+              <div className='gauge'>{/* */} <Barometer id="dial1" value={data?.ctr_fed[14]} tick={5} min={0} max={60} danger={50} to={60} height={300} /></div>
+              <div className='gauge'>{/* */} <Barometer id="dial1" value={data?.ctr_fed[15]} tick={5} min={0} max={60} danger={50} to={60} height={300} /></div>
             </div>
             <div className='a2-item2'>
               <div className='donut'>{/*<ApexChart1 /> */} <Test1 data= {data}/> </div>

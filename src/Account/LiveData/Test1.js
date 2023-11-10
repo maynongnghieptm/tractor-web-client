@@ -17,16 +17,16 @@ class Test1 extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.socketData !== prevProps.socketData) {
+    if (this.props.data !== prevProps.data) {
       this.updateChartWithSocketData();
     }
   }
 
   updateChartWithSocketData = () => {
-    const { socketData } = this.props;
+    const { data } = this.props;
 
-    if (socketData && socketData.sum && socketData.sum.length >= 2) {
-      const sum = socketData.sum;
+    if (data && data.sum && data.sum.length >= 2) {
+      const sum = data.sum;
       const total = sum[0] + sum[1];
       const percentageA = Math.floor((sum[0] / total) * 100);
       const percentageB = 100 - percentageA;
@@ -42,11 +42,11 @@ class Test1 extends Component {
 
   render() {
     const { data } = this.state;
-    
- 
-  
-   
-  
+
+
+
+
+
     return (
       <div style={{ width: '100%', height: '100%' }}>
         <ResponsiveContainer width="100%" height="100%">
@@ -70,12 +70,7 @@ class Test1 extends Component {
                 <Cell key={`cell-${index}`} fill={index === 0 ? '#FF5733' : '#34A853'} />
               ))}
               {/* Hiển thị giá trị bên trong biểu đồ */}
-              <Label
-                value={"40%"} // Hiển thị giá trị data.value
-                position="center"
-                fill="#34A853"
-                fontSize={20}
-              />
+              
             </Pie>
             <Tooltip />
             <Legend />

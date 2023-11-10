@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListSubheader from '@material-ui/core/ListSubheader'
-
+import { useSelector } from 'react-redux'
 import IconProfile from '@material-ui/icons/AccountBox'
 import IconAdmin from '@material-ui/icons/VpnKey'
 import IconDashboard from '@material-ui/icons/Dashboard'
@@ -30,34 +30,66 @@ export interface ISidebarNavProps {
 const SidebarNav: React.FC<ISidebarNavProps> = (props) => {
   const { isCollapsed } = props
   const classes = useStyles()
-
-  const itemsCore = [
-    {
-      name: 'Dashboard',
-      link: '/administration/dashboard',
-      Icon: IconDashboard,
-    },
-  
+  const isAdmin = useSelector((state) => state.authStatus.isAdmin);
+  console.log(isAdmin)
+  let itemsCore
+  if(isAdmin){
+     itemsCore = [
+      {
+        name: 'Dashboard',
+        link: '/administration/dashboard',
+        Icon: IconDashboard,
+      },
     
-    {
-      name: 'Administration',
-      Icon: IconAdmin,
-      items: [
-        {
-          name: 'Users',
-          link: '/administration/users',
-          Icon: IconGroup,
-        },
-        {
-          name: 'Tractors',
-          link: '/administration/tractors',
-          Icon: IconGroup,
-        }
-      ],
-    },
-   
-  ]
-
+      
+      {
+        name: 'Administration',
+        Icon: IconAdmin,
+        items: [
+          {
+            name: 'Users',
+            link: '/administration/users',
+            Icon: IconGroup,
+          },
+          {
+            name: 'Tractors',
+            link: '/administration/tractors',
+            Icon: IconGroup,
+          }
+        ],
+      },
+     
+    ]
+  
+  }else{
+     itemsCore = [
+      {
+        name: 'Dashboard',
+        link: '/account/Livedata',
+        Icon: IconDashboard,
+      },
+    
+      
+      {
+        name: 'Account',
+        Icon: IconAdmin,
+        items: [
+          {
+            name: 'Account Information',
+            link: '/account/profile',
+            Icon: IconGroup,
+          },
+          {
+            name: 'Setting',
+            link: 'account/settings',
+            Icon: IconGroup,
+          }
+        ],
+      },
+     
+    ]
+  }
+  
  
 
   return (

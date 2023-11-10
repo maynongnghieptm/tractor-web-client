@@ -1,25 +1,23 @@
+// Profile.js
 import React, { useState, useEffect } from 'react';
-import axios from '../../_config/AxiosConfig'
-import { IconButton, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
-
-import { Edit as EditIcon, Add as AddIcon, Delete as DeleteIcon, CheckCircle as CheckCircleIcon, Cancel as CancelIcon, Visibility as VisibilityIcon } from '@material-ui/icons';
-import Bar from '../LiveData/Steerbar'
+import axios from '../../_config/AxiosConfig';
+import './Profile.css';
+import EditProfileModal from './Edit_Profile'; // Import the modal component
+import {
+  Button,
+} from '@material-ui/core'
 const Profile = () => {
   const [user, setUser] = useState({
     username: '',
     fullname: '',
     email: '',
     address: '',
-  })
-  const userId = localStorage.getItem('userId')
-  const testData = [
-    { bgcolor: "#6a1b9a", completed: -30 },
-    { bgcolor: "#00695c", completed: 30 },
-    { bgcolor: "#ef6c00", completed: 53 },
-  ];
-  
+    tractorList: []
+  });
+
+  const userId = localStorage.getItem('userId');
+
   useEffect(() => {
-    // Đặt hàm fetchData là một hàm bất đồng bộ để gọi API
     const fetchData = async () => {
       try {
         const response = await axios.get(`/users/${userId}`, {
@@ -31,52 +29,75 @@ const Profile = () => {
             username: response.data.data.username,
             fullname: response.data.data.fullname,
             email: response.data.data.email,
-            address: response.data.data.address
+            address: response.data.data.address,
+            tractorList: response.data.data.tractorList
           });
         }
+        console.log(user.tractorList)
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
-    // Gọi fetchData khi component được mount
     fetchData();
   }, [userId]);
-    console.log(user)
-    return (
-      <div>
- <Bar /> 
-    {/* <Table className="user-table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Full Name</TableCell>
-            <TableCell>User Name</TableCell>
-            <TableCell>Email</TableCell>
-            <TableCell>Address</TableCell>
-            <TableCell>Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow>
-            <TableCell>{user.fullname}</TableCell>
-            <TableCell>{user.username}</TableCell>
-            <TableCell>{user.email}</TableCell>
-            <TableCell>{user.address}</TableCell>
-            <TableCell>
-                <IconButton>
-                  <EditIcon/>
-                 
-                </IconButton>
 
-            </TableCell> 
-          </TableRow>
-        </TableBody>
-      </Table> */}
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
 
+  const handleEditProfileClick = () => {
+    setIsEditProfileOpen(true);
+  };
+
+  return (
+    <div className='profile' id='profile'>
+      <div className='user-profile'>
+        <div className='profile-name'>
+          <h1>{user.fullname}</h1>
+        </div>
+        <div className='profile-item'>
+          <div className='profile-item-header'>User Information</div>
+          <div className='profile-item-child'>
+            <span className='title'>User name</span>
+            <span className='value'>{user.username}</span>
+          </div>
+          <div className='profile-item-child'>
+            <span className='title'>Address</span>
+            <span className='value'>{user.address}</span>
+          </div>
+          <div className='profile-item-child'>
+            <span className='title'>Email</span>
+            <span className='value'>{user.email}</span>
+          </div>
+        </div>
+
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          onClick={handleEditProfileClick}
+        >
+          Change Information
+        </Button>
+      </div>
+      <div className='tractor-profile'>
+        <div className='tractor-header'>
+          <h1>Your Tractor</h1>
+        </div>
+        <div className='profile-item-child'>
+          <ul style={{padding:"0"}}>
+            {user.tractorList.map((item, index) => (
+              <li key={index} style={{color: "black"}}>
+              <span className='value'>{item}</span>
+                
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      {isEditProfileOpen && <EditProfileModal onClose={() => setIsEditProfileOpen(false)} />}
     </div>
-    );
+  );
 };
- 
-
 
 export default Profile;

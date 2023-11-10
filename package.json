@@ -31,6 +31,7 @@
     "@material-ui/icons": "4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
     "@mui/icons-material": "^5.14.8",
+    "@mui/lab": "^5.0.0-alpha.151",
     "@mui/material": "^5.14.6",
     "@mui/styles": "^5.14.6",
     "@progress/kendo-drawing": "^1.18.0",

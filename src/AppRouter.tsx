@@ -7,15 +7,12 @@ import DashboardLayout from '_layouts/DashboardLayout'
 import Layout from '_layouts/DashboardLayout/Home_layout'
 import { Auth } from './Auth'
 import { Administration } from './Administration'
-import { Dashboard } from './Dashboard'
-import Layoutgrid from './Account/LiveData/Layout'
-import Login from './Auth/Login'
-import DashboardLayout1 from './_layouts/DashboardLayout/User_layout'
+import UserTracking from './Account/LiveData/index'
 import Homepage from './Dashboard/Homepage'
 import { useSelector } from 'react-redux'
 import ErrPage from '_common/ErrPage/Unthori';
-import MapContainer from "./Administration/Dashboard/Dashboard";
-// Use different router type depending on configuration
+import Chart from '../src/Administration/Dashboard/chart_tractor'
+
 const AppRouterComponent: React.FC = ({ children }) => {
   return config.navigationType === 'history' ? (
     <BrowserRouter>{children}</BrowserRouter>
@@ -25,9 +22,8 @@ const AppRouterComponent: React.FC = ({ children }) => {
 }
 
 const AppRouter: React.FC = () => {
-  const isAdmin = useSelector((state) => state.authStatus.isAdmin);
-  const isLoggedIn = useSelector((state) => state.authStatus.isLoggedIn)
-  console.log(isAdmin,isLoggedIn)
+  const isAdmin = useSelector((state: any) => state.authStatus.isAdmin);
+  const isLoggedIn = useSelector((state: any) => state.authStatus.isLoggedIn)
   return (
     <AppRouterComponent>
       <Switch>
@@ -38,53 +34,47 @@ const AppRouter: React.FC = () => {
           component={Homepage}
           layout={Layout}
         />
-         <RouteWithLayout
+        <RouteWithLayout
           exact
-          path={`/user/dashboard`}
-          component={Layoutgrid}
-          layout={DashboardLayout1}
-        />
-        {/* */}
-       <Route
-  path="/administration"
-  render={() =>
-    isAdmin ? (
-      <RouteWithLayout
-        path="/administration"
-        component={Administration}
-        layout={DashboardLayout}
-      />
-    ) : (
-      <Route
-        path="/administration"
-        component={ErrPage} // Component lỗi (thay thế ErrorComponent bằng tên thực tế của component bạn muốn hiển thị)
-
-      />
-    )
-  }
-/>
-<RouteWithLayout
-  path="/administration/dashboard"
-  component={MapContainer}
-  layout={DashboardLayout} // Đổi layout tùy theo yêu cầu của bạn
-/>
-
-        <RouteWithLayout
-          path={`/user/account/profile`}
-          component={Profile}
-          layout={DashboardLayout1}
-        />
-        <RouteWithLayout
           path={`/user/account/Livedata`}
-          component={Layoutgrid}
-          layout={DashboardLayout1}
+          component={UserTracking}
+          layout={DashboardLayout}
+        />
+        <Route
+          path="/administration"
+          render={() =>
+            isAdmin ? (
+              <RouteWithLayout
+                path="/administration"
+                component={Administration}
+                layout={DashboardLayout}
+              />
+            ) : (
+              <Route
+                path="/administration"
+                component={ErrPage}
+              />
+            )
+          }
+        />
+        <Route path="/dashboard/:tractorId" component={Chart} />
+
+        <RouteWithLayout
+          path={`/account/profile`}
+          component={Profile}
+          layout={DashboardLayout}
         />
         <RouteWithLayout
-          path={`/user/settings`}
-          component={() => null}
-          layout={DashboardLayout1}
+          path={`/account/Livedata`}
+          component={UserTracking}
+          layout={DashboardLayout}
         />
- 
+        <RouteWithLayout
+          path={`/account/settings`}
+          component={() => null}
+          layout={DashboardLayout}
+        />
+
       </Switch>
     </AppRouterComponent>
   )
