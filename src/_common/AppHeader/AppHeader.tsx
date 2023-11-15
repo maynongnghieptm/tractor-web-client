@@ -1,6 +1,5 @@
 import React, { memo } from 'react'
 import clsx from 'clsx'
-
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -12,10 +11,10 @@ import HeaderProfile from './AppHeaderProfile'
 
 export type AppHeaderProps = {
   onToggleClick(): void
-}
+} 
 
 const AppHeader: React.FC<AppHeaderProps> = ({ onToggleClick }) => {
-  console.log('AppHeader rendered')
+ // console.log('AppHeader rendered')
 
   const classes = useStyles()
 

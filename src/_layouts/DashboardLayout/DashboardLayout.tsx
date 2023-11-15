@@ -5,14 +5,11 @@ import { makeStyles, useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Drawer from '@material-ui/core/Drawer'
 import Hidden from '@material-ui/core/Hidden'
-
 import AppHeader from '../../_common/AppHeader'
 import AppFooter from '../../_common/AppFooter'
 import AppSidebar from '../../_common/AppSidebar'
-
 const DashboardLayout: React.FC = ({ children }) => {
   const refHeaderContainer = useRef<HTMLDivElement>(null)
-
   const classes = useStyles()
   const theme = useTheme()
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'))

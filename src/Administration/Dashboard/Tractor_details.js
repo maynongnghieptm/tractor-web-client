@@ -183,15 +183,15 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
                             <div className="speed-data item-child">
                             <div className="chart-container" style={{ display: "flex", justifyContent: "space-between" }}>
                               <div className="chart">
-                                <Barometer  id="dial1" value={selectedTractorData.data.ctr_fed[15]} tick={5} min={0} max={60} danger={50} to={60}  />
+                                <Barometer  id="dial1" value={selectedTractorData.data.ctr_fed[15]} tick={5} min={0} max={60} danger={50} to={60} width={100} height={100} />
                                 <div className="chart-label" >Speed - km/h</div>
                               </div>
                               <div className="chart">
-                                <Barometer id="dial2" value={selectedTractorData.data.ctr_fed[3]} tick={10} min={0} max={2500}  danger={2300} to={2500}  />
+                                <Barometer id="dial2" value={selectedTractorData.data.ctr_fed[3]} tick={10} min={0} max={2500}  danger={2300} to={2500} width={100} height={100} />
                                 <div className="chart-label">Engine - rpm</div>
                               </div>
                               <div className="chart">
-                                <Barometer id="dial3" value={selectedTractorData.data.sen[1]} tick={5} min={0} max={100} danger={0} to={20}   />
+                                <Barometer id="dial3" value={selectedTractorData.data.sen[1]} tick={5} min={0} max={100} danger={0} to={20} width={100} height={100}  />
                                 <div className="chart-label">Fuel - lit</div>
                               </div>
                             </div>

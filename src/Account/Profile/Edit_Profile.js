@@ -45,7 +45,6 @@ const EditProfileModal = ({ onClose }) => {
         email: data.email,
         address: data.address,
       };
-
       axios
         .put(`/users/${localStorage.getItem('userId')}`, userDataToSend)
         .then((response) => {

@@ -277,7 +277,11 @@ html, body {
   .a3-item2{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap:1px
+    gap:1px;
+    color: white;
+  }
+  .square{
+    height: 100px;
   }
   .a5{
     width: auto;
@@ -289,9 +293,10 @@ html, body {
     grid-template-rows: 1fr
   }
   .a2-item2{
-    
+    height: 500px;
     grid-template-columns: 1fr;
   }
+ 
 }
 
 .item3{

@@ -9,11 +9,9 @@ import ParentComponent from './Dashboard/index'
 export type AdministrationRouteParams = {
   userId: string
 }
-
 export type AdministrationProps = {
   match: Match<AdministrationRouteParams>
 }
-
 const Administration: React.FC<AdministrationProps> = ({ match }) => {
   return (
     <>
@@ -23,7 +21,6 @@ const Administration: React.FC<AdministrationProps> = ({ match }) => {
       <Route exact path={`${match.path}/tractoredit/:tractorId`} component={TractorEditor} />
       <Route exact path={`${match.path}/create`} component={CreateUser} />
       <Route exact path={`${match.path}/dashboard`} component={ParentComponent} />
-
     </>
   )
 }

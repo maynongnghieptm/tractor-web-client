@@ -1,7 +1,6 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import './layout.css'
-
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css"
 import GoogleMapsComponent from "../Map/GoogleMapsComponent";
@@ -31,8 +30,8 @@ const Layoutgrid = React.memo(({data}) => {
         <Grid item xs={12} className='item2'>
           <div className='a2'>
             <div className='a2-item1'>
-              <div className='gauge'><Barometer id="dial1" value={data?.ctr_fed[14]} tick={5} min={0} max={60} danger={50} to={60} height={"90%"} /></div>
-              <div className='gauge'><Barometer id="dial1" value={data?.ctr_fed[15]} tick={5} min={0} max={60} danger={50} to={60} height={"90%"} /></div>
+              <div className='gauge'><Barometer id="dial1" value={data?.ctr_fed[14]} tick={5} min={0} max={60} danger={50} to={60} height={"90%"} width={"90%"} /></div>
+              <div className='gauge'><Barometer id="dial1" value={data?.ctr_fed[15]} tick={5} min={0} max={60} danger={50} to={60} height={"90%"} width={"90%"}/></div>
             </div>
             <div className='a2-item2'>
               <div className='donut'><Test1 data= {data}/> </div>

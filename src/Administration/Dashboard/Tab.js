@@ -17,7 +17,7 @@ const styles = {
 
 const Barometer = ({ id, value, tick, min, max,danger,to, height, width }) => {
   return (
-   <div className="speeder">
+   
       <Chart
         height={height}
         width={width}
@@ -43,7 +43,7 @@ const Barometer = ({ id, value, tick, min, max,danger,to, height, width }) => {
         }}
       />
       
-      </div>
+     
   );
 };
 
