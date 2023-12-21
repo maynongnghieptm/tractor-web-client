@@ -1,0 +1,93 @@
+/* styles.css */
+.app-container {
+    text-align: center;
+  }
+  
+  .news-container {
+    width: 80%;
+    max-width: 720px;
+    margin: 0 auto;
+    border-bottom: 1px solid darkgray;
+    height: auto;
+    padding-bottom: 10px;
+    position: relative;
+  }
+  .news-container .title-row h1 {
+    text-decoration: none; /* Loại bỏ gạch dưới chữ mặc định */
+    cursor: pointer; /* Đổi con trỏ khi hover để chỉ ra tính tương tác */
+  }
+  
+  .news-container .title-row h1:hover {
+    text-decoration: underline; /* Thêm gạch dưới khi hover */
+  }
+  .title-row {
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+  }
+  .title-row h1{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #3469A6;
+    font-size: 24px;
+
+
+  } 
+  .editIcon{
+    display: flex;
+    justify-content: space-between;
+    margin-left: auto;
+    color: darkgray;
+    transition: transform 0.2s ease;
+}
+
+  .editIcon div:hover {
+    transform: scale(1.2); /* Kích thước tăng lên 1.2 khi hover */
+  }
+  .title-row::hover{
+    text-decoration: underline;
+    
+  }
+  .content-row {
+    display: flex;
+   
+  }
+  .image-column {
+    flex: 0.5;
+    width: 300px;
+    height: 130px;
+    overflow: hidden; /* Ngăn chặn hình ảnh tràn khỏi khung cha */
+  }
+  
+  .image-column img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Đảm bảo ảnh đầy đủ khung và không bị méo */
+  }
+  .description-column {
+    flex: 1;
+    padding: 10px;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  .delete-confirmation{
+    margin: auto;
+  }
+  .confirmButton {
+    display: flex;
+  }
+  .btn_confirm{
+    width: 70px;
+  }
+  .confirmButton div{
+   margin: 0 20px 0 0;
+  }
+  .date{
+    color: darkgray;
+    position: absolute;
+  bottom: 0;
+  right: 0;
+  }
+  

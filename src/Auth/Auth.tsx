@@ -5,7 +5,6 @@ import { Grid, Typography, Box } from '@material-ui/core/'
 import Login from './Login'
 import Signup from './Signup'
 import Recover from './Recover'
-import LogIn from './Login/Login'
 import Change_pass from './Recover/Change_password'
 const AuthFooter = () => {
   return (

@@ -7,18 +7,19 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation  } from 'react-router-dom'
 import "./Home_header.css"
 function Header() {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [popoverOpen, setPopoverOpen] = useState(false);
+
   const timerRef = useRef(null);
   const [isHeaderHidden, setIsHeaderHidden] = useState(false);
   const [ismousedown, setIsmousedown] = useState(true)
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
+  const [path, setPath] = useState('')
+  const location = useLocation()
   const handleClick = () => {
     setIsOpen(!isOpen);
   };
@@ -71,27 +72,19 @@ function Header() {
     }
   }, [ismousedown]);
 //console.log(isHeaderHidden)
-  const handleMemberClick = (event) => {
-    setAnchorEl(event.currentTarget);
-    //setPopoverOpen(true);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-    setPopoverOpen(false);
-  };
+  
 
   const handleMouseEnter = (event) => {
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
     setAnchorEl(event.currentTarget)
-    setPopoverOpen(true);
+   
   };
 
   const handleMouseLeave = () => {
     timerRef.current = setTimeout(() => {
-      setPopoverOpen(false);
+
     }, 100); 
   };
   const handleSignin = () => {
@@ -108,9 +101,15 @@ function Header() {
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
-  return (
+  useEffect(() => {
+    // Update the activePage state based on the current location
+    const currentPath = location.pathname.substring(1); // Remove the leading '/'
+    setPath(currentPath)
+    //console.log(currentPath)
 
-      
+   // setActivePage(currentPath);
+  }, [location]);
+  return (
       <AppBar position="static" style={menuItemStyle} className='header'>
         <Toolbar style={headerStyle}>
           <Typography variant="h6" className='app-bar-item'>
@@ -122,10 +121,10 @@ function Header() {
             </IconButton>
           </Hidden>
           <Hidden mdDown>
-            <Typography variant="subtitle1" className='app-bar-item homepage'>
+            <Typography variant="subtitle1" className={`app-bar-item homepage ${path === '' ? 'active' : ''}`} onClick={()=>handleChangePage('')}>
               TRANG CHỦ
             </Typography>
-            <Typography variant="subtitle1" className='app-bar-item about-us'>
+            <Typography variant="subtitle1" className={`app-bar-item about-us ${path === 'about_us' ? 'active' : ''}`} onClick={()=>handleChangePage('about_us')}>
               VỀ CHÚNG TÔI
             </Typography>
             <Typography variant="subtitle1" className='app-bar-item product'>
@@ -174,7 +173,7 @@ function Header() {
           <ListItem button>
             <ListItemText primary="Trang chủ" />
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={()=>handleChangePage('about_us')}>
             <ListItemText primary="Về chúng tôi" />
           </ListItem>
           <ListItem button>

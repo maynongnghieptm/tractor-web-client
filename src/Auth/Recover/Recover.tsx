@@ -4,14 +4,13 @@ import { Link as RouterLink } from 'react-router-dom'
 import axios from '../../_config/AxiosConfig'
 import AuthContent from '../_common/AuthContent'
 import AuthHeader from '../_common/AuthHeader'
-import { error } from 'console'
+
 
 const Recover: React.FC = () => {
   const classes = useStyles()
   const [user, setUser] = useState('')
   const [checkUser, setCheckUser] = useState(false)
   const [email, setEmail] = useState('')
-  const [checkEmail, setCheckEmail] = useState(false)
   useEffect(() => {
     console.log(user)
   }, [user])
@@ -36,7 +35,7 @@ const Recover: React.FC = () => {
       .then((response) => {
 
         if (response.status === 200) {
-          setCheckEmail(true)
+     
           alert('Vui lòng kiểm tra email!')
         }
 

@@ -11,7 +11,7 @@ import {
   Button,
   IconButton, InputAdornment,
 } from '@material-ui/core'
-import { Link as RouterLink, useHistory } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 import { useState } from 'react'
 import AuthContent from '../_common/AuthContent'
 import AuthHeader from '../_common/AuthHeader'
@@ -28,7 +28,7 @@ const Signup: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      const response = await authService.signUp({ fullname, username, email, address, password })
+      await authService.signUp({ fullname, username, email, address, password })
       alert('Đăng kí thành công')
     } catch (error) {
       alert('Lỗi khi đăng kí')

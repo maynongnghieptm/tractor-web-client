@@ -1,7 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import VideoPlayer from "react-background-video-player";
-import BasePageContainer from "_common/BasePageContainer";
+
  
 function Background_vid() {
   return (

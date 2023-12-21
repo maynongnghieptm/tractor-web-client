@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-import MapContainer1 from './Dashboard_realtime'; // Import the MapContainer component
+import MapContainer1 from './Dashboard_realtime'; 
 
 const ParentComponent = ()=> {
   const [socketData, setSocketData] = useState([]);
@@ -14,7 +14,9 @@ const ParentComponent = ()=> {
     });
 
     socket.on('logs', (newData) => {
+      
     // console.log(newData)
+     
       setSocketData(newData);
     });
 
@@ -24,7 +26,9 @@ const ParentComponent = ()=> {
   }, []);
 
   return (
+   
       <MapContainer1  data= {socketData} /> 
+   
   );
 }
 

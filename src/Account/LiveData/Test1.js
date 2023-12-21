@@ -22,6 +22,7 @@ class Test1 extends Component {
 
   updateChartWithSocketData = () => {
     const { data } = this.props;
+    //console.log(data)
     if (data && data.sum && data.sum.length >= 2) {
       const sum = data.sum;
       const total = sum[0] + sum[1];

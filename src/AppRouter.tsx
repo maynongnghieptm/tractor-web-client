@@ -1,6 +1,5 @@
 import React from 'react'
-import { HashRouter, BrowserRouter, Route, Switch, RouteProps, Redirect } from 'react-router-dom' //
-import { useHistory } from 'react-router-dom';
+import { HashRouter, BrowserRouter, Route, Switch, RouteProps } from 'react-router-dom' //
 import config from './_config'
 import Profile from 'Account/Profile/Profile'
 import DashboardLayout from '_layouts/DashboardLayout'
@@ -12,7 +11,9 @@ import Homepage from './Dashboard/Homepage'
 import { useSelector } from 'react-redux'
 import ErrPage from '_common/ErrPage/Unthori';
 import Chart from '../src/Administration/Dashboard/chart_tractor'
-
+import Aboutus from 'pages/About_us';
+import Listcontent from 'pages/List_content'
+import Info from 'pages'
 const AppRouterComponent: React.FC = ({ children }) => {
   return config.navigationType === 'history' ? (
     <BrowserRouter>{children}</BrowserRouter>
@@ -23,7 +24,7 @@ const AppRouterComponent: React.FC = ({ children }) => {
 
 const AppRouter: React.FC = () => {
   const isAdmin = useSelector((state: any) => state.authStatus.isAdmin);
-  const isLoggedIn = useSelector((state: any) => state.authStatus.isLoggedIn)
+ 
   return (
     <AppRouterComponent>
       <Switch>
@@ -32,6 +33,18 @@ const AppRouter: React.FC = () => {
           exact
           path={'/'}
           component={Homepage}
+          layout={Layout}
+        />
+        <RouteWithLayout
+          exact
+          path={'/about_us'}
+          component={Info}
+          layout={Layout}
+        />
+        <RouteWithLayout
+          exact
+          path={'/about_us/:content'}
+          component={Aboutus}
           layout={Layout}
         />
         <RouteWithLayout
@@ -58,7 +71,7 @@ const AppRouter: React.FC = () => {
           }
         />
         <Route path="/dashboard/:tractorId" component={Chart} />
-
+        
         <RouteWithLayout
           path={`/account/profile`}
           component={Profile}

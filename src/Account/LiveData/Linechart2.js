@@ -31,7 +31,7 @@ class DualYAxisChart extends Component {
   };
 
   limitData(currentData, newData) {
-    if (currentData.length >= 30) {
+    if (currentData.length >= 100) {
       currentData.shift(); 
     }
 
@@ -77,10 +77,10 @@ class DualYAxisChart extends Component {
             </linearGradient>
           </defs>
           <XAxis dataKey="name" />
-          <YAxis />
+          <YAxis domain={[-20,20]} />
           <Tooltip />
-          <Area type="monotone" dataKey="Độ nghiêng dàn xới mong muốn" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" strokeWidth={4}/>
-          <Area type="monotone" dataKey="Độ nghiêng dàn xới thực tế" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" strokeWidth={4}/>
+          <Area isAnimationActive={false} type="monotone" dataKey="Độ nghiêng dàn xới mong muốn" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" strokeWidth={4}/>
+          <Area  isAnimationActive={false} type="monotone" dataKey="Độ nghiêng dàn xới thực tế" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" strokeWidth={4}/>
           <Legend />
         </AreaChart>
 

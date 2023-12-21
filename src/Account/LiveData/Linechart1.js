@@ -38,7 +38,7 @@ class SensorChart1 extends Component {
   };
 
   limitData(currentData, newData) {
-    if (currentData.length >= 30) {
+    if (currentData.length >= 100) {
       currentData.shift(); 
     }
 
@@ -56,7 +56,7 @@ class SensorChart1 extends Component {
       return [
         ...currentData,
         {
-          date: time.toLocaleString(),
+          "date": time.toLocaleString(),
           "Độ cao càng mong muốn": newData.ctr_fed[10],
           "Độ cao càng thực tế": newData.ctr_fed[11],
         },
@@ -86,11 +86,11 @@ class SensorChart1 extends Component {
                 </linearGradient>
               </defs>
               <XAxis dataKey="name" />
-              <YAxis />
+              <YAxis domain={[-50,50]} />
 
               <Tooltip />
-              <Area type="monotone" dataKey="Độ cao càng mong muốn" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" strokeWidth={4}/>
-              <Area type="monotone" dataKey="Độ cao càng thực tế" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" strokeWidth={4}/>
+              <Area isAnimationActive={false} type="monotone" dataKey="Độ cao càng mong muốn" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" strokeWidth={4}/>
+              <Area isAnimationActive={false} type="monotone" dataKey="Độ cao càng thực tế" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" strokeWidth={4}/>
               <Legend />
             </AreaChart>
           </ResponsiveContainer>

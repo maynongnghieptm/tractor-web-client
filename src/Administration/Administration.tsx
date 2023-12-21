@@ -6,6 +6,9 @@ import Tractor from './Tractor/Tractor'
 import TractorEditor from './Tractor/TractorEditor'
 import CreateUser from './Users/UsersEditor/createUser'
 import ParentComponent from './Dashboard/index'
+import MyEditor from './Edit_landingpage/About_us/Aboutus'
+import Editor from './Edit_landingpage/About_us/Edit'
+import NewContent from './Edit_landingpage/About_us/Editpage'
 export type AdministrationRouteParams = {
   userId: string
 }
@@ -21,6 +24,8 @@ const Administration: React.FC<AdministrationProps> = ({ match }) => {
       <Route exact path={`${match.path}/tractoredit/:tractorId`} component={TractorEditor} />
       <Route exact path={`${match.path}/create`} component={CreateUser} />
       <Route exact path={`${match.path}/dashboard`} component={ParentComponent} />
+      <Route exact path={`${match.path}/edit`} component={NewContent} />
+      <Route exact path={`${match.path}/edit/:idEdit`} component={Editor} />
     </>
   )
 }

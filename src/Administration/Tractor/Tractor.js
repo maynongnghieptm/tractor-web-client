@@ -11,7 +11,6 @@ const Tractor = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedTractors, setSelectedTractors] = useState({});
   const [selectAll, setSelectAll] = useState(false);
-  const [editingTractorId, setEditingTractorId] = useState(null)
   const [command, setNewCommand] = useState('')
   const history = useHistory();
   useEffect(() => {
@@ -78,7 +77,7 @@ const Tractor = () => {
   };
   const handleEdit = (tractorId) => {
     history.push(`/administration/tractoredit/${tractorId}`);
-    setEditingTractorId(tractorId);
+  
   };
   const handleDelete = (tractorId) => {
     axios.delete(`/tractors/${tractorId}`)

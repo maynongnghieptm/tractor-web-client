@@ -14,14 +14,14 @@ import {
 import { Save as SaveIcon } from '@material-ui/icons';
 const TractorEditor = () => {
   const { tractorId } = useParams();
-  const [tractorData, setTractorData] = useState({});
+  
   const [editedTractorData, setEditedTractorData] = useState({});
 
   useEffect(() => {
     axios.get(`/tractors/${tractorId}`)
       .then(response => {
         const fetchedTractorData = response.data.data;
-        setTractorData(fetchedTractorData);
+        
         setEditedTractorData({ ...fetchedTractorData });
       })
       .catch(error => {

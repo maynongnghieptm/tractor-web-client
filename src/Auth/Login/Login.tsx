@@ -20,7 +20,6 @@ import { useDispatch } from 'react-redux';
 const Login: React.FC = () => {
   const classes = useStyles()
   const history = useHistory();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
@@ -35,12 +34,12 @@ const Login: React.FC = () => {
             localStorage.setItem('tractor-List', result.data.data.tractorList)
             axios.get(`/users/${result.data.data._id}`)
               .then(response => {
-                if (response.data.data.role == 'USER') {
+                if (response.data.data.role === 'USER') {
                   dispatch({ type: 'SET_ADMIN', isAdmin: false });
                   dispatch({ type: 'SET_LOGGED_IN', isLoggedIn: true })
                   history.push('/user/account/Livedata')
                   window.location.reload()
-                } else if (response.data.data.role == 'ADMIN') {
+                } else if (response.data.data.role === 'ADMIN') {
                   dispatch({ type: 'SET_ADMIN', isAdmin: true });
                   dispatch({ type: 'SET_LOGGED_IN', isLoggedIn: true })
                   history.push('/administration/dashboard')
@@ -54,7 +53,7 @@ const Login: React.FC = () => {
               .catch(error => {
                 console.error('Error fetching user data:', error);
               });
-            setIsLoggedIn(true)
+          
           } else if (result.data.code === 500) {
             alert('Thông tin đăng nhập không đúng')
           } else {
@@ -67,7 +66,7 @@ const Login: React.FC = () => {
     } catch {
 
     } finally {
-      setIsLoggedIn(false)
+      
     }
 
   }

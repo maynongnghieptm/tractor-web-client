@@ -2,30 +2,19 @@ html, body {
   width: 100%;
     margin: 0;
     padding: 0;
-    
-    
   }
 
 .grid-item {
-    
-  
   text-align: center;
   height: 100%;
-  
   box-sizing: border-box;
   }
   .parent {
     width: 100%;
-    max-height: 100vh; /* Set a maximum height to contain the content */
-  
-    /* Apply scrolling for screens with a maximum width of 768px (adjust as needed) */
-    @media (max-width: 768px) {
-      overflow-y: auto; /* Enable vertical scrolling */
-    }
+    max-height: 100vh; 
   }
   
 .square {
-
   position: relative;
   text-align: center;
   border: 1px solid black;
@@ -34,20 +23,16 @@ html, body {
 }
 
 .square span{
- 
   font-weight: 500;
 }
 
 
 .icon{
   position: absolute;
-
-    width: 30%;
-    height: 30%;
- 
-  top: 10%; /* Đặt top là 10% của chiều cao màn hình */
+  width: 30%;
+  height: 30%;
+  top: 10%; 
   left: 5%;
-  
   margin: 0;
   padding: 0;
   float: left; 
@@ -58,9 +43,7 @@ html, body {
   right: 5%;
   margin: 0;
   padding: 0;
-  float: right;/* Đặt .span ở bên phải .square */
-  /* Thêm padding để tạo khoảng cách từ cạnh */
- 
+  float: right;
 }
 @media (min-width: 992px) {
   .value{
@@ -95,24 +78,18 @@ html, body {
 
 
 .square1{
- 
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap:1px
 }
 
-
 .bar{
   margin-left: 100px;
 }
 .gauge-chart{
- 
   border: 1px solid black;
- 
   border-radius: 5px;
 }
-
-
 
 .item{
   border: 1px solid black;
@@ -121,16 +98,12 @@ html, body {
   display: grid;
   height: 50vh;
   gap: 5px;
- /* Hai hàng có chiều cao tự động */
-  
- 
   border-radius: 5px;
   
 }
 .item2{
   display: grid;
   height: 50vh;
-   /* Hai hàng có chiều cao tự động */
    gap: 5px;
   border-radius: 5px;
 }
@@ -185,14 +158,12 @@ html, body {
 }
 .square{
   position: relative;
-  
-
 }
 .barchar{
-  position: absolute; /* Đặt vị trí của .barchar là absolute để nó không ảnh hưởng đến layout của .square */
-  bottom: 0; /* Đặt .barchar ở dưới */
-  left: 0; /* Đặt .barchar ở bên trái (có thể điều chỉnh theo ý muốn) */
-  width: 100%; /* Đặt chiều rộng của .barchar là 100% để nó chiếm toàn bộ chiều rộng của .square */
+  position: absolute; 
+  bottom: 0; 
+  left: 0; 
+  width: 100%; 
   height: calc(55%); 
 }
 
@@ -207,18 +178,14 @@ html, body {
     grid-template-columns: 1fr 1fr;
 }
 .a{
- 
   grid-template-rows: 1fr 1fr;
- 
 }
 .a3{
   grid-template-rows: 1fr 1fr;
-
 }
 .a1{
   width: auto;
 }
-
 .a3-item1{
   width:auto ;
   height: auto;
@@ -237,19 +204,14 @@ html, body {
   border: 1px solid black;
   border-radius: 5px;
 }
-
 .a2{
   display: grid;
-  
- ;
 }
 .a2-item2{
- 
   grid-template-columns: 1fr 1fr 1fr;
 }
 }
 
-/* Khi màn hình nhỏ hơn 768px, sử dụng một cột */
 @media (max-width: 767px) {
   .item1 {
     grid-template-rows: 1fr 1fr;
@@ -277,11 +239,7 @@ html, body {
   .a3-item2{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap:1px;
-    color: white;
-  }
-  .square{
-    height: 100px;
+    gap:1px
   }
   .a5{
     width: auto;
@@ -293,10 +251,9 @@ html, body {
     grid-template-rows: 1fr
   }
   .a2-item2{
-    height: 500px;
+    
     grid-template-columns: 1fr;
   }
- 
 }
 
 .item3{
@@ -311,8 +268,6 @@ html, body {
   height: 100%;
 }
 
-
-
 .progress-bar-container {
   margin: 0;
   height: 10px;
@@ -326,7 +281,7 @@ html, body {
   height: 100%;
   transition: width 1s ease-in-out;
 
-  background-color: green; /* Đặt màu nền cho progress-bar */
+  background-color: green; 
 }
 .engine1{
   background-color: green;
@@ -338,9 +293,8 @@ button {
   margin: 10px;
 }
 .progress-bar-container.gearbar > div {
-  /* Thêm kiểu dáng cho các ô con tại đây */
-  border-right: 1px solid#ccc; /* Ví dụ: đường viền đen cho các ô */
- /* Ví dụ: khoảng cách bên trong các ô */
+  
+  border-right: 1px solid#ccc; 
 }
 .square-div {
   position: relative;
@@ -360,7 +314,6 @@ button {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
 
 #onpower1{
   background-color: #f54242;

@@ -10,8 +10,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import Divider from '@material-ui/core/Divider'
 import IconArrowDropDown from '@material-ui/icons/ArrowDropDown'
 import IconLogout from '@material-ui/icons/ExitToApp'
-
+import { useDispatch } from 'react-redux';
 const AppHeaderProfile: React.FC = () => {
+  const dispatch = useDispatch();
   const history = useHistory()
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement>()
@@ -21,6 +22,8 @@ const AppHeaderProfile: React.FC = () => {
   function handleClose() {
     localStorage.removeItem('accessToken')
     localStorage.removeItem('userId')
+    dispatch({ type: 'SET_ADMIN', isAdmin: false });
+    dispatch({ type: 'SET_LOGGED_IN', isLoggedIn: false })
     history.push('/auth/login')
     window.location.reload()
   }
