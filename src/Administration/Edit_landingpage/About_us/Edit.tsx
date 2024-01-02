@@ -4,6 +4,9 @@ import EmailEditor, { EditorRef, EmailEditorProps } from 'react-email-editor'
 import { Button } from '@material-ui/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { TextField } from '@material-ui/core'
+interface CustomEmailEditorProps extends EmailEditorProps {
+  uploadImage?: (file: File) => Promise<string>;
+}
 const Editor: React.FC = () => {
   const emailEditorRef = useRef<EditorRef>(null)
   const headerRef = useRef<EditorRef>(null)
@@ -11,6 +14,7 @@ const Editor: React.FC = () => {
   const [url, setUrl] = useState('')
   // const receivedData = location.state?.data || "Không có dữ liệu";
   const { idEdit } = useParams()
+
   console.log(idEdit)
   const exportHtml = async () => {
     try {
@@ -21,7 +25,11 @@ const Editor: React.FC = () => {
         const requestData = { content: html }
         unlayer?.saveDesign(async (designData) => {
           const designJSON = { designJSON: JSON.stringify(designData) }
-          const link = { url: url }
+          let filterUrl = url || '';
+            if (filterUrl.endsWith('/')) {
+              filterUrl = filterUrl.slice(0, -1);
+            }
+          const link = { url: filterUrl }
           const mergedData = { ...link, ...requestData, ...designJSON }
           console.log(mergedData)
           await axios.post(`users/update?id=${idEdit}`, mergedData)
@@ -32,6 +40,25 @@ const Editor: React.FC = () => {
       alert('Có lỗi xảy ra')
     }
   }
+  const uploadImage = async (file: File) => {
+    try {
+    
+      const formData = new FormData();
+      formData.append('file', file);
+
+    
+      const response = await axios.post(`file-config/upload`, formData);
+
+   
+      const imageUrl = response.data.data;
+
+     
+      return imageUrl;
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      throw error;
+    }
+  };
 
   const handleClick = (content: any) => {
     // Gửi dữ liệu hoặc thực hiện các công việc cần thiết trước khi chuyển trang
@@ -79,7 +106,7 @@ const Editor: React.FC = () => {
         />
       </div>
       <div style={{ flex: 1 }}>
-        <EmailEditor ref={emailEditorRef} onLoad={onLoad} style={{ height: '90vh' }} />
+      <EmailEditor  ref={emailEditorRef} onLoad={onLoad} style={{ height: '90vh' }}  />
       </div>
     </div>
   )

@@ -8,7 +8,7 @@ interface Config {
 }
 
 const config: Config = {
-  navigationType: 'hash',
+  navigationType: 'history', // Thay đổi giá trị này từ 'hash' sang 'history'
   useSampleData: true,
   api: {
     useMocks: true,

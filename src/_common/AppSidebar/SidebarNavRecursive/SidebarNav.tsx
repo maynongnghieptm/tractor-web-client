@@ -5,12 +5,12 @@ import ListSubheader from '@material-ui/core/ListSubheader'
 import { useSelector } from 'react-redux'
 import IconAdmin from '@material-ui/icons/VpnKey'
 import IconDashboard from '@material-ui/icons/Dashboard'
-
+import AgricultureIcon from '@mui/icons-material/Agriculture';
 import IconGroup from '@material-ui/icons/Group'
-
-
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import ImageIcon from '@mui/icons-material/Image';
 import NavList from './NavList'
-
+import DeleteIcon from '@mui/icons-material/Delete';
 export interface ISidebarNavItem {
   name: string
   link?: string
@@ -50,12 +50,22 @@ const SidebarNav: React.FC<ISidebarNavProps> = (props) => {
           {
             name: 'Tractors',
             link: '/administration/tractors',
-            Icon: IconGroup,
+            Icon: AgricultureIcon,
           },
           {
             name: 'About-us',
             link: '/administration/edit',
-            Icon: IconGroup,
+            Icon: ChatBubbleOutlineIcon,
+          },
+          {
+            name: 'Image',
+            link: '/administration/image',
+            Icon: ImageIcon,
+          },
+          {
+            name: 'Recycle Bin',
+            link: '/administration/recycle',
+            Icon: DeleteIcon,
           }
         ],
       },

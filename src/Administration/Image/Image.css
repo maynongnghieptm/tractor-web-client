@@ -1,0 +1,105 @@
+.container{
+    
+    
+}
+.image-container{
+    width: 100%;
+    position: absolute;
+    height: auto;
+}
+.image-list-container {
+    width: 100%;
+    border: 1px solid #ccc ;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-item {
+    width: 300px;
+    height: 300px;
+    margin: 5px;
+    overflow: hidden;
+    border: 1px solid #ccc; /* Ensure that the image won't exceed the div's dimensions */
+    position: relative;
+ 
+}
+
+.image-item span {
+    width: 300px;
+    height: 300px;
+    margin: 5px;
+    overflow: hidden; /* Ensure that the image won't exceed the div's dimensions */
+}
+.image-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure that the entire image is visible within the dimensions of the img tag */
+}
+.container{
+   position: relative;
+   left: 0;
+    height: auto;
+    width: 400px;
+    margin-bottom: 50px;
+    display: flex;
+    margin: 0 ;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    height: 300px;
+    width: 600px;
+    margin-bottom: 50px;
+}
+.upload-item-preview_img img{
+    width: 150px;
+    height: 130px;
+}
+    
+.delete-button {
+    
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+     /* Use rgba to set opacity for background color only */
+
+    border: none;
+    padding: 5px 10px;
+   
+    transition: background-color 0.3s ease-in-out; /* Add transition for background-color */
+}
+
+.delete-button:hover {
+    background-color: rgba(169, 169, 169, 0.6); /* Adjust opacity on hover */
+}
+
+.delete-button svg {
+    transition: transform 0.3s ease-in-out; /* Add transition for transform property */
+    cursor: pointer;
+    margin: 0 5px 0 5px;
+}
+
+.delete-button:hover svg {
+    transform: scale(1.2); /* Increase the scale factor as needed */
+}
+.checkbox{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: rgba(169, 169, 169, 0.6);
+}
+.checkbox span{
+    margin: 0 0 0 0;
+    color: black;
+    
+}
+.header-tool{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

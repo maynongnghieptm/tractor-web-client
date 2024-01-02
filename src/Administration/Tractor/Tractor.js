@@ -58,6 +58,25 @@ const Tractor = () => {
         });
     }
   };
+  const uploadImage = async () => {
+    try {
+      // Use FormData to send the file to your server
+      const formData = new FormData();
+      formData.append('image', selectedFile );
+
+      // Replace 'your-upload-url' with the actual URL to your image upload endpoint
+      const response = await axios.post(`file-config/upload`, formData);
+
+      // Assuming your server responds with an object containing the image URL
+      const imageUrl = response.data.data;
+
+      // Return the URL of the uploaded image
+      return imageUrl;
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      throw error;
+    }
+  };
   const handleCreateTractor = () => {
     const newTractorData = {
       tractorId: newTractorname,
@@ -204,7 +223,7 @@ const Tractor = () => {
           />
         </div>
         <div className="upload-button">
-          <IconButton color="primary" onClick={handleUpload} className="upload-icon">
+          <IconButton color="primary" onClick={uploadImage} className="upload-icon">
             Upload
           </IconButton>
         </div>

@@ -19,12 +19,11 @@ const AppRouterComponent: React.FC = ({ children }) => {
     <BrowserRouter>{children}</BrowserRouter>
   ) : (
     <HashRouter>{children}</HashRouter>
-  )
-}
+  );
+};
 
 const AppRouter: React.FC = () => {
   const isAdmin = useSelector((state: any) => state.authStatus.isAdmin);
- 
   return (
     <AppRouterComponent>
       <Switch>
@@ -43,7 +42,7 @@ const AppRouter: React.FC = () => {
         />
         <RouteWithLayout
           exact
-          path={'/about_us/:content'}
+          path={'/:content'}
           component={Aboutus}
           layout={Layout}
         />
@@ -105,7 +104,7 @@ const RouteWithLayout: React.FC<RouteWithLayoutProps> = ({
 }) => {
   return (
     <Route
-      {...rest}
+      {...rest}x c
       render={(props) => {
         if (!Component) return null
 

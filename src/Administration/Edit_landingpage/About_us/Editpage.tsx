@@ -43,7 +43,7 @@ const NewContent: React.FC = () => {
           required
           fullWidth
           id="url"
-          defaultValue={'http://192.168.1.2:3000/#/about_us/'}
+          defaultValue={'http://tractorserver.myddns.me:3000'}
           onChange={(e)=>{
             setUrl(e.target.value)
           }}

@@ -9,6 +9,8 @@ import ParentComponent from './Dashboard/index'
 import MyEditor from './Edit_landingpage/About_us/Aboutus'
 import Editor from './Edit_landingpage/About_us/Edit'
 import NewContent from './Edit_landingpage/About_us/Editpage'
+import ImageList from './Image/Image'
+import Recycle from './Recycle/Recycle'
 export type AdministrationRouteParams = {
   userId: string
 }
@@ -25,6 +27,8 @@ const Administration: React.FC<AdministrationProps> = ({ match }) => {
       <Route exact path={`${match.path}/create`} component={CreateUser} />
       <Route exact path={`${match.path}/dashboard`} component={ParentComponent} />
       <Route exact path={`${match.path}/edit`} component={NewContent} />
+      <Route exact path={`${match.path}/image`} component={ImageList} />
+      <Route exact path={`${match.path}/recycle`} component={Recycle} />
       <Route exact path={`${match.path}/edit/:idEdit`} component={Editor} />
     </>
   )

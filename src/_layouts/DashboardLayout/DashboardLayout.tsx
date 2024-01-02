@@ -109,10 +109,15 @@ const DashboardLayout: React.FC = ({ children }) => {
         }}
       >
         <div className={classes.contentContainer}>{children}</div>
-        <div className={classes.footerContainer}>
+        
+      </main>
+      <div  
+        className={classes.footerContainer}
+        style={{
+          width: `calc(100% - ${contentOffset}px)`,
+        }} >
           <AppFooter />
         </div>
-      </main>
     </div>
   )
 }
@@ -180,21 +185,35 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   mainContainer: {
-    flexGrow: 1,
     
+    flexGrow: 1,
+
     height: '100vh',
     overflow: 'auto',
     flexDirection: 'column',
     display: 'flex',
+   
   },
   contentContainer: {
     display: 'flex',
     width: '100%',
+    
     position: 'relative',
     flex: 1,
   },
   footerContainer: {
-    position: 'relative',
+
+    bottom: 0,
+    left: 'auto',
+    right: 0,
+    display: 'flex',
+    alignItems: 'stretch',
+    position: 'absolute',
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
   },
 }))
 

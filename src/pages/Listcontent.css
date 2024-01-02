@@ -12,12 +12,14 @@
     padding-bottom: 10px;
     position: relative;
   }
-  .news-container .title-row h1 {
+  .news-container .title-row a {
     text-decoration: none; /* Loại bỏ gạch dưới chữ mặc định */
     cursor: pointer; /* Đổi con trỏ khi hover để chỉ ra tính tương tác */
+    font-size: 24px;
+    
   }
   
-  .news-container .title-row h1:hover {
+  .news-container .title-row a:hover {
     text-decoration: underline; /* Thêm gạch dưới khi hover */
   }
   .title-row {

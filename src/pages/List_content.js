@@ -37,7 +37,7 @@ const Listcontent = ({ url,id, content, date }) => {
   };
 
   const handleConfirmDelete = () => {
-    setConfirmDelete(!confirmDelete); // Toggle the value of confirmDelete
+    setConfirmDelete(!confirmDelete); 
   };
 
   const handleCancelDelete = () => {
@@ -57,7 +57,7 @@ const Listcontent = ({ url,id, content, date }) => {
   return (
     <div className="news-container">
       <div className="title-row">
-        <h1 onClick={handleClickDetail}>{title}</h1>
+        <a href={url}>{title}</a>
         {isAdmin && (
           <div className="editIcon">
             <div>
@@ -84,14 +84,13 @@ const Listcontent = ({ url,id, content, date }) => {
         <div className="delete-confirmation">
           <p style={{fontSize:20}}>Xác nhận xóa nội dung này?</p>
           <div className="confirmButton">
-            <div >
+            <div>
             <Button className="btn_confirm" variant="contained" color="primary"  size='20' onClick={handleDelete}>OK</Button>
             </div>
             <div>
             <Button  className="btn_confirm" variant="contained" color="secondary"  size='20' onClick={handleCancelDelete}>Cancel</Button>
             </div>
           </div>
-          
         </div>
       )}
     </div>

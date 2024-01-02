@@ -19,6 +19,7 @@ const AppFooter: React.FC<AppFooterProps> = () => {
 }
 const useStyles = makeStyles((theme) => ({
   footer: {
+    width:'100%',
     display: 'flex',
     background: '#fff',
     padding: '0.5rem 1rem',
