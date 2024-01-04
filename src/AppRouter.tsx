@@ -104,7 +104,7 @@ const RouteWithLayout: React.FC<RouteWithLayoutProps> = ({
 }) => {
   return (
     <Route
-      {...rest}x c
+      {...rest}
       render={(props) => {
         if (!Component) return null
 

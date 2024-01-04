@@ -16,6 +16,8 @@ const Recycle = () => {
     const [selectedImages, setSelectedImages] = useState([]);
     const [deleteImage, setDeletaImage] = useState(true);
     const [size, setSize] = useState(0)
+    const [confirmDelete, setConfirmDelete] = useState(false)
+    const [isdelete, setisDelete] = useState(false)
 
     const toggleCheckbox = (index) => {
         const isSelected = selectedImages.includes(index);
@@ -39,7 +41,7 @@ const Recycle = () => {
                 } else if (filterOption === 'size') {
                     response = await axios.get('/file-config/recycle_by_size');
                 }
-                console.log(response.data.size);
+                //console.log(response.data.size);
                 setImages(response.data.data);
                 setSize(response.data.size)
             } catch (error) {
@@ -49,16 +51,18 @@ const Recycle = () => {
         fetchData();
     }, [filterOption]);
 
-
-
-
     const handleDeleteImage = async (id) => {
-        const isConfirmed = window.confirm('Bạn có chắc chắn muốn xóa ảnh này?');
-        if (isConfirmed) {
+        // const response = await axios.delete(`/file-config/delete/${id}`);
+        setConfirmDelete(true)
+        setisDelete(true)
+
+    }
+    const handleConfirmDeleteImage = async (id) => {
+       // const isConfirmed = window.confirm('Bạn có chắc chắn muốn xóa ảnh này?');
+        
             try {
                 const response = await axios.delete(`/file-config/delete/${id}`);
                 console.log(response);
-
                 if (response.status === 200) {
                     alert('Xóa ảnh thành công');
                     window.location.reload();
@@ -69,36 +73,36 @@ const Recycle = () => {
                 console.error('Lỗi khi xóa ảnh:', error);
                 alert('Có lỗi xảy ra');
             }
-        }
+        
+    }
+    const handleUnconfirmDelete = () => {
+        setConfirmDelete(false)
+        setisDelete(false)
     }
     const handleClickSelect = () => {
         setDeletaImage(!deleteImage)
         setSelected(!selected)
     }
     const handMultiDelete = async () => {
-
-
         const response = await axios.delete('/file-config/delete/delete-multi', {
             data: { fileNames: selectedImages },
             headers: {
                 'Content-Type': 'application/json',
             },
         });
-
-
         if (response.status === 200) {
             alert('Xóa ảnh thành công')
             window.location.reload()
-
         }
-
         else {
             alert('Có lỗi xảy ra')
         }
-    }
+    };
+
     const handleFilterChange = (event) => {
         setFilterOption(event.target.value);
     };
+
     const handleRestore = async (id) => {
         const response = await axios.post(`/file-config/restore/${id}`);
         //const rec = await axios.post(`/file-config/recycle/${id}`);
@@ -111,21 +115,34 @@ const Recycle = () => {
             alert('Có lỗi xảy ra')
         }
     }
+
     const handleMultiRestore = async () => {
         const response = await axios.post('/file-config/restore',
             { fileNames: selectedImages },
-
         );
-
-
         if (response.status === 200) {
             alert('Khôi phục ảnh thành công')
             window.location.reload()
-
         }
         else {
             alert('Có lỗi xảy ra')
         }
+    }
+    const handleMouseDateEnter = (i, id) => {
+        //setHoveredIndex(null)
+        //setConfirmDelete(false)
+        setHoveredDateIndex([i, id])
+    }
+    const handleMouseSizeEnter = (id) => {
+        setHoveredIndex(id)
+        setisDelete(false)
+        //setConfirmDelete(false)
+        //setHoveredDateIndex(null)
+    }
+    const handleMouseLeave = () => {
+        setHoveredIndex(null)
+        setConfirmDelete(false)
+        setHoveredDateIndex(null)
     }
 
     return (
@@ -133,20 +150,18 @@ const Recycle = () => {
             <div className='header-tool'>
                 <div>
                     <button onClick={() => handleClickSelect()}>Chọn</button>
-                    {selected &&
+                    {
+                    selected &&
                         <>
                             <button onClick={() => handMultiDelete()}>Xóa</button>
                             <button onClick={() => handleMultiRestore()}>Khôi phục</button>
                         </>
-
                     }
-
                     <select value={filterOption} onChange={handleFilterChange}>
                         <option value="date">Sắp theo theo ngày</option>
                         <option value="size">Sắp xếp theo kích thước ảnh</option>
                     </select>
                 </div>
-
                 <div>
                     Dung lượng thùng rác: <span style={{ "fontWeight": "bold", "fontSize": "20px" }}> {formatFileSize(size)}</span>
                 </div>
@@ -158,16 +173,26 @@ const Recycle = () => {
                         <div
                             key={index}
                             className={`image-item ${hoveredIndex === index ? 'blurred' : ''}`}
-                            onMouseEnter={() => setHoveredIndex(index)}
-                            onMouseLeave={() => setHoveredIndex(null)}
+                            onMouseEnter={() =>handleMouseSizeEnter(index)}
+                            onMouseLeave={() => handleMouseLeave}
                         >
-                            <LazyLoadImage
-                                src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-recycle?filename=${image.fileName}`}
-                                alt={`Image ${index}`}
+                          {image.fileName?.endsWith('.mp4') ? (
+                                            <video
+                                            src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-recycle?filename=${image.fileName}`}
 
-                                effect="blur"
-                                className="enlarge-hover"
-                            />
+
+                                                controls
+                                                className="enlarge-hover"
+                                            />
+                                        ) : (
+                                            <LazyLoadImage
+                                            src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-recycle?filename=${image.fileName}`}
+                                                alt={`Image ${index}`}
+                                               
+                                                effect="blur"
+                                                className="enlarge-hover"
+                                            />
+                                        )}
                             <div className='checkbox'>
                                 {selected &&
                                     <Checkbox
@@ -179,12 +204,36 @@ const Recycle = () => {
                             {deleteImage &&
                                 <>
                                     {hoveredIndex === index && (
-                                        <div className="delete-button">
-                                            <SettingsBackupRestoreIcon onClick={() => handleRestore(image.fileName)} />
-                                            <DeleteIcon onClick={() => handleDeleteImage(image.fileName)} />
+                                        <div>
+                                           {isdelete == false && (
+ <div className="delete-button">
+ <div className='delete_icon'>
+ <DeleteIcon onClick={() => handleDeleteImage(image.fileName)} />
+ </div>
+ <div className='copy_icon'>
+ <SettingsBackupRestoreIcon onClick={() => handleRestore(image.fileName)} />
+ </div>
+ 
+ 
+</div>
+                                                        )}
+                                                        {confirmDelete && (
+                                                                <div className="confirm-delete">
+                                                                    <div className="confirmation-container">
+                                                                        <div>
+                                                                            <span style={{ "fontWeight": "bold" }}>Xác nhận xóa ảnh này?</span>
+                                                                        </div>
+                                                                        <div>
+                                                                            <button style={{ "border": "1px solid", "borderRadius": "5px", }} onClick={() => handleConfirmDeleteImage(image.fileName)}>Xóa</button>
+                                                                            <button style={{ "border": "1px solid", "borderRadius": "5px", }} onClick={() => handleUnconfirmDelete()}>Hủy</button>
+                                                                        </div>
 
+
+                                                                    </div>
+                                                                </div>
+                                                            )}
+                                                        
                                         </div>
-
                                     )}
                                 </>
                             }
@@ -192,7 +241,9 @@ const Recycle = () => {
                     ))}
                 </div>
             }
-            {filterOption == "date" &&
+
+            {
+                filterOption == "date" &&
                 <div>
                     {images.map((item, i) => (
                         <div key={i} className='image-date-container' style={{ "border": "1px solid #ccc", "marginBottom": "20px", "padding": '5px' }}>
@@ -202,16 +253,27 @@ const Recycle = () => {
                                     <div
                                         key={index}
                                         className={`image-item ${hoveredIndex === index ? 'blurred' : ''}`}
-                                        onMouseEnter={() => setHoveredDateIndex([i, index])}
-                                        onMouseLeave={() => setHoveredDateIndex(null)}
+                                        onMouseEnter={() => handleMouseDateEnter(i, index)}
+                                        onMouseLeave={() => handleMouseLeave}
                                     >
-                                        <LazyLoadImage
+                                       
+                                         {image.fileName?.endsWith('.mp4') ? (
+                                            <video
                                             src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-recycle?filename=${image.fileName}`}
-                                            alt={`Image ${index}`}
 
-                                            effect="blur"
-                                            className="enlarge-hover"
-                                        />
+
+                                                controls
+                                                className="enlarge-hover"
+                                            />
+                                        ) : (
+                                            <LazyLoadImage
+                                            src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-recycle?filename=${image.fileName}`}
+                                                alt={`Image ${index}`}
+                                               
+                                                effect="blur"
+                                                className="enlarge-hover"
+                                            />
+                                        )}
                                         <div className='checkbox'>
                                             {selected &&
                                                 <Checkbox
@@ -223,11 +285,36 @@ const Recycle = () => {
                                         {deleteImage &&
                                             <>
                                                 {hoveredDateIndex && hoveredDateIndex[0] === i && hoveredDateIndex[1] === index && (
-                                                    <div className="delete-button">
-                                                        <SettingsBackupRestoreIcon onClick={() => handleRestore(image.fileName)} />
-                                                        <DeleteIcon onClick={() => handleDeleteImage(image.fileName)} />
-                                                    </div>
+                                                    <div>
+                                                        {isdelete == false && (
+ <div className="delete-button">
+ <div className='delete_icon'>
+ <DeleteIcon onClick={() => handleDeleteImage(image.fileName)} />
+ </div>
+ <div className='copy_icon'>
+ <SettingsBackupRestoreIcon onClick={() => handleRestore(image.fileName)} />
+ </div>
+ 
+ 
+</div>
+                                                        )}
+                                                   
+                                                    {confirmDelete && (
+                                                                <div className="confirm-delete">
+                                                                    <div className="confirmation-container">
+                                                                        <div>
+                                                                            <span style={{ "fontWeight": "bold" }}>Xác nhận xóa ảnh này?</span>
+                                                                        </div>
+                                                                        <div>
+                                                                            <button style={{ "border": "1px solid", "borderRadius": "5px", }} onClick={() => handleConfirmDeleteImage(image.fileName)}>Xóa</button>
+                                                                            <button style={{ "border": "1px solid", "borderRadius": "5px", }} onClick={() => handleUnconfirmDelete()}>Hủy</button>
+                                                                        </div>
 
+
+                                                                    </div>
+                                                                </div>
+                                                            )}
+                                                    </div>
                                                 )}
                                             </>
                                         }
@@ -237,12 +324,8 @@ const Recycle = () => {
                         </div>
                     ))}
                 </div>
-
-
             }
-
         </div>
-
     );
 };
 

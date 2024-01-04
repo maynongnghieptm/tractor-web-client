@@ -26,7 +26,7 @@ export interface ISidebarNavProps {
 const SidebarNav: React.FC<ISidebarNavProps> = (props) => {
   const { isCollapsed } = props
   const classes = useStyles()
-  const isAdmin = useSelector((state) => state.authStatus.isAdmin);
+  const isAdmin = useSelector((state:any) => state.authStatus.isAdmin);
   console.log(isAdmin)
   let itemsCore
   if(isAdmin){
@@ -37,7 +37,6 @@ const SidebarNav: React.FC<ISidebarNavProps> = (props) => {
         Icon: IconDashboard,
       },
     
-      
       {
         name: 'Administration',
         Icon: IconAdmin,
@@ -71,7 +70,7 @@ const SidebarNav: React.FC<ISidebarNavProps> = (props) => {
       },
      
     ]
-  
+
   }else{
      itemsCore = [
       {
@@ -100,8 +99,6 @@ const SidebarNav: React.FC<ISidebarNavProps> = (props) => {
      
     ]
   }
-  
- 
 
   return (
     <div>

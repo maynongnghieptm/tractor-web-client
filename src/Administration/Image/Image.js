@@ -5,6 +5,8 @@ import { Delete as DeleteIcon } from '@material-ui/icons';
 import './Image.css'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { set } from 'lodash';
+import copy from 'clipboard-copy';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 const ImageList = () => {
     const [images, setImages] = useState([]);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -16,7 +18,9 @@ const ImageList = () => {
     const [filterOption, setFilterOption] = useState('date');
     const [selectedImages, setSelectedImages] = useState([]);
     const [deleteImage, setDeletaImage] = useState(true);
-
+    const [confirmDelete, setConfirmDelete] = useState(false)
+    const [isdelete, setisDelete] = useState(false)
+    const [isCopy, setIsCopy] = useState(true)
     const toggleCheckbox = (index) => {
         const isSelected = selectedImages.includes(index);
         const newSelectedImages = isSelected
@@ -28,11 +32,12 @@ const ImageList = () => {
     useEffect(() => {
         console.log(selectedImages)
     }, [selectedImages])
+
     const showImagePreview = (e) => {
         let selectedFile = e.target.files.item(0)
         console.log(selectedFile)
         if (selectedFile) {
-            if (["image/jpeg", "image/png", "image/svg+xml"].includes(selectedFile.type)) {
+            if (["image/jpeg", "image/png", "image/svg+xml", "video/mp4"].includes(selectedFile.type)) {
                 let fileReader = new FileReader();
                 fileReader.readAsDataURL(selectedFile);
                 fileReader.addEventListener('load', (event) => {
@@ -45,6 +50,7 @@ const ImageList = () => {
             setIsImageSelected(false)
         }
     }
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -62,6 +68,7 @@ const ImageList = () => {
         };
         fetchData();
     }, [filterOption]);
+
     const handleClickImage = async (name) => {
         const imageUrl = `http://tractorserver.myddns.me:8000/api/v1/file-config/get-image?filename=${name}`;
         window.open(imageUrl, '_blank');
@@ -74,7 +81,7 @@ const ImageList = () => {
             console.log(response)
             if (response.status === 201) {
                 alert('Upload thành công')
-                window.location.reload(); //
+                window.location.reload();
             }
             else {
                 alert('Upload thất bại')
@@ -88,22 +95,28 @@ const ImageList = () => {
         }
     };
     const handleDeleteImage = async (id) => {
-        //const response = await axios.delete(`/file-config/delete/${id}`);
-        const isConfirmed = window.confirm('Bạn có chắc chắn muốn xóa ảnh này?');
-        if (isConfirmed) {
-            const rec = await axios.post(`/file-config/recycle/${id}`);
-            console.log(rec)
-            if (rec.status === 200) {
-                alert('Xóa ảnh thành công')
-                window.location.reload()
-            }
-            else if (rec.status === 201) {
-                alert('Thùng rác đã đầy, Hãy xóa bớt!')
-            }
-            else {
-                alert('Có lỗi xảy ra')
-            }
+        // const response = await axios.delete(`/file-config/delete/${id}`);
+        setConfirmDelete(true)
+        setisDelete(true)
+
+    }
+    const handleConfirmDeleteImage = async (id) => {
+        const rec = await axios.post(`/file-config/recycle/${id}`);
+        console.log(rec)
+        if (rec.status === 200) {
+            alert('Xóa ảnh thành công')
+            window.location.reload()
         }
+        else if (rec.status === 201) {
+            alert('Thùng rác đã đầy, Hãy xóa bớt!')
+        }
+        else {
+            alert('Có lỗi xảy ra')
+        }
+    }
+    const handleUnconfirmDelete = () => {
+        setConfirmDelete(false)
+        setisDelete(false)
     }
     const handleClickSelect = () => {
         setDeletaImage(!deleteImage)
@@ -124,7 +137,6 @@ const ImageList = () => {
         if (rec.status === 200) {
             alert('Xóa ảnh thành công')
             window.location.reload()
-
         }
         else if (rec.status === 201) {
             alert('Thùng rác đã đầy, Hãy xóa bớt!')
@@ -136,7 +148,29 @@ const ImageList = () => {
     const handleFilterChange = (event) => {
         setFilterOption(event.target.value);
     };
-
+    const handleMouseDateEnter = (i, id) => {
+        //setHoveredIndex(null)
+        //setConfirmDelete(false)
+        setHoveredDateIndex([i, id])
+    }
+    const handleMouseSizeEnter = (id) => {
+        setHoveredIndex(id)
+        setisDelete(false)
+        //setConfirmDelete(false)
+        //setHoveredDateIndex(null)
+    }
+    const handleMouseLeave = () => {
+        setHoveredIndex(null)
+        setConfirmDelete(false)
+        setHoveredDateIndex(null)
+        setIsCopy(false)
+    }
+    const handleCopy=(filename)=>{
+        const url = `http://tractorserver.myddns.me:8000/api/v1/file-config/get-image?filename=${filename}`
+        copy(url);
+        setIsCopy(true)
+        setisDelete(false)
+    }
     return (
         <div className='image-container'>
             <div className="container">
@@ -146,18 +180,30 @@ const ImageList = () => {
                             <div className="upload-item-preview" style={{ "width": "100%", "height": "100%" }}>
                                 <div style={{ "width": "100%", "height": "100%" }}>
                                     {isImageSelected ?
-                                        <img
-                                            src={imagePreviewSrc}
-                                            alt="..."
-                                            style={{ "width": "200px", "height": "150px", "maxWidth": "100%", "maxHeight": "100%" }}
-                                        />
+                                        <>
+                                            {selectedFile.type === 'video/mp4' ? (
+                                                <video
+                                                    src={imagePreviewSrc}
+                                                    alt="..."
+                                                    controls
+                                                    style={{ "width": "200px", "height": "150px", "maxWidth": "100%", "maxHeight": "100%" }}
+                                                />
+                                            ) : (
+                                                <img
+                                                    src={imagePreviewSrc}
+                                                    alt="..."
+                                                    style={{ "width": "200px", "height": "150px", "maxWidth": "100%", "maxHeight": "100%" }}
+                                                />
+                                            )}
+                                        </>
                                         :
                                         <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor"
                                             className=" " viewBox="0 0 16 16">
                                             <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                                             <path
                                                 d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
-                                        </svg>}
+                                        </svg>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -172,7 +218,6 @@ const ImageList = () => {
                                     <p className="mt-2">File Size: {formatFileSize(selectedFile.size)}</p>
                                 )}
                             </div>
-
                             <button style={{ "marginLeft": "0", "border": "0.8px solid", "borderRadius": "2px" }} onClick={uploadImage}>Upload</button>
                         </div>
                     </div>
@@ -192,17 +237,26 @@ const ImageList = () => {
                     {images.map((image, index) => (
                         <div
                             key={index}
-                            className={`image-item ${hoveredIndex === index ? 'blurred' : ''}`}
-                            onMouseEnter={() => setHoveredIndex(index)}
-                            onMouseLeave={() => setHoveredIndex(null)}
+                            className={`image-item `}
+                            onMouseEnter={() => handleMouseSizeEnter(index)}
+                            onMouseLeave={() => handleMouseLeave()}
                         >
-                            <LazyLoadImage
-                                src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-image?filename=${image.fileName}`}
-                                alt={`Image ${index}`}
-                                onClick={() => handleClickImage(image.fileName)}
-                                effect="blur"
-                                className="enlarge-hover"
-                            />
+                            {image.fileName?.endsWith('.mp4') ? (
+                                <video
+                                    src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-image?filename=${image.fileName}`}
+                                    controls
+                                    className="enlarge-hover"
+                                />
+                            ) : (
+                                <LazyLoadImage
+                                    src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-image?filename=${image.fileName}`}
+                                    alt={`Image ${index}`}
+                                    onClick={() => handleClickImage(image.fileName)}
+                                    effect="blur"
+                                    className="enlarge-hover"
+                                />
+                            )}
+
                             <div className='checkbox'>
                                 {selected &&
                                     <Checkbox
@@ -213,14 +267,46 @@ const ImageList = () => {
                             </div>
                             {deleteImage &&
                                 <>
-                                    {hoveredIndex === index && (
-                                        <div className="delete-button">
-                                            <DeleteIcon onClick={() => handleDeleteImage(image.fileName)} />
-                                        </div>
+                                      {hoveredIndex === index && (
+                                        <div>
+                                            {isdelete == false && (
+                                                <div className="delete-button">
+                                                    <div className='delete_icon'>
+                                                        <DeleteIcon onClick={() => handleDeleteImage(image.fileName)} />
+                                                    </div>
+                                                    <div className='copy_icon'>
+                                                        <ContentPasteIcon onClick={()=>handleCopy(image.fileName)}/>
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {isCopy&&(
+                                                 <div className="isCopy">
+                                                 <span>Đã copy đường dẫn!</span>
+                                             </div>
+                                            )}
+                                                 
+                
+                                            {confirmDelete && (
+                                                <div className="confirm-delete">
+                                                    <div className="confirmation-container">
+                                                        <div>
+                                                            <span style={{ "fontWeight": "bold" }}>Xác nhận xóa ảnh này?</span>
+                                                        </div>
+                                                        <div>
+                                                            <button style={{ "border": "1px solid", "borderRadius": "5px", }} onClick={() => handleConfirmDeleteImage(image.fileName)}>Xóa</button>
+                                                            <button style={{ "border": "1px solid", "borderRadius": "5px", }} onClick={() => handleUnconfirmDelete()}>Hủy</button>
+                                                        </div>
 
-                                    )}
+
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                        </div>
+                                      )}
                                 </>
                             }
+
                         </div>
                     ))}
                 </div>
@@ -234,17 +320,25 @@ const ImageList = () => {
                                 {item.images?.map((image, index) => (
                                     <div
                                         key={index}
-                                        className={`image-item ${hoveredIndex === index ? 'blurred' : ''}`}
-                                        onMouseEnter={() => setHoveredDateIndex([i, index])}
-                                        onMouseLeave={() => setHoveredDateIndex(null)}
+                                        className={`image-item `}
+                                        onMouseEnter={() => handleMouseDateEnter(i, index)}
+                                        onMouseLeave={() => handleMouseLeave()}
                                     >
-                                        <LazyLoadImage
-                                            src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-image?filename=${image.fileName}`}
-                                            alt={`Image ${index}`}
-                                            onClick={() => handleClickImage(image.fileName)}
-                                            effect="blur"
-                                            className="enlarge-hover"
-                                        />
+                                        {image.fileName?.endsWith('.mp4') ? (
+                                            <video
+                                                src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-image?filename=${image.fileName}`}
+                                                controls
+                                                className="video-hover"
+                                            />
+                                        ) : (
+                                            <LazyLoadImage
+                                                src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-image?filename=${image.fileName}`}
+                                                alt={`Image ${index}`}
+                                                onClick={() => handleClickImage(image.fileName)}
+                                                effect="blur"
+                                                className="enlarge-hover"
+                                            />
+                                        )}
                                         <div className='checkbox'>
                                             {selected &&
                                                 <Checkbox
@@ -253,14 +347,46 @@ const ImageList = () => {
                                                 />
                                             }
                                         </div>
-                                        {deleteImage &&
+                                        {
+                                            deleteImage &&
                                             <>
                                                 {
                                                     hoveredDateIndex && hoveredDateIndex[0] === i && hoveredDateIndex[1] === index &&
                                                     (
-                                                        <div className="delete-button">
-                                                            <DeleteIcon onClick={() => handleDeleteImage(image.fileName)} />
+                                                        <div>
+                                                            {isdelete == false && (
+                                                                <div className="delete-button">
+                                                                    <div className='delete_icon'>
+                                                                        <DeleteIcon onClick={() => handleDeleteImage(image.fileName)} />
+                                                                    </div>
+                                                                    <div className='copy_icon'>
+                                                                    <ContentPasteIcon onClick={()=>handleCopy(image.fileName)}/>
+                                                                    </div>
+                                                                </div>
+                                                            )}
+ {isCopy&&(
+                                                 <div className="isCopy">
+                                                 <span>Đã copy đường dẫn!</span>
+                                             </div>
+                                            )}
+                                                            {confirmDelete && (
+                                                                <div className="confirm-delete">
+                                                                    <div className="confirmation-container">
+                                                                        <div>
+                                                                            <span style={{ "fontWeight": "bold" }}>Xác nhận xóa ảnh này?</span>
+                                                                        </div>
+                                                                        <div>
+                                                                            <button style={{ "border": "1px solid", "borderRadius": "5px", }} onClick={() => handleConfirmDeleteImage(image.fileName)}>Xóa</button>
+                                                                            <button style={{ "border": "1px solid", "borderRadius": "5px", }} onClick={() => handleUnconfirmDelete()}>Hủy</button>
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            )}
                                                         </div>
+
+
                                                     )
                                                 }
                                             </>

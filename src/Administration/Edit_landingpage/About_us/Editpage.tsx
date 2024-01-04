@@ -9,9 +9,6 @@ const NewContent: React.FC = () => {
   const headerRef = useRef<EditorRef>(null);
   const history = useHistory()
   const [url, setUrl] = useState('')
- // const receivedData = location.state?.data || "Không có dữ liệu";
- //const { idEdit } = useParams();
-//console.log(idEdit)
   const exportHtml = async () => {
     try {
       const unlayer = emailEditorRef.current?.editor;
@@ -19,7 +16,7 @@ const NewContent: React.FC = () => {
       unlayer?.exportHtml(async (htmlData) => {
         const { html } = htmlData;
         const requestData = { content: html };
-        unlayer?.saveDesign(async (designData) => {
+        unlayer?.saveDesign(async (designData:any) => {
           const designJSON = { designJSON: JSON.stringify(designData) };
           const link = { url:url }
           const mergedData = { ...link,...requestData, ...designJSON };
@@ -35,7 +32,7 @@ const NewContent: React.FC = () => {
   return (
     <div style={{ width: '100%', height: '100vh', display: 'flex', flexDirection: 'column' }}>
        <div>
-      <Button variant="contained" color="primary"  size='30' onClick={exportHtml}>Save Design</Button>
+      <Button variant="contained" color="primary"   onClick={exportHtml}>Save Design</Button>
     </div>
     <TextField
           variant="outlined"
@@ -51,7 +48,6 @@ const NewContent: React.FC = () => {
     <div style={{ flex: 1 }}>
       <EmailEditor ref={emailEditorRef}  style={{height:'90vh'}} />
     </div>
-   
   </div>
   );
 };

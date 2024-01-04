@@ -1,123 +1,107 @@
-/* CSS cho bảng và các phần tử liên quan */
 .tractors-list-container {
-    margin: 20px;
-    background-color: #f4f4f4;
-  }
-  
-  .tractors-table {
-    width: 100%; /* Đặt chiều rộng cho bảng */
-    border-collapse: collapse;
-    background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .tractors-table th,
-  .tractors-table td {
-    padding: 12px 16px;
-    text-align: left;
-  }
-  
-  .tractors-table th {
-    background-color: #f1f1f1;
-    font-weight: bold;
-  }
-  .tractors-table td{
-    border-bottom: 1px solid #e0e0e0;
-  }
-  .tractors-table tr:hover {
-    background-color: #f5f5f5;
-  }
-  
-  .tractors-table-container {
-    width: 100%; /* Đặt chiều rộng cho container */
-    padding: 20px;
-    overflow-x: auto;
-  }
-  
-  /* CSS cho checkbox */
-  .tractor-checkbox {
-    display: flex;
-    align-items: center;
-  }
-  
-  /* CSS cho nút tải lên */
-  .upload-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-  }
-  .upload-icon {
-  
-  }
-  .addfile{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .upload-button label {
-    cursor: pointer;
-  }
-  
-  /* Tùy chỉnh icon nút tải lên */
-  .upload-button .upload-icon {
-    font-size: 24px;
-  }
-  
-  /* CSS cho input file ẩn */
-  #file-input {
-    display: none;
-  }
-  /* tractor.css */
+  margin: 20px;
+  background-color: #f4f4f4;
+}
 
-/* Add a class to the table to fix its layout */
+.tractors-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tractors-table th,
+.tractors-table td {
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.tractors-table th {
+  background-color: #f1f1f1;
+  font-weight: bold;
+}
+
+.tractors-table td {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tractors-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+.tractors-table-container {
+  width: 100%;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.tractor-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+
+.addfile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-button label {
+  cursor: pointer;
+}
+
+.upload-button .upload-icon {
+  font-size: 24px;
+}
+
+#file-input {
+  display: none;
+}
+
 .tractors-table {
   table-layout: fixed;
 }
 
-/* Set fixed width for each table cell */
 .tractors-table th,
 .tractors-table td {
-  width: 150px; /* Adjust this value as needed */
+  width: 150px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* Adjust the input width in the create-tractor-input section */
 .create-tractor-input input {
-  width: 200px; /* Adjust this value as needed */
+  width: 200px;
 }
 
-/* Add some margin between the Create Tractor input and button */
 .create-tractor-button {
-  display:flex;
+  display: flex;
   margin-bottom: 10px;
 }
 
 @media (min-width: 768px) {
   .create-tractor-button {
-    
-    flex-direction:row;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-   
   }
 }
+
 @media (max-width: 768px) {
   .create-tractor-button {
-    
-    flex-direction:column;
+
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-   
+
   }
 }
+
 .create-tractor-input {
   margin-right: 10px;
 }
 
-/* Add some margin to the Actions column */
 .tractors-table .actions-cell {
   display: flex;
   align-items: center;
@@ -126,6 +110,6 @@
 
 @media (max-width: 767px) {
   .tractors-table {
-    font-size: 9px; /* Điều chỉnh kích thước chữ */
+    font-size: 9px;
   }
 }

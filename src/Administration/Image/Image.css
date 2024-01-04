@@ -1,6 +1,4 @@
 .container{
-    
-    
 }
 .image-container{
     width: 100%;
@@ -19,7 +17,7 @@
     height: 300px;
     margin: 5px;
     overflow: hidden;
-    border: 1px solid #ccc; /* Ensure that the image won't exceed the div's dimensions */
+    border: 1px solid #ccc; 
     position: relative;
  
 }
@@ -28,12 +26,17 @@
     width: 300px;
     height: 300px;
     margin: 5px;
-    overflow: hidden; /* Ensure that the image won't exceed the div's dimensions */
+    overflow: hidden;
 }
 .image-item img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensure that the entire image is visible within the dimensions of the img tag */
+    object-fit: cover; 
+}
+.image-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
 }
 .container{
    position: relative;
@@ -56,23 +59,29 @@
 }
     
 .delete-button {
-    
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     display: flex;
-    align-items: center;
-    justify-content: center;
-     /* Use rgba to set opacity for background color only */
-
+  justify-content: space-between;
+  align-items: center;
     border: none;
     padding: 5px 10px;
-   
+    z-index: 10;
     transition: background-color 0.3s ease-in-out; /* Add transition for background-color */
 }
-
+.delete_icon{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.copy_icon{
+    position: absolute;
+    top: 45%;
+    right: 45%; 
+}
 .delete-button:hover {
     background-color: rgba(169, 169, 169, 0.6); /* Adjust opacity on hover */
 }
@@ -102,4 +111,52 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+.confirm-delete{
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+    border: none;
+    padding: 5px 10px;
+    z-index: 11;
+    transition: background-color 0.3s ease-in-out;
+}
+.confirm-delete:hover {
+    background-color: rgba(169, 169, 169, 0.6); /* Adjust opacity on hover */
+}
+.confirmation-container {
+   display: flex;
+   flex-direction: column;
+}
+.isCopy{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+    border: none;
+    padding: 5px 10px;
+    z-index: 13;
+    transition: background-color 0.3s ease-in-out; 
+}
+.isCopy:hover {
+    background-color: rgba(169, 169, 169, 0.6); /* Adjust opacity on hover */
+}
+.isCopy span{
+    position: absolute;
+    top: 45%;
+    left: 25%;
+    font-weight: bold;
+}
+.video-hover{
+    z-index: 9999;
 }
