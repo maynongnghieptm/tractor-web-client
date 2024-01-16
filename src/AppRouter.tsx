@@ -70,7 +70,6 @@ const AppRouter: React.FC = () => {
           }
         />
         <Route path="/dashboard/:tractorId" component={Chart} />
-        
         <RouteWithLayout
           path={`/account/profile`}
           component={Profile}
@@ -86,7 +85,6 @@ const AppRouter: React.FC = () => {
           component={() => null}
           layout={DashboardLayout}
         />
-
       </Switch>
     </AppRouterComponent>
   )
@@ -107,7 +105,6 @@ const RouteWithLayout: React.FC<RouteWithLayoutProps> = ({
       {...rest}
       render={(props) => {
         if (!Component) return null
-
         if (Layout) {
           return (
             <Layout>

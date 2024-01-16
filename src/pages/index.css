@@ -29,10 +29,10 @@
   
   .footer_container .page-icons {
     display: flex; 
-    transition: transform 0.2s ease;/* Sắp xếp các biểu tượng chuyển trang theo hàng ngang */
+    transition: transform 0.2s ease;
   }
   .footer_container .page-icons div:hover {
-    transform: scale(1.2); /* Kích thước tăng lên 1.2 khi hover */
+    transform: scale(1.2);
   }
   .addIcon{
     margin: auto;
@@ -40,5 +40,5 @@
     transition: transform 0.2s ease;
   }
   .addIcon:hover {
-    transform: scale(1.2); /* Kích thước tăng lên 1.2 khi hover */
+    transform: scale(1.2); 
   }

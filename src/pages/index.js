@@ -3,7 +3,7 @@ import axios from "../_config/AxiosConfig";
 import Listcontent from "./List_content";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { Add as AddIcon} from '@material-ui/icons';
+import { Add as AddIcon } from '@material-ui/icons';
 import { useHistory } from "react-router-dom";
 import './index.css'
 import { useSelector } from 'react-redux'
@@ -11,7 +11,7 @@ const Info = () => {
     const [data, setData] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
-    const history = useHistory()
+    const history = useHistory();
     const isAdmin = useSelector((state) => state.authStatus.isAdmin);
     useEffect(() => {
         const fetchData = async () => {
@@ -28,9 +28,9 @@ const Info = () => {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = data?.slice(indexOfFirstItem, indexOfLastItem);
-    console.log(currentItems)
+    console.log(currentItems);
     const totalPages = Math.ceil(data?.length / itemsPerPage);
-    console.log(totalPages)
+    console.log(totalPages);
     const paginate = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
@@ -44,7 +44,6 @@ const Info = () => {
             </div>
         );
     };
-
     const renderNextIcon = () => {
         if (currentPage === totalPages) {
             return null;
@@ -55,10 +54,9 @@ const Info = () => {
             </div>
         );
     };
-    const handleAddcontent = ()=>{
-        history.push('/administration/edit')
+    const handleAddcontent = () => {
+        history.push('/administration/edit');
     }
-
     return (
         <div className="parent_container">
             <div className="info_container" >
@@ -66,18 +64,16 @@ const Info = () => {
                     <ul >
                         {currentItems.map((item) => (
                             <li key={item.id} style={{ color: 'black' }}>
-                                <Listcontent url={item.url} id={item._id} content={item.content} date ={item.createdAt} />
+                                <Listcontent url={item.url} id={item._id} content={item.content} date={item.createdAt} />
                             </li>
                         ))}
                     </ul>
                 )}
-
-             {isAdmin&&(
-             <div className="addIcon" onClick={handleAddcontent}>
-                    <AddIcon/>
-                </div>
+                {isAdmin && (
+                    <div className="addIcon" onClick={handleAddcontent}>
+                        <AddIcon />
+                    </div>
                 )}
-                
             </div>
             <div className="footer_container">
                 <div className="page-info"> {currentPage} / {totalPages}</div>
@@ -86,7 +82,6 @@ const Info = () => {
 
                     {renderNextIcon()}
                 </div>
-
             </div>
         </div>
     );

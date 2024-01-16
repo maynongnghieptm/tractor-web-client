@@ -33,7 +33,7 @@ const UserEditor: React.FC = () => {
       });
   }, [userId]);
 
-  const handleSaveUser = () => {
+  const handleSaveUser = async() => {
     if (user) {
       const userDataToSend = {
         fullname: user.fullname,
@@ -41,14 +41,13 @@ const UserEditor: React.FC = () => {
         email: user.email,
         address: user.address,
       };
-      axios.put(`/users/${userId}`, userDataToSend)
-        .then(response => {
-          alert('Update Complete')
-        })
-        .catch(error => {
-          console.error('Error saving user data:', error);
-          alert('Error')
-        });
+      try {
+        await axios.put(`/users/${userId}`, userDataToSend)
+        alert('Update Complete')
+      } catch (error) {
+        console.error('Error saving user data:', error);
+        alert('Error')
+      }
     }
   };
 

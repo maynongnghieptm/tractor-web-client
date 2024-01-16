@@ -26,12 +26,12 @@ const Signup: React.FC = () => {
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      await authService.signUp({ fullname, username, email, address, password })
-      alert('Đăng kí thành công')
+      await authService.signUp({ fullname, username, email, address, password });
+      alert('Đăng kí thành công');
     } catch (error) {
-      alert('Lỗi khi đăng kí')
+      alert('Lỗi khi đăng kí');
       console.error('Lỗi khi đăng ký:', error);
     }
   }
@@ -72,7 +72,6 @@ const Signup: React.FC = () => {
               id="email"
               label="Email Address"
               name="email"
-
               autoComplete="email"
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -123,7 +122,6 @@ const Signup: React.FC = () => {
               label="Confirm Password"
               type={showCfPassword ? 'text' : 'password'}
               id="confirmpassword"
-
               onChange={(e) => setPassword(e.target.value)}
               InputProps={{
                 endAdornment: (
@@ -172,7 +170,7 @@ const Signup: React.FC = () => {
 
 const useStyles = makeStyles((theme) => ({
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(3),
   },
   submit: {

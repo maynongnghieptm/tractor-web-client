@@ -24,7 +24,6 @@ const Auth: React.FC<AuthProps> = ({ match }) => {
     <Grid container className={classes.container}>
       <Grid item xs={12} sm={12} md={4} className={classes.formSection}>
         <Box p={2}>
-         
           <Route path={`${match.path}/login`} component={Login} />
           <Route path={`${match.path}/signup`} component={Signup} />
           <Route path={`${match.path}/recover`} component={Recover} />
@@ -62,4 +61,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default Auth
+export default Auth;

@@ -39,38 +39,13 @@ const Tractor = () => {
       [tractorId]: !prevSelectedTractors[tractorId],
     }))
   };
-  const handleUpload = () => {
-    const formData = new FormData()
-    const selectedTractorIds = Object.keys(selectedTractors).filter(id => selectedTractors[id]);
-    formData.append("tractorIds", JSON.stringify(selectedTractorIds));
-    formData.append("fileConfig", selectedFile);
-    if (selectedFile) {
-      axios.post('/file-config', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        }
-      })
-        .then(response => {
-          alert('Send file complete')
-        })
-        .catch(error => {
-          console.error('Error submitting form data with file:', error);
-        });
-    }
-  };
+  
   const uploadImage = async () => {
     try {
-      // Use FormData to send the file to your server
       const formData = new FormData();
-      formData.append('image', selectedFile );
-
-      // Replace 'your-upload-url' with the actual URL to your image upload endpoint
+      formData.append('image', selectedFile);
       const response = await axios.post(`file-config/upload`, formData);
-
-      // Assuming your server responds with an object containing the image URL
       const imageUrl = response.data.data;
-
-      // Return the URL of the uploaded image
       return imageUrl;
     } catch (error) {
       console.error('Error uploading image:', error);
@@ -96,7 +71,6 @@ const Tractor = () => {
   };
   const handleEdit = (tractorId) => {
     history.push(`/administration/tractoredit/${tractorId}`);
-  
   };
   const handleDelete = (tractorId) => {
     axios.delete(`/tractors/${tractorId}`)
@@ -202,7 +176,6 @@ const Tractor = () => {
                         <DeleteIcon />
                       </IconButton>
                     </TableCell>
-
                   </TableRow>
                 ))}
               </TableBody>

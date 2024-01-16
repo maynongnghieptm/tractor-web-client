@@ -7,22 +7,21 @@ import AuthHeader from '../_common/AuthHeader'
 
 
 const Recover: React.FC = () => {
-  const classes = useStyles()
-  const [user, setUser] = useState('')
-  const [checkUser, setCheckUser] = useState(false)
-  const [email, setEmail] = useState('')
+  const classes = useStyles();
+  const [user, setUser] = useState('');
+  const [checkUser, setCheckUser] = useState(false);
+  const [email, setEmail] = useState('');
   useEffect(() => {
-    console.log(user)
+    console.log(user);
   }, [user])
   const handleSentUser = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault()
+    event.preventDefault();
     axios.get(`/auth/findUser/${user}`)
       .then((response) => {
         console.log(response.status)
         if (response.status === 200) {
-          setCheckUser(true)
+          setCheckUser(true);
         }
-
       })
       .catch((error) => {
         console.error('Error fetching tractor data:', error);
@@ -30,22 +29,17 @@ const Recover: React.FC = () => {
       })
   }
   const handleSentEmail = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault()
-    axios.get(`/auth/findUser/${user}/${email}`,)
+    event.preventDefault();
+    axios.get(`/auth/findUser/${user}/${email}`)
       .then((response) => {
-
         if (response.status === 200) {
-     
-          alert('Vui lòng kiểm tra email!')
+          alert('Vui lòng kiểm tra email!');
         }
-
       })
       .catch((error) => {
-        alert("Có lỗi xảy ra")
+        alert("Có lỗi xảy ra");
         console.error('Error fetching tractor data:', error);
-
-        alert('Email không trùng khớp')
-
+        alert('Email không trùng khớp');
       })
   }
   return (
@@ -90,7 +84,6 @@ const Recover: React.FC = () => {
             fullWidth
             variant="contained"
             color="primary"
-
             onClick={handleSentEmail}
           >
             Request Password Reset
@@ -101,7 +94,6 @@ const Recover: React.FC = () => {
             fullWidth
             variant="contained"
             color="primary"
-
             onClick={handleSentUser}
           >
             Enter your User name
@@ -135,4 +127,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default Recover
+export default Recover;

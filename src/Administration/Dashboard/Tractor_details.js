@@ -55,7 +55,6 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
                                 checked={showSensor}
                                 onChange={handleCheckboxChange}
                             />
-                          
                         </label>
                         <label className="checkbox-label">
                             <input
@@ -63,8 +62,7 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
                                 name="speed"
                                 checked={showSpeed}
                                 onChange={handleCheckboxChange}
-                            />
-                            
+                            />  
                         </label>
                         <label className="checkbox-label">
                             <input
@@ -82,7 +80,6 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
                                 checked={showDevice}
                                 onChange={handleCheckboxChange}
                             />
-                           
                         </label>
                         </div>
                     </div>
@@ -93,7 +90,6 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
                                     <div className="line-item">
                                         <div className="icon-detail" >
                                             <Image src="/satellite.png" style={{ background: "none" }} />
-
                                         </div>
                                         <div>RTK: {selectedTractorData.data.rtk[0]}</div>
                                         <div>Sat</div>
@@ -101,25 +97,20 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
                                     <div className="line-item">
                                         <div className="icon-detail" >
                                             <Image src="/speed.png" style={{ background: "none" }} />
-
                                         </div>
                                         <div>Speed: {parseInt(selectedTractorData.data.ctr_fed[15])}</div>
                                         <div>m/s</div>
                                     </div>
-
                                     <div className="line-item">
                                         <div className="icon-detail" >
                                             <Image src="/roll.png" style={{ background: "none" }} />
-
                                         </div>
                                         <div>Roll: {parseInt(selectedTractorData.data.ypr[2])} </div>
                                         <div>Deg</div>
                                     </div>
                                     <div className="line-item">
-
                                         <div className="icon-detail" >
                                             <Image src="/pitch.png" style={{ background: "none" }} />
-
                                         </div>
                                         <div>Pitch: {parseInt(selectedTractorData.data.ctr_fed[1])}</div>
                                         <div>Deg</div>
@@ -127,7 +118,6 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
                                     <div className="line-item">
                                         <div className="icon-detail" >
                                             <Image src="/yaw.png" style={{ background: "none" }} />
-
                                         </div>
                                         <div>Yaw: {parseInt(selectedTractorData.data.ctr_fed[0])}</div>
                                         <div>Deg</div>
@@ -137,7 +127,6 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
                                     <div className="line-item">
                                         <div className="icon-detail" >
                                             <Image src="/steer.png" style={{ background: "none" }} />
-
                                         </div>
                                         <div>Steer: {parseInt(selectedTractorData.data.ctr_fed[1])} </div>
                                         <div>Deg</div>
@@ -145,7 +134,6 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
                                     <div className="line-item">
                                         <div className="icon-detail" >
                                             <Image src="/gear-stick.png" style={{ background: "none" }} />
-
                                         </div>
                                         <div>Gear M: {selectedTractorData.data.ctr_fed[9]} </div>
                                         <div>Level</div>
@@ -154,16 +142,13 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
                                     <div className="line-item">
                                         <div className="icon-detail" >
                                             <Image src="/plow-roll.png" style={{ background: "none" }} />
-
                                         </div>
                                         <div>Plow: {parseInt(selectedTractorData.data.ctr_fed[13])}</div>
                                         <div>Deg</div>
                                     </div>
                                     <div className="line-item">
-
                                         <div className="icon-detail" >
                                             <Image src="/plow-metter.png" style={{ background: "none" }} />
-
                                         </div>
                                         <div>Plow: {selectedTractorData.data.ctr_fed[11]}</div>
                                         <div>Metter</div>
@@ -171,7 +156,6 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
                                     <div className="line-item">
                                         <div className="icon-detail" >
                                             <Image src="/gear-stick.png" style={{ background: "none" }} />
-
                                         </div>
                                         <div>Gear E: {selectedTractorData.data.ctr_fed[7]}</div>
                                         <div>Level</div>
@@ -259,13 +243,10 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
                                 </div>
                             </div>
                                ) : null}
-
                     </div>
                 </div>
             </Draggable>
         </div>
-
-
     );
 };
 

@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
 import {  Button } from '@material-ui/core';
 const Listcontent = ({ url,id, content, date }) => {
-  console.log(url)
+  console.log(url);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const isAdmin = useSelector((state) => state.authStatus.isAdmin);
   const history = useHistory();
@@ -25,10 +25,6 @@ const Listcontent = ({ url,id, content, date }) => {
   const title = firstH1WithContent?.textContent.trim() || 'No Title';
   const img = doc.querySelector('img')?.getAttribute('src') || 'No Image';
   const description = doc.querySelector('p')?.textContent.trim() || 'No Description';
-
-  const handleClickDetail = () => {
-    window.location.replace(url)
-  };
 
   const handleClickEdit = () => {
     history.push({

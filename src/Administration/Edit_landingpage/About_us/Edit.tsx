@@ -41,7 +41,8 @@ const Editor: React.FC = () => {
 
   const onLoad = async () => {
     try {
-      const response = await axios.get(`auth/admin_edit?id=${idEdit}`)
+ 
+      const response = await axios.get(`auth/admin_edit?id=${idEdit.idEdit}`)
       //console.log(htmlContent);
       console.log(response.data.message.url)
       emailEditorRef.current?.editor?.loadDesign(

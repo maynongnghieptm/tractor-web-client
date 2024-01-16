@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../_config/AxiosConfig';
-import { Table, TableHead, TableContainer, TableRow, TableCell, TableBody, IconButton, Checkbox, Button, TextField } from '@material-ui/core';
-import { Add as AddIcon, Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
+import {  Checkbox,   } from '@material-ui/core';
+import {  Delete as DeleteIcon } from '@material-ui/icons';
 //import './Image.css'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { set } from 'lodash';
 import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore';
 // /import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
 const Recycle = () => {
@@ -35,7 +34,6 @@ const Recycle = () => {
         const fetchData = async () => {
             try {
                 let response;
-
                 if (filterOption === 'date') {
                     response = await axios.get('/file-config/recycle_by_date');
                 } else if (filterOption === 'size') {
@@ -55,25 +53,22 @@ const Recycle = () => {
         // const response = await axios.delete(`/file-config/delete/${id}`);
         setConfirmDelete(true)
         setisDelete(true)
-
     }
     const handleConfirmDeleteImage = async (id) => {
-       // const isConfirmed = window.confirm('Bạn có chắc chắn muốn xóa ảnh này?');
-        
-            try {
-                const response = await axios.delete(`/file-config/delete/${id}`);
-                console.log(response);
-                if (response.status === 200) {
-                    alert('Xóa ảnh thành công');
-                    window.location.reload();
-                } else {
-                    alert('Có lỗi xảy ra');
-                }
-            } catch (error) {
-                console.error('Lỗi khi xóa ảnh:', error);
+        // const isConfirmed = window.confirm('Bạn có chắc chắn muốn xóa ảnh này?');
+        try {
+            const response = await axios.delete(`/file-config/delete/${id}`);
+            console.log(response);
+            if (response.status === 200) {
+                alert('Xóa ảnh thành công');
+                window.location.reload();
+            } else {
                 alert('Có lỗi xảy ra');
             }
-        
+        } catch (error) {
+            console.error('Lỗi khi xóa ảnh:', error);
+            alert('Có lỗi xảy ra');
+        }
     }
     const handleUnconfirmDelete = () => {
         setConfirmDelete(false)
@@ -151,7 +146,7 @@ const Recycle = () => {
                 <div>
                     <button onClick={() => handleClickSelect()}>Chọn</button>
                     {
-                    selected &&
+                        selected &&
                         <>
                             <button onClick={() => handMultiDelete()}>Xóa</button>
                             <button onClick={() => handleMultiRestore()}>Khôi phục</button>
@@ -173,26 +168,23 @@ const Recycle = () => {
                         <div
                             key={index}
                             className={`image-item ${hoveredIndex === index ? 'blurred' : ''}`}
-                            onMouseEnter={() =>handleMouseSizeEnter(index)}
+                            onMouseEnter={() => handleMouseSizeEnter(index)}
                             onMouseLeave={() => handleMouseLeave}
                         >
-                          {image.fileName?.endsWith('.mp4') ? (
-                                            <video
-                                            src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-recycle?filename=${image.fileName}`}
-
-
-                                                controls
-                                                className="enlarge-hover"
-                                            />
-                                        ) : (
-                                            <LazyLoadImage
-                                            src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-recycle?filename=${image.fileName}`}
-                                                alt={`Image ${index}`}
-                                               
-                                                effect="blur"
-                                                className="enlarge-hover"
-                                            />
-                                        )}
+                            {image.fileName?.endsWith('.mp4') ? (
+                                <video
+                                    src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-recycle?filename=${image.fileName}`}
+                                    controls
+                                    className="enlarge-hover"
+                                />
+                            ) : (
+                                <LazyLoadImage
+                                    src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-recycle?filename=${image.fileName}`}
+                                    alt={`Image ${index}`}
+                                    effect="blur"
+                                    className="enlarge-hover"
+                                />
+                            )}
                             <div className='checkbox'>
                                 {selected &&
                                     <Checkbox
@@ -205,34 +197,29 @@ const Recycle = () => {
                                 <>
                                     {hoveredIndex === index && (
                                         <div>
-                                           {isdelete == false && (
- <div className="delete-button">
- <div className='delete_icon'>
- <DeleteIcon onClick={() => handleDeleteImage(image.fileName)} />
- </div>
- <div className='copy_icon'>
- <SettingsBackupRestoreIcon onClick={() => handleRestore(image.fileName)} />
- </div>
- 
- 
-</div>
-                                                        )}
-                                                        {confirmDelete && (
-                                                                <div className="confirm-delete">
-                                                                    <div className="confirmation-container">
-                                                                        <div>
-                                                                            <span style={{ "fontWeight": "bold" }}>Xác nhận xóa ảnh này?</span>
-                                                                        </div>
-                                                                        <div>
-                                                                            <button style={{ "border": "1px solid", "borderRadius": "5px", }} onClick={() => handleConfirmDeleteImage(image.fileName)}>Xóa</button>
-                                                                            <button style={{ "border": "1px solid", "borderRadius": "5px", }} onClick={() => handleUnconfirmDelete()}>Hủy</button>
-                                                                        </div>
-
-
-                                                                    </div>
-                                                                </div>
-                                                            )}
-                                                        
+                                            {isdelete == false && (
+                                                <div className="delete-button">
+                                                    <div className='delete_icon'>
+                                                        <DeleteIcon onClick={() => handleDeleteImage(image.fileName)} />
+                                                    </div>
+                                                    <div className='copy_icon'>
+                                                        <SettingsBackupRestoreIcon onClick={() => handleRestore(image.fileName)} />
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {confirmDelete && (
+                                                <div className="confirm-delete">
+                                                    <div className="confirmation-container">
+                                                        <div>
+                                                            <span style={{ "fontWeight": "bold" }}>Xác nhận xóa ảnh này?</span>
+                                                        </div>
+                                                        <div>
+                                                            <button style={{ "border": "1px solid", "borderRadius": "5px", }} onClick={() => handleConfirmDeleteImage(image.fileName)}>Xóa</button>
+                                                            <button style={{ "border": "1px solid", "borderRadius": "5px", }} onClick={() => handleUnconfirmDelete()}>Hủy</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                     )}
                                 </>
@@ -256,24 +243,22 @@ const Recycle = () => {
                                         onMouseEnter={() => handleMouseDateEnter(i, index)}
                                         onMouseLeave={() => handleMouseLeave}
                                     >
-                                       
-                                         {image.fileName?.endsWith('.mp4') ? (
+                                        {
+                                        image.fileName?.endsWith('.mp4') ? (
                                             <video
-                                            src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-recycle?filename=${image.fileName}`}
-
-
+                                                src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-recycle?filename=${image.fileName}`}
                                                 controls
                                                 className="enlarge-hover"
                                             />
                                         ) : (
                                             <LazyLoadImage
-                                            src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-recycle?filename=${image.fileName}`}
+                                                src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-recycle?filename=${image.fileName}`}
                                                 alt={`Image ${index}`}
-                                               
                                                 effect="blur"
                                                 className="enlarge-hover"
                                             />
-                                        )}
+                                        )
+                                        }
                                         <div className='checkbox'>
                                             {selected &&
                                                 <Checkbox
@@ -287,33 +272,29 @@ const Recycle = () => {
                                                 {hoveredDateIndex && hoveredDateIndex[0] === i && hoveredDateIndex[1] === index && (
                                                     <div>
                                                         {isdelete == false && (
- <div className="delete-button">
- <div className='delete_icon'>
- <DeleteIcon onClick={() => handleDeleteImage(image.fileName)} />
- </div>
- <div className='copy_icon'>
- <SettingsBackupRestoreIcon onClick={() => handleRestore(image.fileName)} />
- </div>
- 
- 
-</div>
+                                                            <div className="delete-button">
+                                                                <div className='delete_icon'>
+                                                                    <DeleteIcon onClick={() => handleDeleteImage(image.fileName)} />
+                                                                </div>
+                                                                <div className='copy_icon'>
+                                                                    <SettingsBackupRestoreIcon onClick={() => handleRestore(image.fileName)} />
+                                                                </div>
+                                                            </div>
                                                         )}
-                                                   
-                                                    {confirmDelete && (
-                                                                <div className="confirm-delete">
-                                                                    <div className="confirmation-container">
-                                                                        <div>
-                                                                            <span style={{ "fontWeight": "bold" }}>Xác nhận xóa ảnh này?</span>
-                                                                        </div>
-                                                                        <div>
-                                                                            <button style={{ "border": "1px solid", "borderRadius": "5px", }} onClick={() => handleConfirmDeleteImage(image.fileName)}>Xóa</button>
-                                                                            <button style={{ "border": "1px solid", "borderRadius": "5px", }} onClick={() => handleUnconfirmDelete()}>Hủy</button>
-                                                                        </div>
 
-
+                                                        {confirmDelete && (
+                                                            <div className="confirm-delete">
+                                                                <div className="confirmation-container">
+                                                                    <div>
+                                                                        <span style={{ "fontWeight": "bold" }}>Xác nhận xóa ảnh này?</span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <button style={{ "border": "1px solid", "borderRadius": "5px", }} onClick={() => handleConfirmDeleteImage(image.fileName)}>Xóa</button>
+                                                                        <button style={{ "border": "1px solid", "borderRadius": "5px", }} onClick={() => handleUnconfirmDelete()}>Hủy</button>
                                                                     </div>
                                                                 </div>
-                                                            )}
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 )}
                                             </>

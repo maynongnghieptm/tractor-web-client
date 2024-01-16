@@ -1,6 +1,5 @@
 import React from 'react'
 import { makeStyles, Typography } from '@material-ui/core'
-
 import BaseLogo from '_common/BaseLogo'
 
 export type AuthHeaderProps = {
@@ -9,7 +8,6 @@ export type AuthHeaderProps = {
 
 const AuthHeader: React.FC<AuthHeaderProps> = ({ title = '' }) => {
   const classes = useStyles()
-
   return (
     <Typography component="h1" variant="h4">
       <BaseLogo size={30} className={classes.logo} /> {title}

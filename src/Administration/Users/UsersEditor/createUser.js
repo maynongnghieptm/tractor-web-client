@@ -14,7 +14,7 @@ import BasePageToolbar from '_common/BasePageToolbar';
 
 const CreateUser = () => {
   const [user, setUser] = useState();
-  const handleCreate = () => {
+  const handleCreate = async() => {
     if (user) {
       const userDataToSend = {
 
@@ -24,14 +24,13 @@ const CreateUser = () => {
         fullname: user.fullname,
         address: user.address,
       };
-
-      axios.post(`/users`, userDataToSend)
-        .then(response => {
-          alert('Create User Complete')
-        })
-        .catch(error => {
-          alert('Error')
-        });
+      try {
+        await axios.post(`/users`, userDataToSend);
+        alert('Create User Complete')
+      } catch (error) {
+        alert('Error');
+        console.error(error)
+      }
     }
   };
   return (
@@ -71,7 +70,6 @@ const CreateUser = () => {
             </Button>
           </form>
         </Grid>
-
       </BasePageContainer>
     </div>
   )

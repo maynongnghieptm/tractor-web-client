@@ -21,8 +21,6 @@ const Chart = (props) => {
       const parseData = JSON.parse(log.logs);
       
       //console.log(count)
-      // Compare with the previous log data
-      
       if (parseData.ver && parseData.ver[1] !== previousVer1) {
         previousVer1=parseData.ver[1]
 
@@ -30,7 +28,6 @@ const Chart = (props) => {
         setData(parseData);
         //setPreviousVer1(parseData.ver[1]);
       }
-      // Rest of your code...
     });
 
     return () => {

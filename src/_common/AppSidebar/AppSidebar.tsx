@@ -9,16 +9,13 @@ export type AppSidebarProps = {
 
 const AppSidebar: React.FC<AppSidebarProps> = (props) => {
   console.log('AppSidebar rendered')
-
   // const { isCollapsed } = props
-
   const classes = useStyles(props)
 
   return (
     <aside className={classes.sidebar}>
       <div className={classes.sidebarBackground} />
       <div className={classes.sidebarBody}>
-        
         {/* <SidebarNav /> */}
         <SidebarNavRecursive />
       </div>
@@ -29,10 +26,6 @@ const AppSidebar: React.FC<AppSidebarProps> = (props) => {
 AppSidebar.defaultProps = {
   isCollapsed: false,
 }
-
-// Sidebar.propTypes = {
-//   isCollapsed: PropTypes.bool,
-// }
 
 const useStyles = makeStyles((theme) => ({
   sidebar: {
@@ -51,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
     top: 0,
     left: 0,
     zIndex: 0,
-    // backgroundImage: `url(${AppSidebarBg})`,
     backgroundPosition: 'center',
     backgroundRepeat: 'repeat',
     backgroundSize: 'cover',
@@ -89,7 +81,6 @@ const useStyles = makeStyles((theme) => ({
     display: props.isCollapsed ? 'none' : 'block',
     fontSize: '1.1rem',
     letterSpacing: '.015em',
-    // fontWeight: 'bold',
   }),
   name: {},
   tagline: {

@@ -28,9 +28,7 @@ const Change_pass = () => {
     if (codeIndex !== -1) {
       const code = url.substring(codeIndex + 5);
       setCode(code);
-
       const usernameIndex = url.indexOf('/auth/changepassword/');
-
       if (usernameIndex !== -1) {
         const username = url.substring(usernameIndex + 21, codeIndex - 1);
         setUsername(username);
@@ -47,7 +45,6 @@ const Change_pass = () => {
     formData.append('username', username);
     formData.append('code', code);
     formData.append('password', password);
-
     const formDataJSON: { [key: string]: any } = {};
     formData.forEach((value, key) => {
       formDataJSON[key] = value;
@@ -133,7 +130,6 @@ const Change_pass = () => {
                 <IconButton
                   aria-label="toggle password visibility"
                   onClick={() => setShowcf(!showcf)}
-
                   edge="end"
                 >
                   {showcf ? <VisibilityOff /> : <Visibility />}

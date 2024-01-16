@@ -1,4 +1,3 @@
-/* styles.css */
 .app-container {
     text-align: center;
   }
@@ -13,14 +12,12 @@
     position: relative;
   }
   .news-container .title-row a {
-    text-decoration: none; /* Loại bỏ gạch dưới chữ mặc định */
-    cursor: pointer; /* Đổi con trỏ khi hover để chỉ ra tính tương tác */
+    text-decoration: none; 
+    cursor: pointer;
     font-size: 24px;
-    
   }
-  
   .news-container .title-row a:hover {
-    text-decoration: underline; /* Thêm gạch dưới khi hover */
+    text-decoration: underline;
   }
   .title-row {
     display: flex;
@@ -31,8 +28,6 @@
     font-family: Arial, Helvetica, sans-serif;
     color: #3469A6;
     font-size: 24px;
-
-
   } 
   .editIcon{
     display: flex;
@@ -41,35 +36,30 @@
     color: darkgray;
     transition: transform 0.2s ease;
 }
-
   .editIcon div:hover {
-    transform: scale(1.2); /* Kích thước tăng lên 1.2 khi hover */
+    transform: scale(1.2); 
   }
   .title-row::hover{
     text-decoration: underline;
-    
   }
   .content-row {
     display: flex;
-   
   }
   .image-column {
     flex: 0.5;
     width: 300px;
     height: 130px;
-    overflow: hidden; /* Ngăn chặn hình ảnh tràn khỏi khung cha */
+    overflow: hidden; 
   }
-  
   .image-column img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Đảm bảo ảnh đầy đủ khung và không bị méo */
+    object-fit: cover; 
   }
   .description-column {
     flex: 1;
     padding: 10px;
   }
-  
   img {
     max-width: 100%;
     height: auto;
@@ -89,7 +79,7 @@
   .date{
     color: darkgray;
     position: absolute;
-  bottom: 0;
-  right: 0;
+    bottom: 0;
+    right: 0;
   }
   

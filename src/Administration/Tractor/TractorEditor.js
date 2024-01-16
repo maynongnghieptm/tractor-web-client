@@ -21,7 +21,6 @@ const TractorEditor = () => {
     axios.get(`/tractors/${tractorId}`)
       .then(response => {
         const fetchedTractorData = response.data.data;
-
         setEditedTractorData({ ...fetchedTractorData });
       })
       .catch(error => {
@@ -71,10 +70,8 @@ const TractorEditor = () => {
             </Button>
           </form>
         </Grid>
-
       </BasePageContainer>
     </div>
   );
-
 }
 export default TractorEditor

@@ -1,5 +1,3 @@
-/* styles.css */
-
 .tab-tractor{
   position: absolute;
   left: 30px;
@@ -110,15 +108,11 @@
 .column {
   flex: 1;
   padding: 10px;
-  
   position: relative;
-   /* Đảm bảo mỗi cột trong hàng dưới không vượt quá 1/6 chiều rộng */
 }
 
 .icon-detail{
-
   margin-bottom: 5px;
-
 }
 .item-child{
   border-bottom: 1px solid #ccc;
@@ -135,8 +129,8 @@ text{
   margin-bottom: 10px;
 }
 .chart {
-  display: inline-block; /* Hiển thị các biểu đồ cùng một hàng */
-  margin-right: 5px; /* Khoảng cách giữa các biểu đồ */
+  display: inline-block; 
+  margin-right: 5px;
 }
 .chart-label{
   text-align: center;
@@ -144,8 +138,8 @@ text{
 }
 .status-data {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Tạo 2 cột bằng cách lặp lại 1fr (1 fraction) */
-  gap: 10px; /* Khoảng cách giữa các ô */
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 10px;
 
   
 }
@@ -155,13 +149,12 @@ text{
 }
 .device-data {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Tạo 2 cột bằng cách lặp lại 1fr (1 fraction) */
-  gap: 10px; /* Khoảng cách giữa các ô */
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 10px;
 
   
 }
-/* Add this CSS to your component's stylesheet */
-/* Add this CSS to your component's stylesheet */
+
 .list-tab {
   display: flex;
   justify-content: space-between;
@@ -171,41 +164,35 @@ text{
   flex: 1;
   display: flex;
   align-items: center;
-  margin-right: 3px; /* Add 3px spacing between checkboxes */
+  margin-right: 3px;
 }
 
 .checkbox-label input[type="checkbox"] {
-  appearance: none; /* Remove default checkbox styles */
-  -webkit-appearance: none; /* For Safari */
-  width: 100%; /* Take up the entire width of the parent */
+  appearance: none; 
+  -webkit-appearance: none; 
+  width: 100%; 
   height: 5px;
- /* Add spacing between checkbox and label */
-   /* Add a border to the custom checkbox */
-  border-radius: 3px; /* Rounded corners */
-  outline: none; /* Remove outline on focus */
-  cursor: pointer; /* Change cursor on hover */
-  background-color: white; /* Set background color to white */
-  transition: background-color 0.2s ease; /* Add a transition for smooth color change */
+  border-radius: 3px; 
+  outline: none;
+  cursor: pointer;
+  background-color: white;
+  transition: background-color 0.2s ease;
 }
 
-/* Define styles for the checked state */
 .checkbox-label input[type="checkbox"]:checked::before {
-  content: ''; /* Empty content to hide the checkmark */
+  content: '';
   display: block;
-  width: 100%; /* Size of the checkmark */
+  width: 100%; 
   height: 100%;
-  background-color:#2596be; /* Color of the checkmark when checked */
-  border-radius: 2px; /* Rounded checkmark */
-  /* Center the checkmark within the checkbox */
-  transition: background-color 0.2s ease; /* Add a transition for smooth color change */
+  background-color:#2596be; 
+  border-radius: 2px;
+  transition: background-color 0.2s ease;
 }
 
-/* Hover effect to highlight the entire checkbox */
 .checkbox-label:hover input[type="checkbox"] {
-  background-color: #f0f0f0; /* Change background color on hover */
+  background-color: #f0f0f0;
 }
 
-/* Hover effect to highlight the entire checkbox when checked */
 .tab-list{
   display: flex;
   
@@ -278,10 +265,10 @@ text{
 }
 .marker-rotate {
   transform-origin: center center;
-  transform: rotate(0deg); /* Initialize with 0 degrees rotation */
+  transform: rotate(0deg);
 }
 
 .detail a {
-  text-decoration: none; /* Loại bỏ đường kẻ dưới chân của liên kết */
-  color: inherit; /* Sử dụng màu chữ giống với môi trường xung quanh */
+  text-decoration: none; 
+  color: inherit; 
 }

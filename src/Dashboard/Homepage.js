@@ -15,9 +15,7 @@ const Homepage = () => {
         setShowIcon(false);
       }
     };
-
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };

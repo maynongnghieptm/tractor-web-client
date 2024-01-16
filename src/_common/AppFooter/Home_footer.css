@@ -1,16 +1,11 @@
 .footer-container {
     display: flex;
-    justify-content: space-between; /* Để căn giữa theo chiều ngang */
-     /* Để canh lề giữa các văn bản bên trong item */
-
-   
+    justify-content: space-between; 
     height: 100%;
     max-width: 1280px;
     margin: auto;
-    /* Để căn giữa theo chiều dọc */
-     /* Để đảm bảo footer có chiều cao 100% của parent */
-     padding-bottom: 60px;
-     flex-direction: column;
+    padding-bottom: 60px;
+    flex-direction: column;
   }
   .up{
     display: flex;
@@ -18,16 +13,16 @@
    
   }
   .footer-item {
-    margin: 0 20px; /* Để tạo khoảng cách giữa các item */
+    margin: 0 20px; 
   }
-  /* CSS để căn các thẻ <ul> và <li> thẳng hàng */
+ 
 .footer-item ul {
     padding: 0;
-    list-style: none; /* Loại bỏ dấu chấm trước mỗi mục trong danh sách */
+    list-style: none; 
   }
   
   .footer-item ul li {
-    margin: 5px 0; /* Tạo khoảng cách giữa các mục */
+    margin: 5px 0; 
   }
   
 ul{
@@ -67,11 +62,11 @@ li button[type="button"] {
   color: white;
   font-size: 14px;
   cursor: pointer;
-  transition: opacity 0.3s; /* Thêm transition cho opacity */
+  transition: opacity 0.3s; 
 }
 
 li button[type="button"]:hover {
-  opacity: 0.7; /* Đổi opacity khi hover */
+  opacity: 0.7; 
 }
 .footer {
   position: absolute;
@@ -80,5 +75,5 @@ li button[type="button"]:hover {
   width: 100%;
   background-color: black;
   color: white;
-  padding: 20px; /* Có thể điều chỉnh khoảng cách dưới cùng của footer */
+  padding: 20px; 
 }

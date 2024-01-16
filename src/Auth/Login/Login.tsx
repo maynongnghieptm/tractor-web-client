@@ -48,12 +48,10 @@ const Login: React.FC = () => {
                 else {
                   console.log('Co loi xay ra')
                 }
-
               })
               .catch(error => {
                 console.error('Error fetching user data:', error);
               });
-          
           } else if (result.data.code === 500) {
             alert('Thông tin đăng nhập không đúng')
           } else {

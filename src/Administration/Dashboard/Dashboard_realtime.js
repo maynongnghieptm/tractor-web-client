@@ -24,7 +24,6 @@ const MapContainer1 = ({ data }) => {
     const initialShowNotiStates = {}
     const initialShowMobileDetail = {}
     const initialCommand = {}
-    const history = useHistory()
     let icon
     data.forEach((item) => {
         initialShowPasswordStates[item.tractorId] = false;
@@ -33,7 +32,7 @@ const MapContainer1 = ({ data }) => {
         if (item.data.drive[2] === 0) {
             initialCommand[item.tractorId] = 'stop';
         } else {
-            initialCommand[item.tractorId] = 'continue'; // Giá trị mặc định nếu item.data.drive[2] không phải là 0
+            initialCommand[item.tractorId] = 'continue'; 
         }
 
     });
@@ -73,9 +72,6 @@ const MapContainer1 = ({ data }) => {
         setSelectedTab(tab);
     };
 
-    const handleMobileTabClick = (event, newValue) => {
-        setSelectedTab(newValue);
-    };
     useEffect(() => {
         console.log(selectedTab)
     }, [selectedTab])
@@ -97,28 +93,22 @@ const MapContainer1 = ({ data }) => {
         }));
     };
 
-
-    const polygonColors = ['#FF0000', '#00FF00']; // Thay đổi màu tại đây
     const filteredPolygons = data.filter((item) => {
         if (selectedTab === 'all') {
-            return true; // Hiển thị tất cả dữ liệu
+            return true;
         } else if (selectedTab === 'standing' && item.data.drive[2] === 1) {
-            // Lọc dữ liệu chỉ khi tab là "Standing" và isRunning là "0"
             return true;
         } else if (selectedTab === 'running' && item.data.drive[2] === 0) {
-            // Lọc dữ liệu chỉ khi tab là "Running" và isRunning là "1"
             return true;
         }
         return false;
     });
     const filteredSearchResults = searchResults.filter((item) => {
         if (selectedTab === 'all') {
-            return true; // Hiển thị tất cả dữ liệu tìm kiếm
+            return true;
         } else if (selectedTab === 'standing' && item.data.drive[2] === 1) {
-            // Lọc dữ liệu chỉ khi tab là "Standing" và isRunning là "0"
             return true;
         } else if (selectedTab === 'running' && item.data.drive[2] === 0) {
-            // Lọc dữ liệu chỉ khi tab là "Running" và isRunning là "1"
             return true;
         }
         return false;
@@ -148,9 +138,7 @@ const MapContainer1 = ({ data }) => {
             ...prevState,
             [tractorId]: !prevState[tractorId],
         }));
-        // Check if the tractor ID is in the selectedTractorIds array
         const isSelected = selectedTractorId.includes(tractorId);
-        // If selected, remove it; otherwise, add it to the selectedTractorIds array
         if (isSelected) {
             setSelectedTractorId(selectedTractorId.filter(id => id !== tractorId));
         } else {
@@ -182,7 +170,6 @@ const MapContainer1 = ({ data }) => {
             .then(response => {
                 console.log('Tractor created successfully:', response.data);
                 //setNewTractorname= ''
-
             })
             .catch(error => {
                 console.error('Error creating tractor:', error);
@@ -192,12 +179,8 @@ const MapContainer1 = ({ data }) => {
             [tractorId]: comand,
         }));
     }
-     const handleOpenChart = (tractorId)=>{
 
-        
-    }
     return (
-
         <div style={{ width: '100%', height: '100%' }} >
             <LoadScript
                 googleMapsApiKey="AIzaSyDnLh_HYtNHAJhPQWb1RnGLhidH-Re07XM"
@@ -206,7 +189,6 @@ const MapContainer1 = ({ data }) => {
                     mapContainerStyle={mapStyles}
                     center={mapCenter}
                     zoom={10}
-                    
                 >
                     {
                         sortedResults.map((item, index) => {
@@ -222,13 +204,8 @@ const MapContainer1 = ({ data }) => {
                                 }
                             }
 
-                            const color = isRunning === 1 ? 'green' : 'orange';
-                            const plans = [];
-
-                            // Select the img element with the correct src attribute
                             const imgElements = document.querySelectorAll('img[src="/tractor.png"]');
-                            const rotation = imgElements[index]; // Use the current index to select the correct img
-
+                            const rotation = imgElements[index];
                             if (rotation) {
                                 rotation.style.transform = 'rotate(' + item.data.ypr[0] + 'deg)';
                             }
@@ -236,7 +213,6 @@ const MapContainer1 = ({ data }) => {
                                 lat: item.data.llh[0],
                                 lng: item.data.llh[1]
                             };
-
                             /*
                             for (let i = 0; i < item.data[1].fieldCoordinates.length; i += 2) {
                                 plans.push({
@@ -261,7 +237,6 @@ const MapContainer1 = ({ data }) => {
                                         }}
                                     />
                                  */}
-
                                     <Marker
                                         key={item.tractorId}
                                         position={newPos}
@@ -269,20 +244,16 @@ const MapContainer1 = ({ data }) => {
                                         onClick={() => {
                                             setMapCenter(newPos);
                                             if (isMarkerSelected) {
-                                                // Deselect the marker if it's already selected
                                                 setSelectedMarker(selectedMarker.filter((marker) => marker.tractorId !== item.tractorId));
                                             } else {
-                                                // Select the marker if it's not selected
                                                 setSelectedMarker([...selectedMarker, item]);
                                             }
                                         }}
                                     />
-
                                     {isMarkerSelected && (
                                         <InfoWindow
                                             position={newPos}
                                             onCloseClick={() => {
-                                                // Deselect the marker when the InfoWindow is closed
                                                 setSelectedMarker(selectedMarker.filter((marker) => marker.tractorId !== item.tractorId));
                                             }}
                                         >
@@ -330,7 +301,6 @@ const MapContainer1 = ({ data }) => {
                     </div>
                     <div className='list-tractor'>
                         <div>
-                            {/* Hiển thị dữ liệu dựa trên tab được chọn */}
                             <ul style={{ padding: "0" }} className='list'>
                                 {sortedResults.map((item, index) => (
                                     <li key={index} className='tractor-item'>
@@ -351,7 +321,6 @@ const MapContainer1 = ({ data }) => {
                                         </div>
                                         <div className='tractor-item-child'>
                                             <img
-                                            
                                                 src={getTractorBattery(item)[1]} alt="Logo" className="logo-img"
                                             />
                                         </div>
@@ -404,9 +373,7 @@ const MapContainer1 = ({ data }) => {
                                                         onClick={() => handleMobileCommand(item.tractorId)}
                                                     />
                                                 )
-
                                             }
-
                                         </div>
                                         {showMobileDetail[item.tractorId] && (
                                             <div className='mobile-command'>
@@ -432,9 +399,9 @@ const MapContainer1 = ({ data }) => {
                                                     className={`mobile-command-item detail ${currentCommand[item.tractorId] === 'openchart' ? 'openchart' : ''}`}
                                                     onClick={() => handelSendComand('openchart', item.tractorId)}
                                                 >
-                                                     <Link to={`/dashboard/${item.tractorId}`} target="_blank">
-              Open Chart
-            </Link>
+                                                    <Link to={`/dashboard/${item.tractorId}`} target="_blank">
+                                                        Open Chart
+                                                    </Link>
                                                 </div>
                                             </div>
                                         )}
@@ -452,7 +419,6 @@ const MapContainer1 = ({ data }) => {
                 <div className='mobile-tab-tractor'>
                     <div onClick={handleOpenMobileTab}>
                         {tabMobile ? <ExpandMoreIcon style={{ color: 'white', fontSize: '3rem' }} /> : <ExpandLessIcon style={{ color: 'white', fontSize: '3rem' }} />}
-
                     </div>
                     <div className='mobile-list-tractor' style={{ display: tabMobile ? 'block' : 'none' }}>
                         <div className='tab-list'>
@@ -492,7 +458,6 @@ const MapContainer1 = ({ data }) => {
                                                 {item.tractorName.length > 9 ? `${item.tractorName.substring(0, 8)}...` : item.tractorName}
                                             </div>
                                             <div className=' mobile-item-child'>
-
                                                 <div className='same-height'>
                                                     <ProgressBar striped variant={getTractorProgress(item)} now={item.data.sen[0]} style={{ width: '40px', height: '10px' }} />
                                                 </div>
@@ -506,15 +471,9 @@ const MapContainer1 = ({ data }) => {
                                                 </div>
                                             </div>
                                             <div className=' mobile-item-child'>
-
-
-
                                                 <div className='same-height'>
                                                     <img src={getTractorStatus(item)} alt="Logo" className="logo-img"></img>
                                                 </div>
-
-
-
                                             </div>
                                             <div className=' mobile-item-child'>
                                                 {showMobileDetail[item.tractorId] ?
@@ -527,7 +486,6 @@ const MapContainer1 = ({ data }) => {
                                                     )
 
                                                 }
-
                                             </div>
                                             {showMobileDetail[item.tractorId] && (
                                                 <div className='mobile-command'>
@@ -551,18 +509,13 @@ const MapContainer1 = ({ data }) => {
                                                     </div>
                                                 </div>
                                             )}
-
                                         </li>
                                     ))}
                                 </ul>
                             </>
                         </div>
-
                     </div>
-
-
                 </div>
-
             </Hidden>
 
 
