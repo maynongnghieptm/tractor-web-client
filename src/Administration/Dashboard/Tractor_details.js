@@ -180,7 +180,7 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
                               </div>
                             </div>
                             <div className="work-progress" style={{ textAlign: 'center'}}>
-                              <ProgressBar className="working-bar-detail" striped variant="success" now={selectedTractorData.data.sum[0]} style={{ width: '90%', margin: '0 auto', }} />
+                              <ProgressBar className="working-bar-detail" striped variant="success" now={parseInt((selectedTractorData.data.sum[3]/(selectedTractorData.data.sum[3]+selectedTractorData.data.sum[2]))*100)} style={{ width: '90%', margin: '0 auto', }} />
                               <div style={{marginTop: '5px'}}>Percent of working: <span style={{fontSize:'1.5rem'}}>{selectedTractorData.data.sum[0]}%</span></div>
                             </div>
                           </div>
@@ -226,9 +226,9 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
                                     <div>Front R: {selectedTractorData.data.sen[3]}</div>
                                     <div>Back L: {selectedTractorData.data.sen[4]}</div>
                                     <div>Back R: {selectedTractorData.data.sen[5]}</div>
-                                    <div>Tem fuel: {selectedTractorData.data.sen[6]}</div>
-                                    <div>Tem engine: {selectedTractorData.data.sen[7]}</div>
-                                    <div>Tem out: {selectedTractorData.data.sen[8]}</div>
+                                    <div>Temp fuel: {selectedTractorData.data.sen[6]}</div>
+                                    <div>Temp engine: {selectedTractorData.data.sen[7]}</div>
+                                    <div>Temp out: {selectedTractorData.data.sen[8]}</div>
                                     <div>Air speed: {selectedTractorData.data.sen[12]}</div>
                                 </div>
                                 <div className="column">

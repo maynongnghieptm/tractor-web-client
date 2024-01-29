@@ -3,8 +3,14 @@ import { io } from 'socket.io-client';
 import MapContainer1 from './Dashboard_realtime'; 
 
 const ParentComponent = ()=> {
+ 
   const [socketData, setSocketData] = useState([]);
+  const [offset, setOffSet ] = useState(0);
+  const [play, setPlay] =  useState(true);
+  const [intervalId, setIntervalId] = useState(null);
+  const [line, setLine] = useState([]);
   const token = localStorage.getItem('accessToken')
+
   useEffect(() => {
     const socket = io('http://tractorserver.myddns.me:8000',  {
       extraHeaders: {
@@ -24,11 +30,16 @@ const ParentComponent = ()=> {
       socket.disconnect();
     };
   }, []);
+  
 
+  
   return (
+    <>
+    
    
-      <MapContainer1  data= {socketData} /> 
+      <MapContainer1 data={socketData} style={{ width: '100vw', height: '100vh', position: 'relative', zIndex: 2000 }} />
    
+      </>
   );
 }
 

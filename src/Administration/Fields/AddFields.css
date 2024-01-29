@@ -1,0 +1,92 @@
+.input_coordinate{
+    position: absolute;
+    left: 15px;
+    z-index: 1000;
+    top: 100px;
+    border-radius: 5px;
+   
+   
+    width: 300px;
+    height: 100px;
+   
+  }
+  .search_box{
+    
+    position: absolute;
+    left: 30%;
+    z-index: 1000;
+    top: 10px;
+    border-radius: 5px;
+   
+  }
+  .btn_enable_add{
+    position: absolute;
+    left: 50%;
+    z-index: 1000;
+    top: 10px;
+    border-radius: 5px;
+  }
+  .btn_enable_add button{
+    margin: 0 0 0 0;
+  }
+  .search_box_item{
+    display: flex;
+    flex-direction: row;
+  }
+  .main_contain{
+    position: absolute;
+  }
+.map_contain{
+    position: relative;
+    top: 0;
+}
+.input_coordinate textarea{
+    width: 90%;
+    height: 100%;
+}
+.input_coordinate button{
+    z-index: 3;
+   
+}
+.input_coordinate button{
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px 5px 5px 5px;
+}
+.input_coordinate .react-colorful {
+    height: 100px;
+  }
+
+  .edit-polygon-option{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+
+    padding: 5px 5px 5px 5px;
+
+  }
+  .edit-polygon-option input{
+    width: 50px;
+  }
+  .edit-polygon-option span{
+    color: white;
+    font-weight: bolder;
+  }
+  .edit-polygon-option_item{
+    display: flex;
+    flex-direction: row;
+   
+    justify-content:space-between ;
+  }
+  .edit-polygon-option_item_opacity{
+    display: flex;
+    flex-direction: column;
+    width: 420px;
+    margin-left: 5px;
+  }
+  .geosearch button{
+    margin: 0 0 0 0;
+  }
+   .active{
+    color: black;
+  }

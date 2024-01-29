@@ -14,8 +14,18 @@
     <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png">
     <link rel="manifest" href="%PUBLIC_URL%/site.webmanifest">
     <link rel="mask-icon" href="%PUBLIC_URL%/safari-pinned-tab.svg" color="#5bbad5">
-
+    <link href='https://cdn.jsdelivr.net/npm/@goongmaps/goong-js/dist/goong-js.css' rel='stylesheet' />
     <meta name="msapplication-TileColor" content="#2b5797">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    
+    crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+    crossorigin="" />
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.3/leaflet.draw.css"
+    />
     <meta name="theme-color" content="#ffffff">
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -47,5 +57,9 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script
+  defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL9J82iDhcUWdQiuIvBYa0t5asrtz3Swk&libraries=places&callback=YOUR_CALLBACK_NAME"
   
+></script>
 </html>

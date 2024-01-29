@@ -7,7 +7,7 @@ import AppRouter from './AppRouter'
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor } from './store/store';
-
+import '@goongmaps/goong-js/dist/goong-js.css';
 const App: React.FC = () => {
   return (
     <Provider store={store}>

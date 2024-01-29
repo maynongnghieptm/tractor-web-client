@@ -6,9 +6,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 
-import AppHeader from '../../User/Common/Header/Header';
-import AppFooter from '../../User/Common/Footer/Footer';
-import AppSidebar from '../../User/Common/Sidebar/Sidebar';
 
 const DashboardLayout1 = ({ children }) => {
   const refHeaderContainer = useRef(null);
@@ -64,7 +61,7 @@ const DashboardLayout1 = ({ children }) => {
           width: `calc(100% - ${contentOffset}px)`,
         }}
       >
-        <AppHeader onToggleClick={handleSidebarToggle} />
+     
       </div>
       <div
         className={clsx(
@@ -97,7 +94,7 @@ const DashboardLayout1 = ({ children }) => {
             }}
             variant="permanent"
           >
-            <AppSidebar isCollapsed={isSidebarCollapsed} />
+         
           </Drawer>
         </Hidden>
       </div>
@@ -109,18 +106,13 @@ const DashboardLayout1 = ({ children }) => {
       >
         <div className={classes.contentContainer}>{children}</div>
         <div className={classes.footerContainer}>
-          <AppFooter />
+       
         </div>
       </main>
     </div>
   );
 };
 
-DashboardLayout1.defaultProps = {
-  header: AppHeader,
-  sidebar: AppSidebar,
-  footer: AppFooter,
-};
 
 DashboardLayout1.propTypes = {
   header: PropTypes.elementType,

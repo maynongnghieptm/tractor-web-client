@@ -11,6 +11,9 @@ import Editor from './Edit_landingpage/About_us/Edit'
 import NewContent from './Edit_landingpage/About_us/Editpage'
 import ImageList from './Image/Image'
 import Recycle from './Recycle/Recycle'
+import AddFields from './Fields/AddFields'
+import Map from './Fields/Goong'
+import Replay from './Dashboard/Replay'
 export type AdministrationRouteParams = {
   userId: string
 }
@@ -30,6 +33,8 @@ const Administration: React.FC<AdministrationProps> = ({ match }) => {
       <Route exact path={`${match.path}/image`} component={ImageList} />
       <Route exact path={`${match.path}/recycle`} component={Recycle} />
       <Route exact path={`${match.path}/edit/:idEdit`} component={Editor} />
+      <Route exact path={`${match.path}/fields`} component={AddFields} />
+      <Route exact path={`${match.path}/replay`} component={Replay} />
     </>
   )
 }

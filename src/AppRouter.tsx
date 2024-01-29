@@ -14,6 +14,9 @@ import Chart from '../src/Administration/Dashboard/chart_tractor'
 import Aboutus from 'pages/About_us';
 import Listcontent from 'pages/List_content'
 import Info from 'pages'
+import EditField from 'Administration/Fields/EditField'
+import Map from 'Administration/Fields/Goong'
+import EditNew from 'Administration/Fields/Edit_new'
 const AppRouterComponent: React.FC = ({ children }) => {
   return config.navigationType === 'history' ? (
     <BrowserRouter>{children}</BrowserRouter>
@@ -52,6 +55,12 @@ const AppRouter: React.FC = () => {
           component={UserTracking}
           layout={DashboardLayout}
         />
+        <RouteWithLayout
+          exact
+          path={`/fields/edit/:id`}
+          component={EditNew}
+          layout={DashboardLayout}
+        />
         <Route
           path="/administration"
           render={() =>
@@ -70,6 +79,7 @@ const AppRouter: React.FC = () => {
           }
         />
         <Route path="/dashboard/:tractorId" component={Chart} />
+     
         <RouteWithLayout
           path={`/account/profile`}
           component={Profile}

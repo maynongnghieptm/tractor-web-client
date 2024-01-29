@@ -6,9 +6,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Drawer from '@material-ui/core/Drawer'
 import Hidden from '@material-ui/core/Hidden'
 
-import AppHeader from '../../User/Common/Header/Header';
-import AppFooter from '../../User/Common/Footer/Footer';
-import AppSidebar from '../../User/Common/Sidebar/Sidebar';
 
 const DashboardLayout2: React.FC = ({ children }) => {
   const refHeaderContainer = useRef<HTMLDivElement>(null)
@@ -67,7 +64,7 @@ const DashboardLayout2: React.FC = ({ children }) => {
           width: `calc(100% - ${contentOffset}px)`,
         }}
       >
-        <AppHeader onToggleClick={handleSidebarToggle} />
+        
       </div>
       <div
         // ref={refSidebarContainer}
@@ -90,7 +87,7 @@ const DashboardLayout2: React.FC = ({ children }) => {
               keepMounted: true, // Better open performance on mobile.
             }}
           >
-            <AppSidebar />
+          
           </Drawer>
         </Hidden>
         {/* Desktop sidebar */}
@@ -101,7 +98,7 @@ const DashboardLayout2: React.FC = ({ children }) => {
             }}
             variant="permanent"
           >
-            <AppSidebar isCollapsed={isSidebarCollapsed} />
+         
           </Drawer>
         </Hidden>
       </div>
@@ -113,18 +110,13 @@ const DashboardLayout2: React.FC = ({ children }) => {
       >
         <div className={classes.contentContainer}>{children}</div>
         <div className={classes.footerContainer}>
-          <AppFooter />
+         
         </div>
       </main>
     </div>
   )
 }
 
-DashboardLayout2.defaultProps = {
-  header: AppHeader,
-  sidebar: AppSidebar,
-  footer: AppFooter,
-}
 
 DashboardLayout2.propTypes = {
   header: PropTypes.elementType,

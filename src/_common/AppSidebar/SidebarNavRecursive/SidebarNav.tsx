@@ -6,11 +6,13 @@ import { useSelector } from 'react-redux'
 import IconAdmin from '@material-ui/icons/VpnKey'
 import IconDashboard from '@material-ui/icons/Dashboard'
 import AgricultureIcon from '@mui/icons-material/Agriculture';
+import BorderClearIcon from '@mui/icons-material/BorderClear';
 import IconGroup from '@material-ui/icons/Group'
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import ImageIcon from '@mui/icons-material/Image';
 import NavList from './NavList'
 import DeleteIcon from '@mui/icons-material/Delete';
+import ReplayIcon from '@mui/icons-material/Replay';
 export interface ISidebarNavItem {
   name: string
   link?: string
@@ -52,6 +54,16 @@ const SidebarNav: React.FC<ISidebarNavProps> = (props) => {
             Icon: AgricultureIcon,
           },
           {
+            name: 'Replay',
+            link: '/administration/replay',
+            Icon: ReplayIcon,
+          },
+          {
+            name: 'Fields',
+            link: '/administration/fields',
+            Icon: BorderClearIcon,
+          },
+          {
             name: 'About-us',
             link: '/administration/edit',
             Icon: ChatBubbleOutlineIcon,
@@ -71,7 +83,8 @@ const SidebarNav: React.FC<ISidebarNavProps> = (props) => {
      
     ]
 
-  }else{
+  }else
+  {
      itemsCore = [
       {
         name: 'Dashboard',

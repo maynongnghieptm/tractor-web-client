@@ -16,7 +16,7 @@ import Sensor from './Sensor'
 let count = 0
 const Layoutgrid = React.memo(({data}) => {
 count ++
-//console.log(count)
+//console.log(data)
 var time = new Date();
 console.log("a000000000" + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds()+"," + count);
   return (

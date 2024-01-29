@@ -4,13 +4,15 @@ import EmailEditor, { EditorRef, EmailEditorProps } from 'react-email-editor'
 import { Button } from '@material-ui/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { TextField } from '@material-ui/core'
-
+interface RouteParams {
+  idEdit: string; // Assuming 'idEdit' is a string, adjust the type accordingly
+}
 const Editor: React.FC = () => {
   const emailEditorRef = useRef<EditorRef>(null)
   const headerRef = useRef<EditorRef>(null)
   const history = useHistory()
   const [url, setUrl] = useState('')
-  const idEdit = useParams()
+  const { idEdit } = useParams<RouteParams>();
 
   console.log(idEdit)
   const exportHtml = async () => {
@@ -41,8 +43,7 @@ const Editor: React.FC = () => {
 
   const onLoad = async () => {
     try {
- 
-      const response = await axios.get(`auth/admin_edit?id=${idEdit.idEdit}`)
+      const response = await axios.get(`auth/admin_edit?id=${idEdit}`)
       //console.log(htmlContent);
       console.log(response.data.message.url)
       emailEditorRef.current?.editor?.loadDesign(
