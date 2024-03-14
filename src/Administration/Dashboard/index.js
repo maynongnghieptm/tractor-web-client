@@ -12,7 +12,7 @@ const ParentComponent = ()=> {
   const token = localStorage.getItem('accessToken')
 
   useEffect(() => {
-    const socket = io('http://tractorserver.myddns.me:8000',  {
+    const socket = io('http://tractorserver.myddns.me:3001',  {
       extraHeaders: {
        // tractorid: '64e2241bf3ea921e3f7855bb',
         token: token,

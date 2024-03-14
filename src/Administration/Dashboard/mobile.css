@@ -60,11 +60,26 @@
 .mobile-command{
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     margin: auto;
 }
+.mobile-command > * {
+    flex-basis: calc(25% - 10px); /* 25% để có 4 phần tử mỗi dòng, và -10px để tạo khoảng trắng giữa các phần tử */
+    flex-grow: 1; /* Đảm bảo phần tử con sẽ mở rộng để điền hết không gian trống */
+    margin: 5px; /* Khoảng trắng giữa các phần tử */
+}
 .mobile-command-item{
-    width: 80px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: darkgrey;
+    margin-bottom: 5px;
+}
+.button_command{
+    width: 50px;
     height: 30px;
     display: flex;
     justify-content: center;
@@ -72,7 +87,7 @@
     border-radius: 5px;
     background-color: #ccc;
     color: darkgrey;
-    margin-bottom: 5px;
+    
 }
 .continue{
     background-color: #4aee40;

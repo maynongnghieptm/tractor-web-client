@@ -21,7 +21,7 @@
   
   .blind.right {
     left: 50%;
-    border-left: 1px solid #040D12;
+    border-left: 1px solid white;
     transform-origin: left top;  
     overflow: hidden;
   }

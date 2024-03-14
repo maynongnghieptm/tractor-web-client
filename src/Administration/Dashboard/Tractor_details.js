@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Draggable from 'react-draggable';
 import Image from "material-ui-image";
 import Barometer from './Tab'
 import { ProgressBar } from 'react-bootstrap';
+import Video from "Account/LiveData/Video";
+const MemoizedVideo = React.memo(Video);
 const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordState  }) => {
+    console.log(data)
     const [showSensor, setShowSensor] = useState(true);
     const [showSpeed, setShowSpeed] = useState(true);
     const [showStatus, setShowStatus] = useState(true);
     const [showDevice, setShowDevice] = useState(true)
+    const [showVideo, setShowVideo] = useState(true)
     const selectedTractorData = data.find(item => item.tractorId === tractorId);
    // console.log(selectedTractorData)
     if (!selectedTractorData) {
@@ -22,7 +26,7 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
         switch (name) {
             case 'sensor':
                 setShowSensor(checked);
-                break;
+                break
             case 'speed':
                 setShowSpeed(checked);
                 break;
@@ -31,6 +35,9 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
                 break;
             case 'device':
                 setShowDevice(checked);
+                break;
+            case 'video':
+                setShowVideo(checked);
                 break;
             default:
                 break;
@@ -78,6 +85,14 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
                                 type="checkbox"
                                 name="device"
                                 checked={showDevice}
+                                onChange={handleCheckboxChange}
+                            />
+                        </label>
+                        <label className="checkbox-label">
+                            <input
+                                type="checkbox"
+                                name="video"
+                                checked={showVideo}
                                 onChange={handleCheckboxChange}
                             />
                         </label>
@@ -218,9 +233,9 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
 
                             </div>
                         }
-                        {showDevice ? (
+                        {showDevice && 
 
-                            <div className="device-data ">
+                            <div className="device-data item-child ">
                                 <div className="column">
                                     <div>Front L: {selectedTractorData.data.sen[2]}</div>
                                     <div>Front R: {selectedTractorData.data.sen[3]}</div>
@@ -242,7 +257,14 @@ const SelectedTractorDetails = ({ data, tractorId, onRemove, updateShowPasswordS
                                     <div>Relay: {selectedTractorData.data.ctr_oly[7]}</div>
                                 </div>
                             </div>
-                               ) : null}
+                        }
+                        { showVideo && 
+                            <div className="video-data item-child ">
+                                <div className="video" style={{height:"200px"}}>
+                                  {/** */}  <MemoizedVideo width={200} height={100}/>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </Draggable>

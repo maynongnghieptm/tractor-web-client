@@ -7,22 +7,23 @@ import { LazyLoadImage, LazyLoadComponent } from 'react-lazy-load-image-componen
 import { set } from 'lodash';
 import copy from 'clipboard-copy';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+const ServerPort = 3001;
 const ImageList = () => {
     const [images, setImages] = useState([]);
     const [selectedFile, setSelectedFile] = useState(null);
-    const [isImageSelected, setIsImageSelected] = useState(false)
-    const [imagePreviewSrc, setImagePreviewSrc] = useState('')
+    const [isImageSelected, setIsImageSelected] = useState(false);
+    const [imagePreviewSrc, setImagePreviewSrc] = useState('');
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [hoveredDateIndex, setHoveredDateIndex] = useState([]);
     const [selected, setSelected] = useState(false);
     const [filterOption, setFilterOption] = useState('date');
     const [selectedImages, setSelectedImages] = useState([]);
     const [deleteImage, setDeletaImage] = useState(true);
-    const [confirmDelete, setConfirmDelete] = useState(false)
-    const [isdelete, setisDelete] = useState(false)
-    const [isCopy, setIsCopy] = useState(false)
+    const [confirmDelete, setConfirmDelete] = useState(false);
+    const [isdelete, setisDelete] = useState(false);
+    const [isCopy, setIsCopy] = useState(false);
     const [uploaded, setUploaded] = useState(null);
-    const [freeSpace, setFreeSpace] = useState(null)
+    const [freeSpace, setFreeSpace] = useState(null);
     const toggleCheckbox = (index) => {
         const isSelected = selectedImages.includes(index);
         const newSelectedImages = isSelected
@@ -32,14 +33,14 @@ const ImageList = () => {
         //console.log(selectedImages)
     };
     useEffect(() => {
-        console.log(selectedImages)
+        console.log(selectedImages);
     }, [selectedImages])
     useEffect(() => {
         const fetchFreeSpace = async () => {
             try {
-                const data = await axios.get('/file-config/free_space')
-                console.log(data.data.space)
-                setFreeSpace(data.data.space)
+                const data = await axios.get('/file-config/free_space');
+                console.log(data.data.space);
+                setFreeSpace(data.data.space);
             } catch (error) {
                 console.error('Error fetching images:', error);
             }
@@ -47,22 +48,22 @@ const ImageList = () => {
         fetchFreeSpace();
     }, [])
     const showImagePreview = (e) => {
-        let selectedFile = e.target.files.item(0)
-        console.log(selectedFile)
+        let selectedFile = e.target.files.item(0);
+        console.log(selectedFile);
         if (selectedFile) {
             if (["image/jpeg", "image/png", "image/svg+xml", "video/mp4"].includes(selectedFile.type)) {
                 let fileReader = new FileReader();
                 fileReader.readAsDataURL(selectedFile);
                 fileReader.addEventListener('load', (event) => {
-                    setImagePreviewSrc(event.target.result)
-                    setSelectedFile(selectedFile)
-                    setIsImageSelected(true)
+                    setImagePreviewSrc(event.target.result);
+                    setSelectedFile(selectedFile);
+                    setIsImageSelected(true);
                 })
             }
         } else {
-            setIsImageSelected(false)
+            setIsImageSelected(false);
         }
-    }
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -82,21 +83,16 @@ const ImageList = () => {
         fetchData();
     }, [filterOption]);
 
-    const handleClickImage = async (name) => {
-        const imageUrl = `http://tractorserver.myddns.me:8000/api/v1/file-config/get-image?filename=${name}`;
-        window.open(imageUrl, '_blank');
-    }
     const uploadImage = async () => {
         try {
-            console.log(selectedFile.size)
+            console.log(selectedFile.size);
             if (selectedFile.size >= freeSpace) {
-                alert('Không đủ bộ nhớ để lưu trữ file này! Xin vui lòng xóa bớt')
-                return
-            }
+                alert('Không đủ bộ nhớ để lưu trữ file này! Xin vui lòng xóa bớt');
+                return;
+            };
             const formData = new FormData();
-            formData.append('image', selectedFile)
+            formData.append('image', selectedFile);
            // formData.append('fileSize', selectedFile.size);
-
             let retryCount = 0;
             const maxRetries = 3;
             const retryInterval = 120000;
@@ -139,34 +135,38 @@ const ImageList = () => {
             throw error;
         }
     }; 
+    
     const handleDeleteImage = async (id) => {
         // const response = await axios.delete(`/file-config/delete/${id}`);
         setConfirmDelete(true);
         setisDelete(true);
+    };
 
-    }
     const handleConfirmDeleteImage = async (id) => {
         const rec = await axios.post(`/file-config/recycle/${id}`);
-        console.log(rec)
+        console.log(rec);
         if (rec.status === 200) {
-            alert('Xóa ảnh thành công')
-            window.location.reload()
+            alert('Xóa ảnh thành công');
+            window.location.reload();
         }
         else if (rec.status === 201) {
-            alert('Thùng rác đã đầy, Hãy xóa bớt!')
+            alert('Thùng rác đã đầy, Hãy xóa bớt!');
         }
         else {
-            alert('Có lỗi xảy ra')
+            alert('Có lỗi xảy ra');
         }
-    }
+    };
+
     const handleUnconfirmDelete = () => {
-        setConfirmDelete(false)
-        setisDelete(false)
-    }
+        setConfirmDelete(false);
+        setisDelete(false);
+    };
+
     const handleClickSelect = () => {
-        setDeletaImage(!deleteImage)
-        setSelected(!selected)
-    }
+        setDeletaImage(!deleteImage);
+        setSelected(!selected);
+    };
+
     const handMultiDelete = async () => {
         //console.log(1111111)
         /* const response = await axios.delete('/file-config/delete/delete-multi', {
@@ -180,53 +180,60 @@ const ImageList = () => {
             { fileNames: selectedImages },
         );
         if (rec.status === 200) {
-            alert('Xóa ảnh thành công')
-            window.location.reload()
+            alert('Xóa ảnh thành công');
+            window.location.reload();
         }
         else if (rec.status === 201) {
-            alert('Thùng rác đã đầy, Hãy xóa bớt!')
+            alert('Thùng rác đã đầy, Hãy xóa bớt!');
         }
         else {
-            alert('Có lỗi xảy ra')
+            alert('Có lỗi xảy ra');
         }
-    }
+    };
+
     const handleFilterChange = (event) => {
         setFilterOption(event.target.value);
     };
+
     const handleMouseDateEnter = (i, id) => {
         //setHoveredIndex(null)
         //setConfirmDelete(false)
-        setHoveredDateIndex([i, id])
-        setisDelete(false)
-    }
+        setHoveredDateIndex([i, id]);
+        setisDelete(false);
+    };
+
     const handleMouseSizeEnter = (id) => {
-        setHoveredIndex(id)
-        setisDelete(false)
+        setHoveredIndex(id);
+        setisDelete(false);
         //setConfirmDelete(false)
         //setHoveredDateIndex(null)
-    }
+    };
+
     const handleMouseLeave = () => {
-        setHoveredIndex(null)
-        setConfirmDelete(false)
-        setHoveredDateIndex(null)
-        setIsCopy(false)
-    }
+        setHoveredIndex(null);
+        setConfirmDelete(false);
+        setHoveredDateIndex(null);
+        setIsCopy(false);
+    };
+
     const handleCopy = (filename) => {
-        const url = `http://tractorserver.myddns.me:8000/api/v1/file-config/get-image?filename=${filename}`
+        const url = `http://tractorserver.myddns.me:${ServerPort}/api/v1/file-config/get-image?filename=${filename}`
         copy(url);
-        setIsCopy(true)
-        setisDelete(false)
-    }
+        setIsCopy(true);
+        setisDelete(false);
+    };
+
     useEffect(() => {
-        console.log(uploaded)
+        console.log(uploaded);
         if (uploaded === 100) {
             const timeoutId = setTimeout(() => {
                alert('Upload thành công');
-                window.location.reload()
+                window.location.reload();
             }, 500);
             return () => clearTimeout(timeoutId);
         }
     }, [uploaded])
+
     return (
         <div className='image-container'>
             <div className="container">
@@ -241,7 +248,6 @@ const ImageList = () => {
                                                 <video
                                                     src={imagePreviewSrc}
                                                     alt="..."
-
                                                     controls
                                                     style={{ "width": "200px", "height": "150px", "maxWidth": "100%", "maxHeight": "100%" }}
                                                 />
@@ -261,17 +267,15 @@ const ImageList = () => {
                                                 d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
                                         </svg>
                                     }
-
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div className="col-md-6">
                         <div className="upload-item-btn">
                             <div className="upload-item-input">
                                 <h5 className="">Select an Image</h5>
-                                <input type="file" className='mt-3' onChange={showImagePreview} />
+                                <input type="file" onChange={showImagePreview} />
                                 {
                                 isImageSelected && (
                                     <p className="mt-2">File Size: {formatFileSize(selectedFile.size)}</p>
@@ -283,8 +287,8 @@ const ImageList = () => {
                             freeSpace &&
                                 <div>Dung lượng ổ đĩa còn lại: <span style={{ "fontWeight": "bold" }}>{formatFileSize(freeSpace)}</span></div>
                             }
-
-                            {uploaded && (
+                            {
+                            uploaded && (
                                 <div className="progress mt-2">
                                     <div
                                         className="progress-bar"
@@ -307,7 +311,6 @@ const ImageList = () => {
                 selected &&
                 <button onClick={() => handMultiDelete()}>Xóa</button>
             }
-
             <select value={filterOption} onChange={handleFilterChange}>
                 <option value="date">Sắp theo theo ngày</option>
                 <option value="size">Sắp xếp theo kích thước ảnh</option>
@@ -323,17 +326,15 @@ const ImageList = () => {
                         >
                             <LazyLoadComponent>
                                 {image.fileName?.endsWith('.mp4') ? (
-
                                     <video
-                                        src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-image?filename=${image.fileName}`}
+                                        src={`http://tractorserver.myddns.me:${ServerPort}/api/v1/file-config/get-image?filename=${image.fileName}`}
                                         preload="metadata"
-
                                         controls
                                         className="enlarge-hover"
                                     />
                                 ) : (
                                     <img
-                                        src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-image?filename=${image.fileName}`}
+                                        src={`http://tractorserver.myddns.me:${ServerPort}/api/v1/file-config/get-image?filename=${image.fileName}`}
                                         alt={`Image ${index}`}
                                         effect="blur"
                                         className="enlarge-hover"
@@ -341,16 +342,17 @@ const ImageList = () => {
                                 )}
                             </LazyLoadComponent>
 
-
                             <div className='checkbox'>
-                                {selected &&
+                                {
+                                selected &&
                                     <Checkbox
                                         checked={selectedImages.includes(image.fileName)}
                                         onChange={() => toggleCheckbox(image.fileName)}
                                     />
                                 }
                             </div>
-                            {deleteImage &&
+                            {
+                            deleteImage &&
                                 <>
                                     {hoveredIndex === index && (
                                         <div>
@@ -369,8 +371,6 @@ const ImageList = () => {
                                                     <span>Đã copy đường dẫn!</span>
                                                 </div>
                                             )}
-
-
                                             {confirmDelete && (
                                                 <div className="confirm-delete">
                                                     <div className="confirmation-container">
@@ -408,21 +408,20 @@ const ImageList = () => {
                                         <LazyLoadComponent>
                                             {image.fileName?.endsWith('.mp4') ? (
                                                 <video
-                                                    src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-image?filename=${image.fileName}`}
+                                                    src={`http://tractorserver.myddns.me:${ServerPort}/api/v1/file-config/get-image?filename=${image.fileName}`}
                                                     preload="metadata"
                                                     controls
                                                     className="enlarge-hover"
                                                 />
                                             ) : (
                                                 <img
-                                                    src={`http://tractorserver.myddns.me:8000/api/v1/file-config/get-image?filename=${image.fileName}`}
+                                                    src={`http://tractorserver.myddns.me:${ServerPort}/api/v1/file-config/get-image?filename=${image.fileName}`}
                                                     alt={`Image ${index}`}
                                                     effect="blur"
                                                     className="enlarge-hover"
                                                 />
                                             )}
                                         </LazyLoadComponent>
-
                                         <div className='checkbox'>
                                             {selected &&
                                                 <Checkbox
@@ -448,11 +447,13 @@ const ImageList = () => {
                                                                     </div>
                                                                 </div>
                                                             )}
-                                                            {isCopy && (
+                                                            {
+                                                            isCopy && (
                                                                 <div className="isCopy">
                                                                     <span>Đã copy đường dẫn!</span>
                                                                 </div>
-                                                            )}
+                                                            )
+                                                            }
                                                             {confirmDelete && (
                                                                 <div className="confirm-delete">
                                                                     <div className="confirmation-container">

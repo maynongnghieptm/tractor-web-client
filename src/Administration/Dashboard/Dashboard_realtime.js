@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow, Polygon, Polyline } from '@react-google-maps/api';
-
+import mqtt from "mqtt";
 import { ProgressBar } from 'react-bootstrap';
 import { Hidden } from '@mui/material';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
@@ -17,35 +17,112 @@ import { useHistory, Link } from 'react-router-dom'
 import { MapContainer, TileLayer, Polygon as Polygon1, MapConsumer, useMapEvents, FeatureGroup, } from "react-leaflet";
 import 'leaflet/dist/leaflet.css';
 import L from "leaflet";
-
+import { io } from 'socket.io-client';
+import ControlTractor from './mqtt';
 const mapStyles = {
     height: '100%',
     width: '100%',
 };
 //console.log(data)
-const MapContainer1 = ({ data }) => {
-   // console.log(data)
-    const history = useHistory()
+const MapContainer1 = ({data}) => {
+     //console.log(data.length)
+     //const [data, setData] = useState([])
+   
     const [selectedTab, setSelectedTab] = useState('all');
     const initialShowPasswordStates = {};
     const initialShowNotiStates = {}
     const initialShowMobileDetail = {}
+    const initialMode_Tractor = {}
     const initialCommand = {}
-    
+    const initialTractorState = {}
     let icon
-    data.forEach((item) => {
-        initialShowPasswordStates[item.tractorId] = false;
-        initialShowNotiStates[item.tractorId] = true;
-        initialShowMobileDetail[item.tractorId] = false
-        if (item.data.drive[2] === 0) {
-            initialCommand[item.tractorId] = 'stop';
-        } else {
-            initialCommand[item.tractorId] = 'continue';
-        }
-    });
+    const [itemStates, setItemStates] = useState([]);
+    const token = localStorage.getItem('accessToken')
+    /**  useEffect(() => {
+        const socket = io('http://tractorserver.myddns.me:3001',  {
+          extraHeaders: {
+           // tractorid: '64e2241bf3ea921e3f7855bb',
+            token: token,
+          }
+        });
+    
+        socket.on('logs', (newData) => {
+          
+        // console.log(newData)
+         
+        //  setData(newData);
+        });
+    
+        return () => {
+          socket.disconnect();
+        };
+      }, []);*/
+   
+    useEffect(() => {
+        const updatedItemStates = data.reduce((acc, item) => {
+          const existingStateIndex = itemStates.findIndex(state => state.id === item.id);
+    
+          if (existingStateIndex === -1) {
+            acc.push({
+              id: item.tractorId,
+              value: {
+                Mode: 0,
+                So_cang: 0,
+                Max_rpm: 0,
+                Min_rpm: 0,
+                Tam_de: 0,
+                Chinh_nghieng: 0,
+                Led: 0,
+                So_phu_max: 0,
+                Reset_Err: 0,
+              },
+            });
+          } else {
+            acc.push(itemStates[existingStateIndex]);
+          }
+    
+          return acc;
+        }, []);
+    
+        
+        setItemStates(updatedItemStates);
+      }, [data.length]);
+
+      const updateValueFieldById = (tractorId, fieldInValue, newValue) => {
+        const updatedItemStates = itemStates.map(item => {
+          if (item.id === tractorId) {
+            return {
+              ...item,
+              value: {
+                ...item.value,
+                [fieldInValue]: newValue,
+              },
+            };
+          }
+          return item;
+        });
+        setItemStates(updatedItemStates);
+      };
+        data.forEach((item) => {
+            // initialTractorState
+             initialShowPasswordStates[item.tractorId] = false;
+             initialShowNotiStates[item.tractorId] = true;
+             initialShowMobileDetail[item.tractorId] = false
+            
+             //Tractor_control.push(initialTractorState)
+             //console.log(initialTractorState)
+             if (item.data.drive[2] === 0) {
+                 initialCommand[item.tractorId] = 'stop';
+             } else {
+                 initialCommand[item.tractorId] = 'continue';
+             }
+         });
+    
+   
+    const [TractorState, setTractorState] = useState(initialTractorState);
     //console.log(initialCommand)
     const [showPasswordStates, setShowPasswordStates] = useState(initialShowPasswordStates);
-    const [notification, setNotification] = useState(initialShowNotiStates)
+    const [notification, setNotification] = useState(initialShowNotiStates);
     const [selectedTractorId, setSelectedTractorId] = useState([]);
     const [totalTractorsCount, setTotalTractorsCount] = useState(0);
     const [runningTractorsCount, setRunningTractorsCount] = useState(0);
@@ -55,20 +132,389 @@ const MapContainer1 = ({ data }) => {
     const [searchInput, setSearchInput] = useState('');
     const [mapCenter, setMapCenter] = useState({ lat: 20.95302564232467, lng: 105.84628633525244 });
     const [mapCenter1, setMapCenter1] = useState({ lat: 20.95302564232467, lng: 105.84628633525244 });
-    const [tabMobile, setTabMobile] = useState(false)
+    const [tabMobile, setTabMobile] = useState(false);
     const [showMobileDetail, setShowMobileDetail] = useState(initialShowMobileDetail);
     const [currentCommand, setCurrentCommand] = useState(initialCommand);
-    const [fieldEnable, setFieldEnable] = useState(true)
-    const [fieldCoordinate, setFieldCoordinate] = useState([])
-    const [switchMap, setSwitchMap] = useState(false)
-    const [map, setMap] = useState(null)
-    const [map1, setMap1] = useState(null)
-    const [zoom1, setZoom1] = useState(null)
-    const [zoom, setZoom] = useState(null)
+    const [fieldEnable, setFieldEnable] = useState(true);
+    const [fieldCoordinate, setFieldCoordinate] = useState([]);
+    const [switchMap, setSwitchMap] = useState(false);
+    const [map, setMap] = useState(null);
+    const [map1, setMap1] = useState(null);
+    const [zoom1, setZoom1] = useState(null);
+    const [zoom, setZoom] = useState(null);
     const mapRef = useRef();
+    const [client, setClient] = useState(null);
+    const [mode_control, setMode_control] = useState(initialMode_Tractor);
+    const [socket1,setSocket1] = useState({})
+    const [newState1, setNewState1] = useState([])
+    const [idOnchangeing, setIdOnchangeing] = useState("")
+    const [idOnchange, setIdOnchange] = useState(null)
+    const [isUserInput, setIsUserInput] = useState(true)
+    const clientId = 'mqttjs_' + Math.random().toString(16).substr(2, 8)
+    const host = 'ws://broker.hivemq.com:8000/mqtt'
+    const options = {
+        keepalive: 60,
+        clientId: clientId,
+        protocolId: 'MQTT',
+        protocolVersion: 4,
+        clean: true,
+        reconnectPeriod: 1000,
+        connectTimeout: 30 * 1000,
+        will: {
+            topic: 'WillMsg',
+            payload: 'Connection Closed abnormally..!',
+            qos: 0,
+            retain: false
+        },
+    }
+
+    useEffect(() => {
+        let client1 = mqtt.connect(host, options);
+        console.log(client1);
+        setClient(client1);
+    }, [])
+
+    useEffect(() => {
+        if (client) {
+            console.log(client);
+            client.on('connect', () => {
+                // setConnectStatus( 'Connected');
+                client.subscribe('ESPRTK_RESPOND_TOPIC', { qos: 1 });
+                //startrefreshIFrame();
+            });
+            client.on('error', (err) => {
+                console.error('Connection error: ', err);
+                client.end();
+            });
+            client.on('reconnect', () => {
+                //setConnectStatus('Reconnecting');
+            });
+            client.on('message', (topic, message) => {
+                const payload = { topic, message: message.toString() };
+                //setPayload(payload);
+            });
+        }
+    }, [client]);
+    const handleFilterChange = ( tractorId,field,newValue) => {
+        //setMode_control();
+       // setIsInputEvent(false);
+        setIdOnchange(tractorId)
+        updateValueFieldById(tractorId, field, newValue);
+
+
+
+    };
+ 
+
+
+ const handleInputMode = (value,id, field) => {
+      //  setIsInputEvent(false);
+        const item = getItemById(itemStates, id)
+        console.log(item)
+        updateValueFieldById(id, field, value);
+        let string = '{"data":{   "reset_er_c":"' + item.value.Reset_Err
+        + '" ,"min_rpm_c":"' + item.value.Min_rpm
+        + '" ,"max_rpm_c":"' + item.value.Max_rpm 
+        + '" ,"mode_run_c":"' +value
+        + '" ,"so_cang_max":"' +item.value.So_cang 
+        + '" ,"tam_de":"' + item.value.Tam_de 
+        + '" ,"nghieng":"' + item.value.Chinh_nghieng 
+        + '" ,"led1":"' + item.value.Led
+        + '" ,"phumax":"' +item.value.So_phu_max
+        + '"  }}'
+       
+        const data = {
+            tractorId: id,
+            state: string
+        }
+        socket1.emit(`sate-tractor`, data);
+        //console.log(e.target.value);
+        //setIsInputEvent(false);
+    };
+    const handleInputMax_rpm = (value,id,field) => {
+      //  setIsInputEvent(false);
+        //setMax_rpm(e.target.value);
+        const item = getItemById(itemStates, id)
+        updateValueFieldById(id, field, value);
+       // console.log(e.target.value);
+        let string = '{"data":{   "reset_er_c":"' +  item.value.Reset_Err
+        + '" ,"min_rpm_c":"' +  item.value.Min_rpm
+        + '" ,"max_rpm_c":"' + value 
+        + '" ,"mode_run_c":"' +  item.value.Mode
+        + '" ,"so_cang_max":"' + item.value.So_cang 
+        + '" ,"tam_de":"' +  item.value.Tam_de 
+        + '" ,"nghieng":"' +  item.value.Chinh_nghieng 
+        + '" ,"led1":"' +  item.value.Led 
+        + '" ,"phumax":"' + item.value.So_phu_max 
+        + '"  }}'
+       
+        const data = {
+            tractorId: id,
+            state: string
+        }
+        socket1.emit(`sate-tractor`, data);
+        //setIsInputEvent(false);
+    };
+    const handleInputMin_rpm = (value,id, field) => {
+      //  setIsInputEvent(false);
+       // setMin_rpm(e.target.value);
+        const item = getItemById(itemStates, id)
+        updateValueFieldById(id, field, value);
+        let string = '{"data":{   "reset_er_c":"' +  item.value.Reset_Err
+        + '" ,"min_rpm_c":"' + value
+        + '" ,"max_rpm_c":"' +  item.value.Max_rpm
+        + '" ,"mode_run_c":"' +  item.value.Mode
+        + '" ,"so_cang_max":"' +  item.value.So_cang 
+        + '" ,"tam_de":"' +  item.value.Tam_de 
+        + '" ,"nghieng":"' +  item.value.Chinh_nghieng 
+        + '" ,"led1":"' +  item.value.Led 
+        + '" ,"phumax":"' +  item.value.So_phu_max 
+        + '"  }}'
+       
+        const data = {
+            tractorId: id,
+            state: string
+        }
+        socket1.emit(`sate-tractor`, data);
+        //setIsInputEvent(false);
+    };
+    const handleInputSo_cang = (value,id, field) => {
+      //  setIsInputEvent(false);
+        //setSo_cang(e.target.value);
+        const item = getItemById(itemStates, id)
+        updateValueFieldById(id, field,value);
+        let string = '{"data":{   "reset_er_c":"' +  item.value.Reset_Err
+        + '" ,"min_rpm_c":"' +  item.value.Min_rpm
+        + '" ,"max_rpm_c":"' +  item.value.Max_rpm
+        + '" ,"mode_run_c":"' +  item.value.Mode
+        + '" ,"so_cang_max":"' + value
+        + '" ,"tam_de":"' +  item.value.Tam_de 
+        + '" ,"nghieng":"' +  item.value.Chinh_nghieng 
+        + '" ,"led1":"' +  item.value.Led 
+        + '" ,"phumax":"' +  item.value.So_phu_max 
+        + '"  }}'
+       
+        const data = {
+            tractorId: id,
+            state: string
+        }
+        socket1.emit(`sate-tractor`, data);
+        //setIsInputEvent(false);
+    };
+    const handleInputTam_de = (value,id, field) => {
+      //  setIsInputEvent(false);
+       // setTam_de(e.target.value);
+      //  console.log(e.target.value);
+        const item = getItemById(itemStates, id)
+        updateValueFieldById(id, field, value);
+        let string = '{"data":{   "reset_er_c":"' +  item.value.Reset_Err
+        + '" ,"min_rpm_c":"' +  item.value.Min_rpm
+        + '" ,"max_rpm_c":"' +  item.value.Max_rpm
+        + '" ,"mode_run_c":"' +  item.value.Mode
+        + '" ,"so_cang_max":"' +  item.value.So_cang
+        + '" ,"tam_de":"' + value 
+        + '" ,"nghieng":"' +  item.value.Chinh_nghieng 
+        + '" ,"led1":"' +  item.value.Led 
+        + '" ,"phumax":"' +  item.value.So_phu_max 
+        + '"  }}'
+       
+        const data = {
+            tractorId: id,
+            state: string
+        }
+        socket1.emit(`sate-tractor`, data);
+        //setIsInputEvent(false);
+    };
+    const handleInputDen = (value,id, field) => {
+        //setIsInputEvent(false);
+        //setLed(e.target.value);
+
+      //  console.log(value.target.value);
+        const item = getItemById(itemStates, id)
+        updateValueFieldById(id, field, value);
+        let string = '{"data":{   "reset_er_c":"' +  item.value.Reset_Err
+        + '" ,"min_rpm_c":"' +  item.value.Min_rpm
+        + '" ,"max_rpm_c":"' +  item.value.Max_rpm
+        + '" ,"mode_run_c":"' +  item.value.Mode
+        + '" ,"so_cang_max":"' +  item.value.So_cang
+        + '" ,"tam_de":"' +  item.value.Tam_de
+        + '" ,"nghieng":"' +  item.value.Chinh_nghieng 
+        + '" ,"led1":"' + value 
+        + '" ,"phumax":"' +  item.value.So_phu_max 
+        + '"  }}'
+       
+        const data = {
+            tractorId: id,
+            state: string
+        }
+        socket1.emit(`sate-tractor`, data);
+        //setIsInputEvent(false);
+    };
+    const handleInputSophu = (value,id, field) => {
+       // setIsInputEvent(false);
+        //setSo_phu_max(e.target.value);
+        //console.log(value.target.value);
+        const item = getItemById(itemStates, id)
+        updateValueFieldById(id, field, value);
+        let string = '{"data":{   "reset_er_c":"' +  item.value.Reset_Err
+        + '" ,"min_rpm_c":"' +  item.value.Min_rpm
+        + '" ,"max_rpm_c":"' +  item.value.Max_rpm
+        + '" ,"mode_run_c":"' +  item.value.Mode
+        + '" ,"so_cang_max":"' +  item.value.So_cang
+        + '" ,"tam_de":"' +  item.value.Tam_de
+        + '" ,"nghieng":"' +  item.value.Chinh_nghieng 
+        + '" ,"led1":"' +  item.value.Led 
+        + '" ,"phumax":"' + value 
+        + '"  }}'
+       
+        const data = {
+            tractorId: id,
+            state: string
+        }
+        socket1.emit(`sate-tractor`, data);
+        //setIsInputEvent(false);
+    };
+    const handleInputReset_Err = (value,id, field) => {
+        //setIsInputEvent(false);
+        //setReset_Err(e.target.value);
+      //  console.log(e.target.value);
+        const item = getItemById(itemStates, id)
+        updateValueFieldById(id, field, value);
+        let string = '{"data":{   "reset_er_c":"' + value
+        + '" ,"min_rpm_c":"' +  item.value.Min_rpm
+        + '" ,"max_rpm_c":"' +  item.value.Max_rpm
+        + '" ,"mode_run_c":"' +  item.value.Mode
+        + '" ,"so_cang_max":"' +  item.value.So_cang
+        + '" ,"tam_de":"' +  item.value.Tam_de
+        + '" ,"nghieng":"' +  item.value.Chinh_nghieng 
+        + '" ,"led1":"' +  item.value.Led 
+        + '" ,"phumax":"' +  item.value.So_phu_max
+        + '"  }}'
+        const data = {
+            tractorId: id,
+            state: string
+        }
+        socket1.emit(`sate-tractor`, data);
+        //setIsInputEvent(false);
+    };
+    const handleInputNghieng = (value,id, field) => {
+       // setIsInputEvent(false);
+        //setChinh_nghieng(e.target.value);
+      //  console.log(e.target.value);
+        const item = getItemById(itemStates, id)
+        updateValueFieldById(id, field, value);
+        let string = '{"data":{   "reset_er_c":"' +  item.value.Reset_Err
+        + '" ,"min_rpm_c":"' +  item.value.Min_rpm
+        + '" ,"max_rpm_c":"' +  item.value.Max_rpm
+        + '" ,"mode_run_c":"' +  item.value.Mode
+        + '" ,"so_cang_max":"' +  item.value.So_cang
+        + '" ,"tam_de":"' +  item.value.Tam_de
+        + '" ,"nghieng":"' + value
+        + '" ,"led1":"' +  item.value.Led 
+        + '" ,"phumax":"' +  item.value.So_phu_max
+        + '"  }}'
+        const data = {
+            tractorId: id,
+            state: string
+        }
+        socket1.emit(`sate-tractor`, data);
+        //setIsInputEvent(false);
+    };
+
+    useEffect(() => {
+        const socket = io('http://tractorserver.myddns.me:3001', {
+          extraHeaders: {
+            // tractorid: '64e2241bf3ea921e3f7855bb',
+            token: token,
+          },
+        });
+        setSocket1(socket)
+        socket.on('sate-tractor-all',(state)=>{
+           
+            const tractorId = state.tractorId
+            const newState_log = JSON.parse(state.state)
+            console.log(newState_log.data)
+            const state1 = newState_log.data
+            const newState = {
+                Mode: parseInt(state1.mode_run_c) ,
+                So_cang: parseInt(state1.so_cang_max) ,
+                Max_rpm: parseInt( state1.max_rpm_c),
+                Min_rpm:parseInt(state1.min_rpm_c) ,
+                Tam_de: parseInt(state1.tam_de),
+                Chinh_nghieng: parseInt(state1.nghieng),
+                Led: parseInt(state1.led1),
+                So_phu_max:parseInt(state1.phumax) ,
+                Reset_Err: parseInt(state1.reset_er_c),
+            }
+            setNewState1(newState)
+            setIdOnchangeing(tractorId)
+           
+          // updateAllValuesById(tractorId, newState);
+        })
+       // console.log(`${id}`)
+       
+        
+      }, []);
+
+      useEffect(()=>{
+        //console.log(newState)
+        console.log(itemStates)
+        if(itemStates.length!=0){
+                 const updatedItemStates = itemStates.map(item => {
+            if (item.id === idOnchangeing) {
+              // Cập nhật vị trí của phần tử có id bằng tractorId
+              return {
+                ...item,
+                // Cập nhật thông tin vị trí tại đây (ví dụ: item.position = newPosition)
+                value: newState1,
+              };
+            }
+            // Giữ nguyên các phần tử khác
+            return item;
+          });
+         setItemStates(updatedItemStates)
+        }
+      }, [newState1])
+      {/**
+    
+         useEffect(() => {
+        //console.log(TractorState)
+       
+              // Sử dụng childObject ở đây
+           if(isUserInput){
+            const stateOftractor = itemStates.find(item=>item.id===idOnchange)
+            console.log(stateOftractor)
+          if (stateOftractor&&client) {
+            let string = '{"data":{   "reset_er_c":"' + stateOftractor?.value.Reset_Err
+            + '" ,"min_rpm_c":"' + stateOftractor?.value.Min_rpm
+            + '" ,"max_rpm_c":"' + stateOftractor?.value.Max_rpm 
+            + '" ,"mode_run_c":"' + stateOftractor?.value.Mode
+            + '" ,"so_cang_max":"' + stateOftractor?.value.So_cang 
+            + '" ,"tam_de":"' + stateOftractor?.value.Tam_de 
+            + '" ,"nghieng":"' + stateOftractor?.value.Chinh_nghieng 
+            + '" ,"led1":"' + stateOftractor?.value.Led 
+            + '" ,"phumax":"' + stateOftractor?.value.So_phu_max 
+            + '"  }}'
+            //console.log(string)
+            //console.log( string);
+            client.publish(`testtopic111111_789_7878`,string , { qos: 0, retain: false })
+            const data = {
+                tractorId: stateOftractor.id,
+                state: string
+            }
+            socket1.emit(`sate-tractor`, data);
+           
+        }
+           }
+              
+    }, [itemStates, client]);
+
+
+    */}
+  
     
     //console.log(currentCommand)
-    const polyline_path =[]
+    const polyline_path = []
     useEffect(() => {
         const runningTractors = data.filter((item) => item.data.drive[2] === 0).length;
         const standingTractors = data.filter((item) => item.data.drive[2] === 1).length;
@@ -81,7 +527,6 @@ const MapContainer1 = ({ data }) => {
             prevIds.filter((id) => id !== tractorIdToRemove)
         );
     };
-
     //  console.log(selectedTractorId)
     //console.log(showPasswordStates)
 
@@ -248,9 +693,9 @@ const MapContainer1 = ({ data }) => {
         if (map1) {
             map1.setView([mapCenter1.lat, mapCenter1.lng], map1.getZoom());
         }
-        console.log([mapCenter1.lat, mapCenter1.lng])
+      //  console.log([mapCenter1.lat, mapCenter1.lng])
     }, [mapCenter1]);
-    
+
     const handleSetCenter = (coor) => {
         setMapCenter(calculateCentroid(coor))
         //setMapCenter1(calculateCentroid(coor))
@@ -268,7 +713,7 @@ const MapContainer1 = ({ data }) => {
             );
             map1.fitBounds(bounds, { padding: [20, 20] });
             //  map1.setView([calculateCentroid(coor).lat, calculateCentroid(coor).lng], zoom)
-            console.log([calculateCentroid(coor).lat, calculateCentroid(coor).lng])
+            //console.log([calculateCentroid(coor).lat, calculateCentroid(coor).lng])
         }
     }
 
@@ -276,7 +721,8 @@ const MapContainer1 = ({ data }) => {
         setMap(map)
         mapRef.current = map;
     }, []);
-  
+
+
     return (
         <div style={{ width: '100%', height: '100%' }} >
             {switchMap ? (
@@ -320,7 +766,7 @@ const MapContainer1 = ({ data }) => {
                                 lng: item.data.llh[1]
                             };
                             polyline_path.push(newPos)
-                            console.log(polyline_path)
+                          //  console.log(polyline_path)
                             const isMarkerSelected = selectedMarker.some((marker) => marker.tractorId === item.tractorId);
                             return (
                                 <>
@@ -338,10 +784,10 @@ const MapContainer1 = ({ data }) => {
                                         }}
                                     />
                                     <Polyline
-                                     path={polyline_path}
-                                     strokeColor="#0000FF"
-                                     strokeOpacity={0.8}
-                                     strokeWeight={2}
+                                        path={polyline_path}
+                                        strokeColor="#0000FF"
+                                        strokeOpacity={0.8}
+                                        strokeWeight={2}
                                     />
                                     {isMarkerSelected && (
                                         <InfoWindow
@@ -516,36 +962,151 @@ const MapContainer1 = ({ data }) => {
                                                     }
                                                 </div>
                                                 {
-                                                showMobileDetail[item.tractorId] && (
-                                                    <div className='mobile-command'>
-                                                        <div
-                                                            className={`mobile-command-item  ${currentCommand[item.tractorId] === 'stop' ? 'stop' : ''}`}
-                                                            onClick={() => handelSendComand('stop', item.tractorId)}
+                                                    showMobileDetail[item.tractorId] && (
+                                                        <div className='mobile-command'>
+                                                            <div
+                                                                className={`mobile-command-item  ${currentCommand[item.tractorId] === 'stop' ? 'stop' : ''}`}
+                                                            // onClick={() => handelSendComand('stop', item.tractorId)}
+                                                            >
+                                                                <span>Mode</span>
+                                                                <select value={getItemById(itemStates,item.tractorId)?.value.Mode} onInput={(e)=>handleInputMode(e.target.value, item.tractorId, "Mode")}>
+                                                                    <option value="1">Pause</option>
+                                                                    <option value="2">Continue</option>
+                                                                </select>
+                                                            </div>
+                                                            <div
+                                                                className={`mobile-command-item  ${currentCommand[item.tractorId] === 'continue' ? 'continue' : ''}`}
+                                                            //  onClick={() => handelSendComand('continue', item.tractorId)}
+                                                            >
+                                                                <span>Max rpm</span>
+                                                                <input
+                                                                    type="number"
+                                                                    min={0}
+                                                                    max={2700}
+                                                                    step={100}
+                                                                    value={getItemById(itemStates,item.tractorId).value.Max_rpm}
+                                                                    onInput={(e) => {
+                                                                        handleInputMax_rpm(e.target.value, item.tractorId, "Max_rpm")
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                            <div
+                                                                className={`mobile-command-item  ${currentCommand[item.tractorId] === 'poweroff' ? 'power-off' : ''}`}
+                                                            //onClick={() => handelSendComand('poweroff', item.tractorId)}
+                                                            >
+                                                                <span>Min rpm</span>
+                                                                <input
+                                                                    type="number"
+                                                                    min={0}
+                                                                    max={2700}
+                                                                    step={100}
+                                                                    value={getItemById(itemStates,item.tractorId).value.Min_rpm}
+                                                                    onInput={(e) => {
+                                                                        handleInputMin_rpm(e.target.value, item.tractorId, "Min_rpm")
+                                                                    }}
+                                                                />
+                                                            </div>
+
+                                                            <div
+                                                                className={`mobile-command-item  ${currentCommand[item.tractorId] === 'poweroff' ? 'power-off' : ''}`}
+                                                            //onClick={() => handelSendComand('poweroff', item.tractorId)}
+                                                            >
+                                                                <span>Số càng</span>
+                                                                <input
+                                                                    type="number"
+                                                                    min={0}
+                                                                    max={49}
+                                                                    step={1}
+                                                                    value={getItemById(itemStates,item.tractorId).value.So_cang}
+                                                                    onInput={(e) => {
+                                                                        handleInputSo_cang(e.target.value, item.tractorId, "So_cang")
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                            <div
+                                                                className={`mobile-command-item  ${currentCommand[item.tractorId] === 'poweroff' ? 'power-off' : ''}`}
+                                                            //onClick={() => handelSendComand('poweroff', item.tractorId)}
+                                                            >
+                                                                <span>Tấm dè</span>
+                                                                <input
+                                                                    type="number"
+                                                                    min={0}
+                                                                    max={49}
+                                                                    step={1}
+                                                                    value={getItemById(itemStates,item.tractorId).value.Tam_de}
+                                                                    onInput={(e) => {
+                                                                        handleInputTam_de(e.target.value, item.tractorId, "Tam_de")
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                            <div
+                                                                className={`mobile-command-item  ${currentCommand[item.tractorId] === 'poweroff' ? 'power-off' : ''}`}
+                                                            //onClick={() => handelSendComand('poweroff', item.tractorId)}
+                                                            >
+                                                                <span>Đèn</span>
+                                                                <select value={getItemById(itemStates,item.tractorId).value.Led} onInput={(e)=> handleInputDen(e.target.value, item.tractorId, "Led")}>
+
+                                                                    <option value="0">Off</option>
+                                                                    <option value="1">On</option>
+                                                                </select>
+                                                            </div>
+
+
+                                                            <div
+                                                                className={`mobile-command-item  ${currentCommand[item.tractorId] === 'poweroff' ? 'power-off' : ''}`}
+                                                            //onClick={() => handelSendComand('poweroff', item.tractorId)}
+                                                            >
+                                                                <span>Số phụ</span>
+                                                                <select value={getItemById(itemStates,item.tractorId).value.So_phu_max} onInput={(e)=>handleInputSophu(e.target.value,item.tractorId,"So_phu_max")}>
+                                                                    <option value="0">NO</option>
+                                                                    <option value="1">Normal</option>
+                                                                    <option value="2">Fast</option>
+                                                                </select>
+                                                            </div>
+                                                            <div
+                                                                className={`mobile-command-item  ${currentCommand[item.tractorId] === 'poweroff' ? 'power-off' : ''}`}
+                                                            //onClick={() => handelSendComand('poweroff', item.tractorId)}
+                                                            >
+                                                                <span>Reset ERR</span>
+                                                                <select value={getItemById(itemStates,item.tractorId).value.Reset_Err} onInput={(e)=>handleInputReset_Err(e.target.value, item.tractorId, "Reset_Err")}>
+
+                                                                    <option value="0">NO</option>
+                                                                    <option value="1">RESET</option>
+                                                                </select>
+                                                            </div>
+
+                                                            <div
+                                                                className={`mobile-command-item  ${currentCommand[item.tractorId] === 'poweroff' ? 'power-off' : ''}`}
+                                                            //onClick={() => handelSendComand('poweroff', item.tractorId)}
+                                                            >
+                                                                <span>Độ nghiêng</span>
+                                                                <select value={getItemById(itemStates,item.tractorId).value.Chinh_nghieng} onInput={(e)=>handleInputNghieng(e.target.value, item.tractorId, "Ching_nghieng")}>
+                                                                    <option value="0">NO</option>
+                                                                    <option value="1">Nghiêng 1 trục</option>
+                                                                    <option value="2">Nghiêng 2 trục</option>
+                                                                    <option value="3">Nghiêng 3 trục</option>
+                                                                </select>
+                                                            </div>
+
+                                                            <div
+                                                            className={`button_command  ${currentCommand[item.tractorId] === 'stop' ? 'stop' : ''}`}
+                                                            onClick={() =>  setMode_control((prevState) => ({
+                                                                ...prevState,
+                                                                [item.tractorId]: 0,
+                                                            }))}
                                                         >
                                                             Stop
                                                         </div>
-                                                        <div
-                                                            className={`mobile-command-item  ${currentCommand[item.tractorId] === 'continue' ? 'continue' : ''}`}
-                                                            onClick={() => handelSendComand('continue', item.tractorId)}
-                                                        >
-                                                            Continue
+                                                            <div
+                                                                className={`button_command detail ${currentCommand[item.tractorId] === 'openchart' ? 'openchart' : ''}`}
+                                                                //onClick={() => handelSendComand('openchart', item.tractorId)}
+                                                            >
+                                                                <Link to={`/dashboard/${item.tractorId}`} target="_blank">
+                                                                    Open Chart
+                                                                </Link>
+                                                            </div>
                                                         </div>
-                                                        <div
-                                                            className={`mobile-command-item  ${currentCommand[item.tractorId] === 'poweroff' ? 'power-off' : ''}`}
-                                                            onClick={() => handelSendComand('poweroff', item.tractorId)}
-                                                        >
-                                                            Power off
-                                                        </div>
-                                                        <div
-                                                            className={`mobile-command-item detail ${currentCommand[item.tractorId] === 'openchart' ? 'openchart' : ''}`}
-                                                            onClick={() => handelSendComand('openchart', item.tractorId)}
-                                                        >
-                                                            <Link to={`/dashboard/${item.tractorId}`} target="_blank">
-                                                                Open Chart
-                                                            </Link>
-                                                        </div>
-                                                    </div>
-                                                )}
+                                                    )}
                                             </li>
                                         ))}
                                     </ul>
@@ -683,6 +1244,21 @@ const MapContainer1 = ({ data }) => {
         </div>
     );
 };
+function getItemById(arr, idToFind) {
+    // Sử dụng vòng lặp để tìm item với id tương ứng
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].id === idToFind) {
+        return arr[i];
+      }
+    }
+  
+    // Hoặc sử dụng phương thức find
+    // const foundItem = acc.find(item => item.id === idToFind);
+    // return foundItem;
+  
+    // Nếu không tìm thấy, trả về null hoặc giá trị mặc định khác
+    return null;
+  }
 
 function calculateCentroid(polygonCoordinates) {
     if (polygonCoordinates.length === 0) {
@@ -705,6 +1281,11 @@ function getTractorProgress(item) {
         return "danger";
     }
 }
+
+
+function isEqual(objA, objB) {
+    return JSON.stringify(objA) === JSON.stringify(objB);
+  }
 
 function getTractorBattery(item) {
     const battery = (item.data.sen[1]);

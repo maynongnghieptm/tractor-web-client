@@ -116,7 +116,7 @@ const DashboardLayout: React.FC = ({ children }) => {
         style={{
           width: `calc(100% - ${contentOffset}px)`,
         }} >
-          <AppFooter />
+         
         </div>
     </div>
   )

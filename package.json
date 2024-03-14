@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "scripts": {
-    "start": "react-app-rewired start",
+    "start": "set PORT=3002&&react-scripts start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "deploy": "npm run build-preview && npm run build-docs && gh-pages -d build --repo git@github.com:modularcode/modular-admin-react.git --branch gh-pages",
@@ -58,6 +58,8 @@
     "d3-shape": "^3.2.0",
     "date-fns": "^2.30.0",
     "disqus-react": "^1.0.11",
+    "dotenv": "^16.4.5",
+    "dotenv-webpack": "^8.0.1",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
     "faker": "^5.5.3",
@@ -69,6 +71,7 @@
     "lodash": "^4.17.21",
     "material-ui-image": "^3.3.2",
     "moment": "^2.29.4",
+    "mqtt": "^5.3.5",
     "prop-types": "^15.7.2",
     "react": "^16.14.0",
     "react-apexcharts": "^1.4.1",
@@ -112,7 +115,8 @@
     "typescript": "^4.2.4",
     "use-gauge": "^0.6.0",
     "use-places-autocomplete": "^4.0.1",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^6.2.9",

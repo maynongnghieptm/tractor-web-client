@@ -77,10 +77,9 @@ const SidebarNav: React.FC<ISidebarNavProps> = (props) => {
             name: 'Recycle Bin',
             link: '/administration/recycle',
             Icon: DeleteIcon,
-          }
+          },
         ],
       },
-     
     ]
 
   }else

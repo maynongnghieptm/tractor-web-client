@@ -26,7 +26,7 @@ class GoogleMapsComponent extends React.PureComponent {
 
   componentDidMount() {
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDL9J82iDhcUWdQiuIvBYa0t5asrtz3Swk&libraries=places&callback=YOUR_CALLBACK_NAME`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDL9J82iDhcUWdQiuIvBYa0t5asrtz3Swk&libraries=places`;
     script.async = true;
     script.defer = true;
     script.addEventListener('load', this.handleScriptLoad);

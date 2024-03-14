@@ -17,6 +17,7 @@ import Info from 'pages'
 import EditField from 'Administration/Fields/EditField'
 import Map from 'Administration/Fields/Goong'
 import EditNew from 'Administration/Fields/Edit_new'
+
 const AppRouterComponent: React.FC = ({ children }) => {
   return config.navigationType === 'history' ? (
     <BrowserRouter>{children}</BrowserRouter>
@@ -27,6 +28,7 @@ const AppRouterComponent: React.FC = ({ children }) => {
 
 const AppRouter: React.FC = () => {
   const isAdmin = useSelector((state: any) => state.authStatus.isAdmin);
+  console.log(process.env.REACT_APP_API_HOST)
   return (
     <AppRouterComponent>
       <Switch>
